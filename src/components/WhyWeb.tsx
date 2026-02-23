@@ -4,23 +4,23 @@ import { Globe, Users, TrendingUp, ShieldCheck } from 'lucide-react';
 const reasons = [
   {
     icon: Globe,
-    title: "Your 24/7 Storefront",
-    description: "Even when you're sleeping, your website is open. It's the first place people look to see if you're legitimate and professional."
+    title: "Vitrine Aberta 24/7",
+    description: "Mesmo enquanto você dorme, seu site trabalha. É o primeiro lugar onde potenciais clientes buscam confirmar se você é confiável e profissional."
   },
   {
     icon: Users,
-    title: "First Impressions Matter",
-    description: "In today's world, no website often means 'no business' to many customers. A clean page builds instant trust."
+    title: "Credibilidade Imediata",
+    description: "No mercado atual, não ter um site profissional muitas vezes significa 'não existir' para grandes clientes. Passe autoridade desde o primeiro clique."
   },
   {
     icon: TrendingUp,
-    title: "Be Found Where It Counts",
-    description: "When people search for what you do on Google, a website ensures you show up in the results instead of your competitors."
+    title: "Apareça no Google",
+    description: "Quando alguém busca pelo que você faz, um site otimizado garante que você apareça nos resultados, em vez de entregar o cliente para a concorrência."
   },
   {
     icon: ShieldCheck,
-    title: "You Own Your Space",
-    description: "Social media can change or disappear. Your website is yours—you control the message, the look, and the customer experience."
+    title: "Você Dono do seu Canal",
+    description: "Redes sociais mudam regras o tempo todo. Seu site é seu território: você controla a mensagem, o design e toda a experiência do seu cliente."
   }
 ];
 
@@ -29,10 +29,10 @@ export default function WhyWeb() {
     <section id="why" className="py-24 bg-zinc-50 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">The Big Question</h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Why does my business need a website in 2026?</h3>
+          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">A Grande Questão</h2>
+          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Por que sua empresa precisa de um site profissional hoje?</h3>
           <p className="text-lg text-zinc-600">
-            The world has changed. Having a digital presence isn't just a 'nice to have' anymore—it's the foundation of how modern businesses survive and thrive.
+            O mundo mudou. Ter uma presença digital sólida não é mais um "luxo", é o alicerce para qualquer negócio que deseja sobreviver e prosperar na nova economia.
           </p>
         </div>
 

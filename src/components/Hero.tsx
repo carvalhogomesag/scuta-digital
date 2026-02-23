@@ -15,25 +15,25 @@ export default function Hero() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            Now accepting US clients
+            Padrão Internacional: Brasil & Estados Unidos
           </div>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-zinc-900 mb-6 leading-[1.1]">
-            Your business deserves a <span className="text-emerald-600">digital home</span> that works.
+            Seu negócio merece um site que não apenas existe, mas <span className="text-emerald-600">vende.</span>
           </h1>
           <p className="text-xl text-zinc-600 mb-8 max-w-xl leading-relaxed">
-            We build simple, beautiful, and high-converting landing pages for businesses that want to grow without the technical headache.
+            Criamos Landing Pages, sites institucionais e sistemas sob medida com foco em gerar autoridade e leads qualificados para sua empresa.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <button className="px-8 py-4 bg-black text-white rounded-2xl font-semibold text-lg hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 group">
-              Start Your Project <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="px-8 py-4 bg-white text-black border border-zinc-200 rounded-2xl font-semibold text-lg hover:bg-zinc-50 transition-all">
-              View Our Work
-            </button>
+            <a href="#contact" className="px-8 py-4 bg-black text-white rounded-2xl font-semibold text-lg hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 group">
+              Solicitar Orçamento <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a href="#solutions" className="px-8 py-4 bg-white text-black border border-zinc-200 rounded-2xl font-semibold text-lg hover:bg-zinc-50 transition-all text-center">
+              Ver Soluções
+            </a>
           </div>
           
           <div className="mt-10 flex flex-wrap gap-6">
-            {['No hidden fees', 'Fast delivery', 'Mobile optimized'].map((item) => (
+            {['Sem taxas escondidas', 'Entrega ágil', 'Otimizado para celulares'].map((item) => (
               <div key={item} className="flex items-center gap-2 text-sm text-zinc-500 font-medium">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 {item}
@@ -51,20 +51,20 @@ export default function Hero() {
           <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-black/5">
             <img 
               src="https://picsum.photos/seed/webdesign/1200/900" 
-              alt="Modern Web Design" 
+              alt="Design de site profissional e responsivo criado pela Scuta Digital" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
           </div>
-          {/* Decorative elements */}
+          {/* Elemento Decorativo de Prova Social */}
           <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-black/5 hidden md:block">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
                 <span className="text-emerald-600 font-bold text-xl">98%</span>
               </div>
               <div>
-                <p className="text-sm font-bold text-zinc-900">Client Satisfaction</p>
-                <p className="text-xs text-zinc-500">Based on 50+ US projects</p>
+                <p className="text-sm font-bold text-zinc-900">Satisfação dos Clientes</p>
+                <p className="text-xs text-zinc-500">Baseado em projetos no Brasil e EUA</p>
               </div>
             </div>
           </div>
