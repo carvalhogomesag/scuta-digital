@@ -6,9 +6,9 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const navLinks = [
-    { name: 'Por que um Site?', href: '#why' },
+    { name: 'Porque ter website?', href: '#why' },
     { name: 'Soluções', href: '#solutions' },
-    { name: 'Dúvidas', href: '#faq' },
+    { name: 'FAQ', href: '#faq' },
   ];
 
   return (
@@ -37,7 +37,7 @@ export default function Navbar() {
             href="#contact" 
             className="px-5 py-2.5 bg-black text-white rounded-full text-sm font-medium hover:bg-zinc-800 transition-all flex items-center gap-2"
           >
-            Começar Agora <ArrowRight className="w-4 h-4" />
+            Pedir proposta <ArrowRight className="w-4 h-4" />
           </a>
         </div>
 
@@ -69,7 +69,7 @@ export default function Navbar() {
             onClick={() => setIsOpen(false)} 
             className="w-full py-4 bg-black text-white rounded-xl text-center font-medium flex items-center justify-center gap-2"
           >
-            Começar Agora <ArrowRight className="w-5 h-5" />
+            Pedir proposta <ArrowRight className="w-5 h-5" />
           </a>
         </motion.div>
       )}

@@ -4,20 +4,20 @@ import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
-    question: "Porque é que a minha empresa precisa de um site hoje?",
-    answer: "Um site funciona como o seu principal vendedor 24 horas por dia. Transmite credibilidade instantânea, centraliza as suas informações oficiais e garante que é encontrado no Google quando os clientes procuram pelos seus serviços."
+    question: "Porque deve a minha empresa ter um site hoje?",
+    answer: "Um website profissional reforça credibilidade, melhora a presença no Google e cria um canal próprio para gerar contactos todos os dias."
   },
   {
-    question: "Quanto custa construir um site?",
-    answer: "O valor varia conforme a complexidade do projeto. Trabalhamos desde landing pages objetivas para campanhas até sistemas web mais robustos. Oferecemos orçamentos transparentes, sem custos ocultos, focados no retorno do seu investimento."
+    question: "Quanto custa criar um site em Portugal?",
+    answer: "Depende do objetivo e da complexidade. Uma landing page tem investimento mais reduzido, enquanto websites com várias páginas ou integrações exigem maior planeamento."
   },
   {
-    question: "Em quanto tempo o meu site fica pronto?",
-    answer: "Projetos simples como Landing Pages podem ser entregues em prazos curtos (geralmente de 7 a 15 dias). O cronograma exato é definido na nossa primeira reunião, garantindo entregas rápidas e sem perda de qualidade."
+    question: "Quanto tempo demora a ter o site pronto?",
+    answer: "Em regra, uma landing page pode ficar pronta em poucos dias. Projetos maiores costumam demorar algumas semanas, consoante o conteúdo e as validações necessárias."
   },
   {
-    question: "Como é que ajudam no SEO?",
-    answer: "Construímos o seu site com código limpo, velocidade de carregamento otimizada (mobile-first), etiquetas semânticas corretas e uma estrutura amigável para o Google. Isso garante a melhor base técnica para se posicionar nas pesquisas."
+    question: "Como melhoram o SEO do meu site?",
+    answer: "Trabalhamos a estrutura técnica, velocidade, arquitetura de conteúdo e metadados para aumentar a relevância nos motores de busca e gerar tráfego qualificado."
   }
 ];
 
@@ -28,10 +28,10 @@ export default function FAQ() {
     <section id="faq" className="py-24 bg-white px-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">Dúvidas Comuns</h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Perguntas Frequentes</h3>
+          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">SEO + Autoridade</h2>
+          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Perguntas frequentes antes de contratar</h3>
           <p className="text-lg text-zinc-600">
-            Tudo o que precisa de saber para iniciar a sua jornada digital com segurança e clareza.
+            Esclarecemos as suas dúvidas para que possa avançar com total confiança e transparência na sua estratégia digital.
           </p>
         </div>
 

@@ -4,23 +4,23 @@ import { Globe, Users, TrendingUp, ShieldCheck } from 'lucide-react';
 const reasons = [
   {
     icon: Globe,
-    title: "Montra Aberta 24/7",
-    description: "Mesmo enquanto dorme, o seu site trabalha por si. É o primeiro local onde potenciais clientes procuram confirmar se a sua marca é de confiança e profissional."
+    title: "A sua montra digital 24/7",
+    description: "Mesmo fora do horário comercial, o seu website trabalha por si. É o primeiro local onde potenciais clientes procuram validar a seriedade do seu negócio."
   },
   {
     icon: Users,
-    title: "Credibilidade Imediata",
-    description: "No mercado atual, não ter um site profissional significa, muitas vezes, 'não existir' para grandes clientes. Transmita autoridade desde o primeiro clique."
+    title: "Credibilidade desde a primeira visita",
+    description: "Em Portugal, a ausência de um site profissional gera desconfiança imediata. Transmita autoridade e profissionalismo desde o primeiro clique."
   },
   {
     icon: TrendingUp,
-    title: "Surja no Google",
-    description: "Quando alguém pesquisa pelo que a sua empresa faz, um site otimizado garante que aparece nos resultados, em vez de entregar o cliente à concorrência."
+    title: "Mais visibilidade no Google",
+    description: "Apareça nas pesquisas locais quando procurarem pelos seus serviços, em vez de entregar essas oportunidades diretamente à concorrência."
   },
   {
     icon: ShieldCheck,
-    title: "Controle o seu Canal",
-    description: "As redes sociais mudam as regras constantemente. O seu site é o seu território: controla a mensagem, o design e toda a experiência do seu cliente."
+    title: "Canal próprio da sua marca",
+    description: "As redes sociais são terrenos alugados. O seu website é o seu território: controla a mensagem, o design e toda a jornada do seu cliente."
   }
 ];
 
@@ -29,10 +29,10 @@ export default function WhyWeb() {
     <section id="why" className="py-24 bg-zinc-50 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">A Questão Central</h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Porque é que a sua empresa precisa de um site profissional hoje?</h3>
+          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">A pergunta certa</h2>
+          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Porque deve a sua empresa ter um site em 2026?</h3>
           <p className="text-lg text-zinc-600">
-            O mundo mudou. Ter uma presença digital sólida já não é um "luxo", é o alicerce para qualquer negócio que deseja sobreviver e prosperar na nova economia.
+            Hoje, quem não aparece online perde oportunidades reais de negócio. Um website profissional é o motor que melhora a sua reputação, expande o seu alcance e potencia as suas vendas.
           </p>
         </div>
 

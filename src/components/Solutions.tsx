@@ -4,23 +4,23 @@ import { Layout, Zap, MessageSquare, BarChart3 } from 'lucide-react';
 const solutions = [
   {
     icon: Layout,
-    title: "Landing Pages de Alta Conversão",
-    description: "Não criamos apenas páginas; construímos máquinas de vendas. Cada elemento é posicionado estrategicamente para converter visitantes em clientes."
+    title: "Landing pages de alta conversão",
+    description: "Criamos páginas focadas exclusivamente em pedidos de orçamento, geração de leads qualificados e marcações diretas para o seu negócio."
   },
   {
     icon: Zap,
-    title: "Velocidade e Performance",
-    description: "Ninguém gosta de site lento. Nossas páginas carregam instantaneamente, mantendo seu público engajado e melhorando seu ranking no Google."
+    title: "Desempenho rápido e estável",
+    description: "Garantimos a melhor base técnica de SEO e uma velocidade de carregamento superior, tanto em desktop como em telemóvel."
   },
   {
     icon: MessageSquare,
-    title: "Comunicação Estratégica",
-    description: "Ajudamos você a falar a língua do seu cliente. Sem termos técnicos complicados, apenas mensagens claras que vendem o seu valor."
+    title: "Mensagem clara para o cliente ideal",
+    description: "Ajudamos a comunicar o seu valor de forma simples e persuasiva, sem utilizar linguagem técnica que afaste os seus potenciais clientes."
   },
   {
     icon: BarChart3,
-    title: "Resultados Mensuráveis",
-    description: "Configuramos o rastreamento necessário para que você saiba exatamente quantos contatos está recebendo através do seu novo site."
+    title: "Métricas para decidir melhor",
+    description: "Acompanhamos rigorosamente a origem dos seus contactos para que possa medir o retorno real do seu investimento digital."
   }
 ];
 
@@ -51,17 +51,17 @@ export default function Solutions() {
           </div>
 
           <div className="order-1 lg:order-2">
-            <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">Como Ajudamos</h2>
-            <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Nós cuidamos da tecnologia, você cuida do seu negócio.</h3>
+            <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">Como ajudamos</h2>
+            <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Nós tratamos da tecnologia para que se foque no seu negócio.</h3>
             <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
-              Na Scuta Digital, acreditamos que a internet deve ser simples. Você não precisa entender de 'hospedagem' ou 'DNS' para ter um site de classe mundial. 
+              Desenvolvemos um processo simples e transparente, desenhado especificamente para apoiar pequenas empresas em Portugal a crescerem online sem complicações.
             </p>
             <ul className="space-y-4 mb-10">
               {[
-                "Design exclusivo alinhado à sua marca",
-                "Totalmente responsivo (perfeito no celular)",
-                "Hospedagem segura e confiável inclusa",
-                "Suporte contínuo e atualizações"
+                "Design alinhado com a identidade da marca",
+                "Website 100% responsivo (mobile-first)",
+                "Hospedagem segura e estável",
+                "Suporte contínuo e otimização"
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-zinc-800 font-medium">
                   <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -72,7 +72,7 @@ export default function Solutions() {
               ))}
             </ul>
             <a href="#contact" className="inline-block px-8 py-4 bg-black text-white rounded-2xl font-semibold text-lg hover:bg-zinc-800 transition-all">
-              Conheça Nosso Processo
+              Conhecer o processo
             </a>
           </div>
         </div>

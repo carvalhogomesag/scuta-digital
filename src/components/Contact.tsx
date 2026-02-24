@@ -10,10 +10,10 @@ export default function Contact() {
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4">Contacto</h2>
-            <h3 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">Pronto para transformar a sua presença digital?</h3>
+            <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4">Fale connosco</h2>
+            <h3 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">Pronto para aumentar a presença digital da sua empresa?</h3>
             <p className="text-xl text-zinc-400 mb-12 leading-relaxed">
-              Pare de perder clientes para a concorrência. Vamos construir uma página que representa o seu negócio com a autoridade que merece.
+              Focamo-nos em websites orientados para resultados e otimização SEO em Portugal. Comece hoje a atrair mais clientes qualificados.
             </p>
 
             <div className="space-y-6">
@@ -22,8 +22,8 @@ export default function Contact() {
                   <Mail className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">E-mail</p>
-                  <p className="text-lg font-medium">contacto@scutadigital.com</p>
+                  <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Email</p>
+                  <p className="text-lg font-medium">contacto@scutadigital.pt</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -31,8 +31,8 @@ export default function Contact() {
                   <Phone className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Telemóvel / WhatsApp</p>
-                  <p className="text-lg font-medium">+351 914 044 748</p>
+                  <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Telefone</p>
+                  <p className="text-lg font-medium">+351 910 000 000</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -41,7 +41,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Localização</p>
-                  <p className="text-lg font-medium">Portugal & Remoto</p>
+                  <p className="text-lg font-medium">Portugal · Remoto</p>
                 </div>
               </div>
             </div>
@@ -53,12 +53,6 @@ export default function Contact() {
             viewport={{ once: true }}
             className="bg-zinc-900 p-8 md:p-12 rounded-[40px] border border-white/5 relative z-10"
           >
-            {/* 
-              CONFIGURAÇÃO NETLIFY COMPLETA:
-              - name="contact" deve ser igual ao do index.html
-              - action="/" redireciona para a home após o sucesso
-              - honeypot ativa a proteção contra bots
-            */}
             <form 
               name="contact" 
               method="POST" 
@@ -67,30 +61,29 @@ export default function Contact() {
               data-netlify-honeypot="bot-field"
               className="space-y-6"
             >
-              {/* Campos ocultos obrigatórios para Netlify + React */}
               <input type="hidden" name="form-name" value="contact" />
               <p className="hidden">
-                <label>Não preencha isto: <input name="bot-field" /></label>
+                <label>Não preencha: <input name="bot-field" /></label>
               </p>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Nome Completo</label>
+                  <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Nome</label>
                   <input 
                     type="text" 
                     name="nome"
                     required
-                    placeholder="Ex: José Silva"
+                    placeholder="João Silva"
                     className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">E-mail Profissional</label>
+                  <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Email</label>
                   <input 
                     type="email" 
                     name="email"
                     required
-                    placeholder="jose@empresa.pt"
+                    placeholder="joao@empresa.pt"
                     className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors"
                   />
                 </div>
@@ -98,13 +91,13 @@ export default function Contact() {
               <div className="space-y-2">
                 <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Tipo de Projeto</label>
                 <select 
-                  name="tipo_projeto"
+                  name="tipo_negocio"
                   className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors appearance-none text-zinc-400"
                 >
-                  <option>Landing Page de Vendas</option>
-                  <option>Site Institucional</option>
-                  <option>Sistema Web Personalizado</option>
-                  <option>Outros</option>
+                  <option>Negócio local</option>
+                  <option>Loja online</option>
+                  <option>Serviços profissionais</option>
+                  <option>Outro</option>
                 </select>
               </div>
               <div className="space-y-2">
@@ -113,7 +106,7 @@ export default function Contact() {
                   name="mensagem"
                   rows={4}
                   required
-                  placeholder="Conte-nos brevemente qual é o seu objetivo..."
+                  placeholder="Fale-nos sobre o seu projeto..."
                   className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors resize-none"
                 />
               </div>
@@ -121,7 +114,7 @@ export default function Contact() {
                 type="submit"
                 className="w-full py-5 bg-emerald-500 text-black font-bold text-lg rounded-2xl hover:bg-emerald-400 transition-all flex items-center justify-center gap-2"
               >
-                Enviar Mensagem <Send className="w-5 h-5" />
+                Pedir proposta <Send className="w-5 h-5" />
               </button>
             </form>
           </motion.div>
