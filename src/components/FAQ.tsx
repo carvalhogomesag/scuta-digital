@@ -4,20 +4,20 @@ import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
-    question: "Por que minha empresa precisa de um site hoje?",
-    answer: "Um site funciona como seu principal vendedor 24 horas por dia. Ele transmite credibilidade instantânea, centraliza suas informações oficiais e garante que você seja encontrado no Google quando clientes buscarem por seus serviços."
+    question: "Porque é que a minha empresa precisa de um site hoje?",
+    answer: "Um site funciona como o seu principal vendedor 24 horas por dia. Transmite credibilidade instantânea, centraliza as suas informações oficiais e garante que é encontrado no Google quando os clientes procuram pelos seus serviços."
   },
   {
     question: "Quanto custa construir um site?",
-    answer: "O valor varia conforme a complexidade do projeto. Trabalhamos desde landing pages objetivas para campanhas até sistemas web mais robustos. Oferecemos orçamentos transparentes, sem custos escondidos, focados no retorno sobre o seu investimento."
+    answer: "O valor varia conforme a complexidade do projeto. Trabalhamos desde landing pages objetivas para campanhas até sistemas web mais robustos. Oferecemos orçamentos transparentes, sem custos ocultos, focados no retorno do seu investimento."
   },
   {
-    question: "Em quanto tempo meu site fica pronto?",
-    answer: "Projetos enxutos como Landing Pages podem ser entregues em prazos curtos (geralmente de 7 a 15 dias). O cronograma exato é alinhado na nossa primeira reunião, garantindo entregas ágeis e sem perda de qualidade."
+    question: "Em quanto tempo o meu site fica pronto?",
+    answer: "Projetos simples como Landing Pages podem ser entregues em prazos curtos (geralmente de 7 a 15 dias). O cronograma exato é definido na nossa primeira reunião, garantindo entregas rápidas e sem perda de qualidade."
   },
   {
-    question: "Como vocês ajudam no SEO?",
-    answer: "Construímos seu site com código limpo, velocidade de carregamento otimizada (mobile-first), tags semânticas corretas e estrutura amigável para o Google. Isso garante a melhor fundação técnica para você ranquear nas buscas."
+    question: "Como é que ajudam no SEO?",
+    answer: "Construímos o seu site com código limpo, velocidade de carregamento otimizada (mobile-first), etiquetas semânticas corretas e uma estrutura amigável para o Google. Isso garante a melhor base técnica para se posicionar nas pesquisas."
   }
 ];
 
@@ -31,7 +31,7 @@ export default function FAQ() {
           <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">Dúvidas Comuns</h2>
           <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Perguntas Frequentes</h3>
           <p className="text-lg text-zinc-600">
-            Tudo o que você precisa saber para iniciar sua jornada digital com segurança e clareza.
+            Tudo o que precisa de saber para iniciar a sua jornada digital com segurança e clareza.
           </p>
         </div>
 

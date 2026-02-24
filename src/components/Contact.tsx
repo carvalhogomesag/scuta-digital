@@ -5,15 +5,14 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 bg-black text-white px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto relative">
-        {/* Brilho abstrato de fundo */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4">Contato</h2>
-            <h3 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">Pronto para transformar sua presença digital?</h3>
+            <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4">Contacto</h2>
+            <h3 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">Pronto para transformar a sua presença digital?</h3>
             <p className="text-xl text-zinc-400 mb-12 leading-relaxed">
-              Pare de perder clientes para a concorrência. Vamos construir uma página que representa o seu negócio com a autoridade que ele merece.
+              Pare de perder clientes para a concorrência. Vamos construir uma página que representa o seu negócio com a autoridade que merece.
             </p>
 
             <div className="space-y-6">
@@ -23,7 +22,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">E-mail</p>
-                  <p className="text-lg font-medium">contato@scutadigital.com</p>
+                  <p className="text-lg font-medium">contacto@scutadigital.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -31,8 +30,8 @@ export default function Contact() {
                   <Phone className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Telefone / WhatsApp</p>
-                  <p className="text-lg font-medium">+55 (XX) 99999-9999</p>
+                  <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Telemóvel / WhatsApp</p>
+                  <p className="text-lg font-medium">+351 XXX XXX XXX</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -41,7 +40,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Localização</p>
-                  <p className="text-lg font-medium">Brasil, EUA & Remoto</p>
+                  <p className="text-lg font-medium">Portugal & Remoto</p>
                 </div>
               </div>
             </div>
@@ -59,7 +58,7 @@ export default function Contact() {
                   <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Nome Completo</label>
                   <input 
                     type="text" 
-                    placeholder="Ex: João Silva"
+                    placeholder="Ex: José Silva"
                     className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors"
                   />
                 </div>
@@ -67,7 +66,7 @@ export default function Contact() {
                   <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">E-mail Profissional</label>
                   <input 
                     type="email" 
-                    placeholder="joao@empresa.com"
+                    placeholder="jose@empresa.pt"
                     className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors"
                   />
                 </div>
@@ -85,7 +84,7 @@ export default function Contact() {
                 <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Como podemos ajudar?</label>
                 <textarea 
                   rows={4}
-                  placeholder="Conte-nos brevemente sobre o seu objetivo..."
+                  placeholder="Conte-nos brevemente qual é o seu objetivo..."
                   className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors resize-none"
                 />
               </div>
