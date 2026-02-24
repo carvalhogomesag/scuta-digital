@@ -52,12 +52,27 @@ export default function Contact() {
             viewport={{ once: true }}
             className="bg-zinc-900 p-8 md:p-12 rounded-[40px] border border-white/5 relative z-10"
           >
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            {/* 
+              CONFIGURAÇÃO NETLIFY: 
+              - name="contact" é o nome do formulário no painel
+              - data-netlify="true" ativa o serviço
+            */}
+            <form 
+              name="contact" 
+              method="POST" 
+              data-netlify="true"
+              className="space-y-6"
+            >
+              {/* Campo oculto necessário para React/Netlify funcionar */}
+              <input type="hidden" name="form-name" value="contact" />
+
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Nome Completo</label>
                   <input 
                     type="text" 
+                    name="nome"
+                    required
                     placeholder="Ex: José Silva"
                     className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors"
                   />
@@ -66,6 +81,8 @@ export default function Contact() {
                   <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">E-mail Profissional</label>
                   <input 
                     type="email" 
+                    name="email"
+                    required
                     placeholder="jose@empresa.pt"
                     className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors"
                   />
@@ -73,7 +90,10 @@ export default function Contact() {
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Tipo de Projeto</label>
-                <select className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors appearance-none text-zinc-400">
+                <select 
+                  name="tipo_projeto"
+                  className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors appearance-none text-zinc-400"
+                >
                   <option>Landing Page de Vendas</option>
                   <option>Site Institucional</option>
                   <option>Sistema Web Personalizado</option>
@@ -83,12 +103,17 @@ export default function Contact() {
               <div className="space-y-2">
                 <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Como podemos ajudar?</label>
                 <textarea 
+                  name="mensagem"
                   rows={4}
+                  required
                   placeholder="Conte-nos brevemente qual é o seu objetivo..."
                   className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors resize-none"
                 />
               </div>
-              <button className="w-full py-5 bg-emerald-500 text-black font-bold text-lg rounded-2xl hover:bg-emerald-400 transition-all flex items-center justify-center gap-2">
+              <button 
+                type="submit"
+                className="w-full py-5 bg-emerald-500 text-black font-bold text-lg rounded-2xl hover:bg-emerald-400 transition-all flex items-center justify-center gap-2"
+              >
                 Enviar Mensagem <Send className="w-5 h-5" />
               </button>
             </form>
