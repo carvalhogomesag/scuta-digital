@@ -5,6 +5,7 @@ import Solutions from './components/Solutions';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton'; // Importar o novo botão
 
 export default function App() {
   return (
@@ -18,6 +19,9 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      
+      {/* Botão Flutuante */}
+      <WhatsAppButton />
     </div>
   );
 }

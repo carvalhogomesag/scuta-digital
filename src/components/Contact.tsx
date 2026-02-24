@@ -31,7 +31,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Telemóvel / WhatsApp</p>
-                  <p className="text-lg font-medium">+351 XXX XXX XXX</p>
+                  <p className="text-lg font-medium">+351 914 044 748</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
