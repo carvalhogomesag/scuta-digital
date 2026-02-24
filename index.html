@@ -66,6 +66,20 @@
     </script>
   </head>
   <body>
+    <!-- O Netlify precisa de ver este formulário no HTML para activar o processamento de envios -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="nome" />
+      <input type="email" name="email" />
+      <select name="tipo_projeto">
+        <option>Landing Page de Vendas</option>
+        <option>Site Institucional</option>
+        <option>Sistema Web Personalizado</option>
+        <option>Outros</option>
+      </select>
+      <textarea name="mensagem"></textarea>
+      <input name="bot-field" />
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

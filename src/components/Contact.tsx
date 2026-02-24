@@ -5,6 +5,7 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 bg-black text-white px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto relative">
+        {/* Glow effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -53,18 +54,24 @@ export default function Contact() {
             className="bg-zinc-900 p-8 md:p-12 rounded-[40px] border border-white/5 relative z-10"
           >
             {/* 
-              CONFIGURAÇÃO NETLIFY: 
-              - name="contact" é o nome do formulário no painel
-              - data-netlify="true" ativa o serviço
+              CONFIGURAÇÃO NETLIFY COMPLETA:
+              - name="contact" deve ser igual ao do index.html
+              - action="/" redireciona para a home após o sucesso
+              - honeypot ativa a proteção contra bots
             */}
             <form 
-  name="contact" 
-  method="POST" 
-  action="/" 
-  data-netlify="true"
-  className="space-y-6"
->
-  <input type="hidden" name="form-name" value="contact" />
+              name="contact" 
+              method="POST" 
+              action="/" 
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              className="space-y-6"
+            >
+              {/* Campos ocultos obrigatórios para Netlify + React */}
+              <input type="hidden" name="form-name" value="contact" />
+              <p className="hidden">
+                <label>Não preencha isto: <input name="bot-field" /></label>
+              </p>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
