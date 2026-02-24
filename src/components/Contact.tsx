@@ -58,13 +58,13 @@ export default function Contact() {
               - data-netlify="true" ativa o serviço
             */}
             <form 
-              name="contact" 
-              method="POST" 
-              data-netlify="true"
-              className="space-y-6"
-            >
-              {/* Campo oculto necessário para React/Netlify funcionar */}
-              <input type="hidden" name="form-name" value="contact" />
+  name="contact" 
+  method="POST" 
+  action="/" 
+  data-netlify="true"
+  className="space-y-6"
+>
+  <input type="hidden" name="form-name" value="contact" />
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
