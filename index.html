@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- SEO Básico -->
-    <title>Scuta Digital Portugal | Criação de Websites, Landing Pages e SEO</title>
-    <meta name="description" content="Agência de web design em Portugal. Criamos websites, landing pages e pequenos sistemas com foco em SEO, autoridade da marca e geração de contactos." />
-    <meta name="keywords" content="criação de websites portugal, web design portugal, landing pages portugal, seo portugal, desenvolvimento web portugal" />
+    <title>Scuta Digital | Sites que trazem Clientes e Vendas em Portugal</title>
+    <meta name="description" content="Criação de sites profissionais em Portugal. Apareça no Google, facilite agendamentos e venda mais com um site feito para o seu negócio." />
+    <meta name="keywords" content="criação de sites portugal, web design portugal, fazer site empresa, aparecer no google, agência digital" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://scutadigital.com/" />
+    <link rel="canonical" href="https://scutadigital.pt/" />
     
     <!-- Geo Tags para Portugal -->
     <meta name="geo.region" content="PT" />
@@ -19,14 +19,14 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_PT" />
     <meta property="og:site_name" content="Scuta Digital" />
-    <meta property="og:title" content="Scuta Digital Portugal | Websites e Landing Pages orientados para resultados" />
-    <meta property="og:description" content="Ajudamos empresas em Portugal a ganhar visibilidade no Google com websites rápidos, estratégicos e focados em conversão." />
-    <meta property="og:url" content="https://scutadigital.com/" />
+    <meta property="og:title" content="Scuta Digital | Pare de depender do passa-palavra" />
+    <meta property="og:description" content="Criamos sites profissionais que funcionam como o seu melhor funcionário: tiram dúvidas e trazem contactos 24h por dia." />
+    <meta property="og:url" content="https://scutadigital.pt/" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Scuta Digital Portugal | Web Design e SEO" />
-    <meta name="twitter:description" content="Websites profissionais para pequenas empresas em Portugal: estratégia, design e SEO para atrair mais clientes." />
+    <meta name="twitter:title" content="Scuta Digital | Criação de Sites Profissionais" />
+    <meta name="twitter:description" content="Venda mais e apareça no topo do Google com um site otimizado para o mercado português." />
 
     <!-- Dados Estruturados (JSON-LD) para FAQPage - 100% Sincronizado com FAQ.tsx -->
     <script type="application/ld+json">
@@ -34,53 +34,57 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "inLanguage": "pt-PT",
-      "mainEntity": [
+      "mainEntity":[
         {
           "@type": "Question",
-          "name": "Porque deve a minha empresa ter um site hoje?",
+          "name": "Preciso de saber de informática para ter um site?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Um website profissional reforça credibilidade, melhora a presença no Google e cria um canal próprio para gerar contactos todos os dias."
+            "text": "Não. Nós tratamos de toda a parte técnica. O seu único trabalho será receber os contactos dos novos clientes."
           }
         },
         {
           "@type": "Question",
-          "name": "Quanto custa criar um site em Portugal?",
+          "name": "O meu site vai funcionar no telemóvel?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Depende do objetivo e da complexidade. Uma landing page tem investimento mais reduzido, enquanto websites com várias páginas ou integrações exigem maior planeamento."
+            "text": "Sim. Hoje em dia quase todos os clientes usam o telemóvel. O seu site será rápido e fácil de ler em qualquer ecrã."
           }
         },
         {
           "@type": "Question",
-          "name": "Quanto tempo demora a ter o site pronto?",
+          "name": "Quanto tempo demora até o site estar pronto?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Em regra, uma landing page pode ficar pronta em poucos dias. Projetos maiores costumam demorar algumas semanas, consoante o conteúdo e as validações necessárias."
+            "text": "Normalmente, entre 1 a 2 semanas, dependendo do que o seu negócio precisa."
           }
         },
         {
           "@type": "Question",
-          "name": "Como melhoram o SEO do meu site?",
+          "name": "O meu negócio vai aparecer no Google?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Trabalhamos a estrutura técnica, velocidade, arquitetura de conteúdo e metadados para aumentar a relevância nos motores de busca e gerar tráfego qualificado."
+            "text": "Sim. Configuramos o site com as informações certas para que o Google o mostre a quem procura pelos seus serviços na sua região."
           }
         }
       ]
     }
     </script>
   </head>
-  <body>
-    <!-- O Netlify precisa de ver este formulário no HTML para activar o processamento de envios -->
+  
+  <!-- O aviso amarelo do CSS resolve-se aplicando as classes diretamente aqui no body -->
+  <body class="antialiased text-zinc-900 bg-white">
+    
+    <!-- O Netlify precisa de ver este formulário no HTML para ativar o processamento de envios -->
+    <!-- As opções agora coincidem com o Contact.tsx -->
     <form name="contact" netlify netlify-honeypot="bot-field" hidden>
       <input type="text" name="nome" />
       <input type="email" name="email" />
       <select name="tipo_negocio">
-        <option>Negócio local</option>
-        <option>Loja online</option>
-        <option>Serviços profissionais</option>
-        <option>Outro</option>
+        <option>Negócio local (Loja, Salão, Restaurante...)</option>
+        <option>Serviços profissionais (Advogado, Contabilista...)</option>
+        <option>Venda Online / E-commerce</option>
+        <option>Outro tipo de projeto</option>
       </select>
       <textarea name="mensagem"></textarea>
       <input name="bot-field" />
