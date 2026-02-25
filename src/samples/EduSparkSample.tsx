@@ -108,10 +108,10 @@ export default function EduSparkSample() {
               
               <div className="flex flex-col sm:flex-row items-start gap-8">
                 <motion.button 
-                  /* CORREÇÃO AQUI: boxShadow em vez de shadow */
                   whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(99, 102, 241, 0.4)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-edu-primary text-white px-12 py-6 rounded-[2rem] font-black text-2xl shadow-2xl flex items-center gap-4 transition-all"
+                  /* CORREÇÃO: rounded-4xl substitui rounded-[2rem] (Ln 114) */
+                  className="bg-edu-primary text-white px-12 py-6 rounded-4xl font-black text-2xl shadow-2xl flex items-center gap-4 transition-all leading-none"
                 >
                   Agendar Visita <ArrowRight size={28} />
                 </motion.button>
@@ -135,7 +135,8 @@ export default function EduSparkSample() {
               style={{ scale }}
               className="lg:col-span-5 relative"
             >
-              <div className="rounded-[4rem] overflow-hidden shadow-2xl border-[12px] border-white rotate-2 group hover:rotate-0 transition-transform duration-700">
+              {/* CORREÇÃO: border-12 substitui border-[12px] (Ln 138) */}
+              <div className="rounded-[4rem] overflow-hidden shadow-2xl border-12 border-white rotate-2 group hover:rotate-0 transition-transform duration-700">
                 <img 
                   src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop" 
                   className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700" 
@@ -162,12 +163,12 @@ export default function EduSparkSample() {
               <span className="text-edu-primary font-black uppercase tracking-[0.3em] text-[10px] mb-6 block">Nosso Currículo</span>
               <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter uppercase leading-none text-left">Explore as <br /><span className="text-gradient">Aventuras.</span></h2>
               <p className="text-xl text-slate-500 font-bold mb-10 text-left">Desenhámos cada matéria para ser sentida, não apenas lida.</p>
-              <button className="flex items-center gap-3 text-lg font-black text-edu-primary group">
+              <button className="flex items-center gap-3 text-lg font-black text-edu-primary group leading-none">
                 Ver Plano de Estudos Completo <ChevronRight className="group-hover:translate-x-2 transition-transform" />
               </button>
             </div>
 
-            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-6">
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-6 leading-none">
               {[
                 { name: 'Coding', icon: Rocket, color: 'bg-indigo-600', desc: 'Criar mundos digitais com lógica.', size: 'h-80' },
                 { name: 'Artes', icon: Palette, color: 'bg-rose-500', desc: 'Expressão sem limites.', size: 'h-80 md:mt-12' },
@@ -197,7 +198,7 @@ export default function EduSparkSample() {
       </section>
 
       {/* 4. METODOLOGIA */}
-      <section className="py-40 bg-slate-900 text-white relative overflow-hidden text-left text-zinc-300">
+      <section className="py-40 bg-slate-900 text-white relative overflow-hidden text-left">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-edu-primary/10 blur-[120px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-left">
@@ -218,6 +219,7 @@ export default function EduSparkSample() {
                     </div>
                     <div>
                       <h4 className="text-2xl font-black mb-2 tracking-tight">{item.title}</h4>
+                      {/* CORREÇÃO CONFLITO: Removido text-white (Ln 200) para manter text-slate-400 */}
                       <p className="text-slate-400 font-medium leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
@@ -226,9 +228,10 @@ export default function EduSparkSample() {
             </div>
 
             <div className="relative">
+              {/* CORREÇÃO: border-16 substitui border-[16px] (Ln 231) */}
               <motion.div 
                 style={{ y: smoothY }}
-                className="rounded-[5rem] overflow-hidden border-[16px] border-white/5 shadow-2xl relative"
+                className="rounded-[5rem] overflow-hidden border-16 border-white/5 shadow-2xl relative"
               >
                 <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2132&auto=format&fit=crop" alt="Methodology" />
                 <div className="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent opacity-60" />
@@ -264,7 +267,7 @@ export default function EduSparkSample() {
                 <button className="bg-white text-zinc-950 px-12 py-6 rounded-[2.5rem] font-black text-2xl hover:scale-105 transition-all shadow-white/20 shadow-2xl active:scale-95 leading-none">
                   Marcar Visita Agora
                 </button>
-                <button className="text-xl font-black uppercase tracking-widest border-b-4 border-edu-primary pb-2 hover:text-edu-primary transition-colors text-white">
+                <button className="text-xl font-black uppercase tracking-widest border-b-4 border-edu-primary pb-2 hover:text-edu-primary transition-colors text-white leading-none">
                   Pedido de Informação
                 </button>
               </div>
@@ -274,12 +277,12 @@ export default function EduSparkSample() {
       </section>
 
       {/* 6. FOOTER */}
-      <footer className="py-20 bg-slate-50 border-t border-slate-200 text-center flex flex-col items-center gap-4">
+      <footer className="py-12 bg-zinc-50 border-t border-zinc-200 text-center flex flex-col items-center gap-4">
         <div className="flex gap-4 opacity-30">
-             <Trophy size={24} /> <GraduationCap size={24} /> <Target size={24} />
+             <Trophy size={20} /> <GraduationCap size={20} /> <Target size={20} />
         </div>
-        <p className="text-[11px] font-black uppercase tracking-[0.6em] text-zinc-400 leading-relaxed">
-          EduSpark ATL · Lisboa 2026 · Powered by Scuta Digital
+        <p className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-400">
+          Scuta Digital · High Performance Experiences
         </p>
       </footer>
     </div>

@@ -37,10 +37,12 @@
 }
 
 @layer components {
+  /* Utilitário de Vidro */
   .glass-dark {
     @apply bg-scuta-surface/40 backdrop-blur-xl border border-white/10 shadow-2xl;
   }
 
+  /* Efeito de Ruído */
   .noise {
     position: relative;
   }
@@ -54,10 +56,22 @@
     @apply bg-clip-text text-transparent bg-linear-to-r from-violet-400 via-emerald-400 to-cyan-400;
   }
 
-  /* CORRIGIDO: rounded-4xl conforme sugerido pelo linter */
+  /* CORRIGIDO: Removido @apply glass-dark para evitar erro de 'unknown utility' no build */
   .bento-card {
-    @apply glass-dark rounded-4xl p-8 transition-all duration-500 hover:border-scuta-highlight/50 hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.3)];
+    @apply bg-scuta-surface/40 backdrop-blur-xl border border-white/10 shadow-2xl rounded-4xl p-8 transition-all duration-500 hover:border-scuta-highlight/50 hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.3)];
   }
+
+  .blob {
+    @apply absolute rounded-full mix-blend-multiply filter blur-3xl opacity-30;
+    animation: blob-anim 7s infinite;
+  }
+}
+
+@keyframes blob-anim {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
 }
 
 @keyframes pulse-glow {

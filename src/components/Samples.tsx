@@ -110,9 +110,9 @@ export default function Samples() {
                   <ArrowRight size={18} className="text-white transform group-hover:translate-x-1 transition-transform" />
                 </div>
 
-                {/* Borda de Brilho (Stroke) Ativa no Hover */}
+                {/* Borda de Brilho (Stroke) Ativa no Hover - CORRIGIDO PARA rounded-4xl */}
                 <div 
-                  className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border-2 border-transparent"
+                  className="absolute inset-0 rounded-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border-2 border-transparent"
                   style={{ borderColor: `${site.theme.primary}40` }}
                 />
               </Link>
