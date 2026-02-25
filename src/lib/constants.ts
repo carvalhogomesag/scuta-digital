@@ -34,7 +34,7 @@ export const UI_STRINGS = {
     navbar: {
       why: "Porquê ter um site?",
       solutions: "O que fazemos",
-      samples: "Exemplos reais",
+      samples: "Exemplos",
       faq: "Dúvidas comuns",
       contact: "Pedir orçamento",
     },
