@@ -1,10 +1,8 @@
-import React from 'react';
-import { CheckCircle, AlertCircle, TrendingUp } from 'lucide-react';
-import { SAMPLE_CASES, UI_STRINGS } from '../lib/constants';
+import { Link } from 'react-router-dom';
+import { CheckCircle, AlertCircle, TrendingUp, ArrowRight } from 'lucide-react';
+import { SAMPLE_SITES } from '../data/sampleSites'; // Nova fonte de dados centralizada
 
 export default function Samples() {
-  const t = UI_STRINGS.pt.navbar;
-
   return (
     <section id="samples" className="py-24 px-6 bg-zinc-50">
       <div className="max-w-7xl mx-auto">
@@ -13,30 +11,43 @@ export default function Samples() {
             Como ajudamos negócios como o seu
           </h2>
           <p className="text-zinc-600 max-w-2xl mx-auto font-medium">
-            Não criamos apenas sites bonitos. Criamos ferramentas que resolvem problemas reais e trazem dinheiro para o seu bolso.
+            Não criamos apenas sites bonitos. Criamos ferramentas que resolvem problemas reais e trazem dinheiro para o seu bolso. 
+            <span className="block mt-2 text-zinc-400 text-sm italic">Clique num exemplo abaixo para ver a solução detalhada.</span>
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {SAMPLE_CASES.map((item) => (
-            <div key={item.id} className="bg-white p-8 rounded-3xl shadow-sm border border-zinc-100 flex flex-col">
+          {SAMPLE_SITES.map((site) => (
+            <Link 
+              key={site.slug} 
+              to={`/exemplos/${site.slug}`}
+              className="group bg-white p-8 rounded-3xl shadow-sm border border-zinc-100 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-zinc-300 cursor-pointer"
+            >
               <div className="flex items-center gap-2 text-amber-600 mb-4 text-sm font-bold">
-                <AlertCircle size={16} /> O Problema: {item.pain}
+                <AlertCircle size={16} /> O Problema: {site.pain.substring(0, 40)}...
               </div>
-              <h3 className="text-xl font-bold mb-4 text-zinc-900">{item.business}</h3>
-              {/* CORREÇÃO AQUI: 'grow' em vez de 'flex-grow' */}
-              <div className="flex items-start gap-2 text-zinc-600 mb-6 grow">
+              
+              <h3 className="text-2xl font-bold mb-4 text-zinc-900 group-hover:text-black transition-colors">
+                {site.companyName}
+              </h3>
+              
+              <div className="flex items-start gap-2 text-zinc-600 mb-8 grow">
                 <CheckCircle size={18} className="shrink-0 mt-1 text-zinc-400" />
-                <p className="text-sm font-medium"><strong>A Nossa Solução:</strong> {item.solution}</p>
+                <p className="text-sm font-medium leading-relaxed">
+                  <strong>A Nossa Solução:</strong> {site.solution.substring(0, 100)}...
+                </p>
               </div>
-              <div className="mt-auto bg-zinc-900 p-4 rounded-2xl flex items-center gap-3 text-white">
-                <TrendingUp size={20} className="text-emerald-400" />
-                <div>
-                  <span className="text-[10px] uppercase tracking-widest text-zinc-400 block font-bold">Resultado esperado</span>
-                  <span className="text-sm font-medium">{item.result}</span>
+              
+              <div className="mt-auto">
+                <div className="bg-zinc-900 p-4 rounded-2xl flex items-center justify-between text-white group-hover:bg-black transition-colors">
+                  <div className="flex items-center gap-3">
+                    <TrendingUp size={20} className="text-emerald-400" />
+                    <span className="text-sm font-bold">Ver Estudo de Caso</span>
+                  </div>
+                  <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
