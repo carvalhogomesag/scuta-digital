@@ -62,22 +62,22 @@ export const SAMPLE_SITES: SampleSite[] = [
   },
   {
     slug: "assistencia-24h",
-    companyName: "Picheleiro Urgente 24h",
-    sector: "Serviços de Emergência",
-    pain: "Dependiam apenas de recomendações. Quando alguém tinha uma emergência de madrugada e procurava no Google, eles eram invisíveis.",
-    solution: "Design de alto contraste (Preto/Vermelho/Amarelo) focado em 'Urgência', com um botão de chamada gigante para ação imediata.",
-    expectedResult: "Tornou-se a primeira escolha da região em situações de crise e fugas de água.",
-    heroTitle: "Emergência com canos ou fugas de água? Resolvemos agora.",
-    heroSubtitle: "Assistência técnica urgente 24 horas em todo o país. Chegamos ao local em menos de 45 minutos. Garantia certificada.",
-    ctaText: "Ligar Urgente",
+    companyName: "Renova Home & Design",
+    sector: "Arquitetura & Reformas",
+    pain: "Muitos projetos de qualidade realizados, mas uma imagem online antiquada que não atraía clientes de alto padrão.",
+    solution: "Site estilo 'Editorial de Luxo' com efeitos de parallax, tipografia moderna e foco visual que justifica orçamentos premium.",
+    expectedResult: "Aumento de 300% em pedidos de orçamento para reformas integrais e design de interiores.",
+    heroTitle: "Redefinindo o seu Espaço Vital.",
+    heroSubtitle: "Especialistas em reformas residenciais de alto padrão. Unimos funcionalidade, estética e precisão técnica para criar ambientes extraordinários.",
+    ctaText: "Ver Portfólio",
     theme: SAMPLE_THEMES["assistencia-24h"],
     bgStyle: "simple",
     features: [
-      { title: "Disponível 24/7", desc: "Não importa a hora, estamos sempre de piquete.", iconName: "clock" },
-      { title: "Preço Transparente", desc: "Orçamento antes de começar, sem surpresas.", iconName: "check" },
-      { title: "Garantia Total", desc: "Reparações com garantia de 2 anos incluída.", iconName: "award" }
+      { title: "Gestão Total", desc: "Tratamos de tudo, da licença à entrega das chaves.", iconName: "shield" },
+      { title: "Design Premium", desc: "Projetos exclusivos focados no seu estilo de vida.", iconName: "award" },
+      { title: "Prazo Rigoroso", desc: "Método que garante custos e entregas sem atrasos.", iconName: "clock" }
     ],
-    seoTitle: "Picheleiro Urgente 24h | Reparações em Portugal",
-    seoDescription: "Fugas de água ou entupimentos? Ligue já para a assistência 24h. Técnicos qualificados em todo o país."
+    seoTitle: "Renova Home | Reformas e Design de Luxo em Portugal",
+    seoDescription: "Transforme a sua casa com a Renova. Especialistas em design de interiores e reformas integrais de alto padrão."
   }
 ];

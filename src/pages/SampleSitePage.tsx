@@ -1,91 +1,131 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowLeft, ArrowRight, AlertCircle, TrendingUp, Smartphone, ShieldCheck, MousePointer2 } from 'lucide-react';
+import { 
+  ArrowLeft, ArrowRight, AlertCircle, TrendingUp, 
+  Smartphone, MousePointer2, Zap, ShieldCheck,
+  Leaf, Truck, Wallet, Activity, Video, FileText, Clock, CheckCircle, Award
+} from 'lucide-react';
 import { SAMPLE_SITES } from '../data/sampleSites';
 
-// IMPORTAÇÃO DOS SITES COM VIDA PRÓPRIA
+// IMPORTAÇÃO DOS SITES COM VIDA PRÓPRIA (EXPERIÊNCIAS ÚNICAS)
 import VitalisSample from '../samples/VitalisSample';
+import RenovaSample from '../samples/RenovaSample'; // Importação do novo componente
+
+// Mapeamento de ícones para o template dinâmico de fallback
+const IconMap: Record<string, any> = {
+  leaf: Leaf, truck: Truck, wallet: Wallet,
+  user: Activity, video: Video, file: FileText,
+  clock: Clock, check: CheckCircle, award: Award,
+  shield: ShieldCheck
+};
 
 export default function SampleSitePage() {
   const { slug } = useParams<{ slug: string }>();
   const site = SAMPLE_SITES.find((s) => s.slug === slug);
 
+  // Se o utilizador inventar um URL ou o slug não existir, volta para a home
   if (!site) return <Navigate to="/" replace />;
 
   document.title = `${site.companyName} | Demonstração Scuta Digital`;
 
   /**
-   * CÉREBRO DE RENDERIZAÇÃO
-   * Decide qual layout carregar com base no slug do cliente.
+   * CÉREBRO DE RENDERIZAÇÃO BESPOKE
+   * Decide qual experiência visual carregar com base no cliente selecionado.
    */
   const renderBespokeContent = () => {
-    // 1. Caso seja a Clínica, carrega a experiência única
+    // 1. Caso seja a Clínica (Azul/Saúde)
     if (slug === 'clinica-vida-mais') {
       return <VitalisSample />;
     }
 
-    // 2. Fallback para os outros projetos (Padrão Scuta)
-    return (
-      <section 
-        className="relative py-28 md:py-48 px-6 overflow-hidden"
-        style={{ backgroundColor: site.theme.secondary }}
-      >
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          {site.bgStyle === "dots" && (
-            <div className="h-full w-full" style={{ backgroundImage: `radial-gradient(${site.theme.primary} 1px, transparent 1px)`, backgroundSize: '30px 30px' }} />
-          )}
-          {site.bgStyle === "mesh" && (
-            <div className="h-full w-full" style={{ background: `linear-gradient(135deg, ${site.theme.primary}55 0%, transparent 100%)` }} />
-          )}
-        </div>
+    // 2. Caso seja a Renova (Arquitetura/Design)
+    if (slug === 'assistencia-24h') {
+      return <RenovaSample />;
+    }
 
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <span 
-              className="inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 shadow-sm"
-              style={{ backgroundColor: 'white', color: site.theme.primary }}
-            >
-              {site.sector}
-            </span>
-            <h1 className="text-5xl md:text-8xl font-black text-zinc-900 mb-10 tracking-tighter leading-[0.9]">
-              {site.heroTitle}
-            </h1>
-            <p className="text-xl md:text-2xl text-zinc-600 mb-14 max-w-3xl mx-auto leading-relaxed font-medium">
-              {site.heroSubtitle}
-            </p>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-12 py-6 rounded-3xl font-black text-xl shadow-2xl flex items-center gap-3 mx-auto transition-all"
-              style={{ backgroundColor: site.theme.primary, color: 'white' }}
-            >
-              {site.ctaText} <MousePointer2 size={24} />
-            </motion.button>
-          </motion.div>
-        </div>
-      </section>
+    // 3. Caso contrário (Template Dinâmico para novos rascunhos)
+    return (
+      <>
+        <section 
+          className="relative py-28 md:py-48 px-6 overflow-hidden"
+          style={{ backgroundColor: site.theme.secondary }}
+        >
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
+            {site.bgStyle === "dots" && (
+              <div className="h-full w-full" style={{ backgroundImage: `radial-gradient(${site.theme.primary} 1px, transparent 1px)`, backgroundSize: '30px 30px' }} />
+            )}
+            {site.bgStyle === "mesh" && (
+              <div className="h-full w-full" style={{ background: `linear-gradient(135deg, ${site.theme.primary}55 0%, transparent 100%)` }} />
+            )}
+          </div>
+
+          <div className="max-w-6xl mx-auto text-center relative z-10">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+              <span className="inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 shadow-sm" style={{ backgroundColor: 'white', color: site.theme.primary }}>
+                {site.sector}
+              </span>
+              <h1 className="text-5xl md:text-8xl font-black text-zinc-900 mb-10 tracking-tighter leading-[0.9]">
+                {site.heroTitle}
+              </h1>
+              <p className="text-xl md:text-2xl text-zinc-600 mb-14 max-w-3xl mx-auto leading-relaxed font-medium">
+                {site.heroSubtitle}
+              </p>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="px-12 py-6 rounded-3xl font-black text-xl shadow-2xl flex items-center gap-3 mx-auto transition-all" style={{ backgroundColor: site.theme.primary, color: 'white' }}>
+                {site.ctaText} <MousePointer2 size={24} />
+              </motion.button>
+            </motion.div>
+          </div>
+        </section>
+
+        <section className="py-24 px-6 bg-white border-y border-zinc-100">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
+            {site.features.map((feature, i) => {
+              const Icon = IconMap[feature.iconName] || Zap;
+              return (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group p-10 rounded-[2.5rem] bg-zinc-50 border border-zinc-100 hover:border-zinc-200 transition-all duration-500 hover:shadow-2xl"
+                >
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-sm" style={{ backgroundColor: site.theme.primary, color: 'white' }}>
+                    <Icon size={30} />
+                  </div>
+                  <h3 className="text-2xl font-black mb-4 text-zinc-900">{feature.title}</h3>
+                  <p className="text-zinc-600 leading-relaxed font-medium">{feature.desc}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+      </>
     );
   };
 
   return (
     <div className="min-h-screen bg-white selection:bg-black selection:text-white">
       
-      {/* CORREÇÃO AQUI: Mudado de z-[100] para z-100 */}
+      {/* 1. BARRA DE CONTROLO FIXA (A sua assinatura como agência) */}
       <nav className="bg-black text-white py-3 px-6 sticky top-0 z-100 border-b border-white/5 shadow-2xl flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2 text-zinc-500 hover:text-white transition-all font-bold text-[10px] uppercase tracking-widest">
           <ArrowLeft size={14} /> Sair do Exemplo
         </Link>
-        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 animate-pulse">
-          Modo de Experiência Ativa
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 animate-pulse hidden sm:block">
+          Demonstração de Alta Performance
         </span>
+        <div className="flex items-center gap-3">
+           <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{site.companyName}</span>
+        </div>
       </nav>
 
-      {/* O SITE REAL COM VIDA PRÓPRIA (DINÂMICO) */}
+      {/* 2. O SITE REAL COM IDENTIDADE PRÓPRIA */}
       <div className="relative">
         {renderBespokeContent()}
       </div>
 
-      {/* ANÁLISE SCUTA (Persistente no fundo para explicar o porquê de funcionar) */}
+      {/* 3. ANÁLISE ESTRATÉGICA (O rodapé que vende o seu serviço) */}
       <section className="py-32 px-6 bg-zinc-950 text-white relative overflow-hidden border-t border-white/5">
         <div 
           className="absolute top-0 right-0 w-150 h-150 blur-[150px] opacity-10 pointer-events-none rounded-full" 
@@ -95,15 +135,15 @@ export default function SampleSitePage() {
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8 border-b border-white/10 pb-12">
             <div className="max-w-2xl text-left">
-              <span className="text-emerald-400 font-black uppercase tracking-[0.3em] text-[10px] mb-4 block underline underline-offset-8">Estratégia Aplicada</span>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-none mb-6">
+              <span className="text-emerald-400 font-black uppercase tracking-[0.3em] text-[10px] mb-4 block underline underline-offset-8 italic">Estratégia Scuta Digital</span>
+              <h2 className="text-4xl md:text-7xl font-bold tracking-tighter leading-none">
                 Como este design <br />
-                <span className="text-zinc-500 italic font-normal">domina o mercado.</span>
+                <span className="text-zinc-500 font-normal italic uppercase">conquista o cliente.</span>
               </h2>
             </div>
             <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 hidden md:block">
               <ShieldCheck className="text-emerald-400 mb-2" size={32} />
-              <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Estratégia Validada</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Layout Validado</p>
             </div>
           </div>
 
@@ -113,7 +153,7 @@ export default function SampleSitePage() {
                 <AlertCircle className="text-amber-500" size={32} />
               </div>
               <div>
-                <h4 className="text-amber-500 font-black uppercase text-[10px] tracking-[0.2em] mb-2">A Dor do Cliente</h4>
+                <h4 className="text-amber-500 font-black uppercase text-[10px] tracking-[0.2em] mb-2">A Dor que Resolvemos</h4>
                 <p className="text-2xl font-medium text-zinc-200 leading-tight italic">"{site.pain}"</p>
               </div>
             </motion.div>
@@ -123,7 +163,7 @@ export default function SampleSitePage() {
                 <TrendingUp className="text-black" size={32} />
               </div>
               <div>
-                <h4 className="text-emerald-400 font-black uppercase text-[10px] tracking-[0.2em] mb-2">O Resultado Scuta Digital</h4>
+                <h4 className="text-emerald-400 font-black uppercase text-[10px] tracking-[0.2em] mb-2">O Resultado Esperado</h4>
                 <p className="text-3xl font-black text-white leading-none tracking-tighter">{site.expectedResult}</p>
               </div>
             </motion.div>
@@ -131,13 +171,13 @@ export default function SampleSitePage() {
 
           <div className="mt-24 text-center">
             <Link to="/" className="inline-flex items-center gap-4 bg-white text-black px-12 py-6 rounded-3xl font-black text-2xl hover:scale-105 transition-all shadow-2xl active:scale-95 group">
-              Quero um site com esta alma <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+              QUERO UM SITE ASSIM <ArrowRight className="group-hover:translate-x-2 transition-transform" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* FOOTER DA DEMO */}
+      {/* FOOTER */}
       <footer className="py-12 bg-zinc-50 border-t border-zinc-200 text-center flex flex-col items-center gap-4">
         <div className="flex gap-4 opacity-20"><Smartphone size={20}/><ShieldCheck size={20}/></div>
         <p className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-400">Scuta Digital · High Performance Experiences</p>
