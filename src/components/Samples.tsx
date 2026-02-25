@@ -1,109 +1,141 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, AlertCircle, TrendingUp, ArrowRight, MousePointer2 } from 'lucide-react';
+import { CheckCircle, AlertCircle, TrendingUp, ArrowRight, MousePointer2, Sparkles } from 'lucide-react';
 import { SAMPLE_SITES } from '../data/sampleSites';
 
 export default function Samples() {
   return (
-    <section id="samples" className="py-24 px-6 bg-zinc-50/50">
-      <div className="max-w-7xl mx-auto">
+    <section id="samples" className="relative py-32 px-6 overflow-hidden noise">
+      {/* Luz de fundo decorativa */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-scuta-accent/5 blur-[180px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* Cabeçalho da Secção com animação de entrada */}
-        <div className="text-center mb-20">
+        {/* --- CABEÇALHO ESTRATÉGICO --- */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            className="max-w-2xl text-left"
           >
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-zinc-900 mb-6">
-              Soluções reais para <br />
-              <span className="text-zinc-400">problemas reais.</span>
+            <div className="flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-4">
+              <Sparkles size={14} /> Portfólio de Alta Conversão
+            </div>
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-scuta-silk leading-none">
+              Experiências que <br />
+              <span className="text-scuta-gradient">Geram Resultados.</span>
             </h2>
-            <p className="text-xl text-zinc-600 max-w-2xl mx-auto font-medium leading-relaxed">
-              Clique nos exemplos abaixo para ver como transformámos a presença digital destes negócios com estratégia e design.
-            </p>
           </motion.div>
+
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-slate-400 max-w-sm text-left font-medium leading-relaxed md:mb-2"
+          >
+            Não criamos apenas sites. Desenhamos ferramentas de venda personalizadas para cada setor do mercado português.
+          </motion.p>
         </div>
 
-        {/* Grelha de Projetos */}
+        {/* --- BENTO GRID DE PROJETOS --- */}
         <div className="grid md:grid-cols-3 gap-8">
           {SAMPLE_SITES.map((site, index) => (
             <motion.div
               key={site.slug}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.15 }}
             >
               <Link 
                 to={`/exemplos/${site.slug}`}
-                className="group relative bg-white p-2 rounded-[2.5rem] border border-zinc-200 transition-all duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 flex flex-col h-full"
+                className="group relative block h-full bento-card border border-white/5 overflow-hidden"
               >
-                {/* Conteúdo Interno do Cartão - Corrigido rounded-4xl */}
-                <div className="p-8 rounded-4xl flex flex-col grow transition-colors duration-500"
-                     style={{ backgroundColor: `${site.theme.primary}05` }}>
-                  
-                  {/* Badge do Setor */}
-                  <div className="flex justify-between items-start mb-8">
-                    <span 
-                      className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm"
-                      style={{ backgroundColor: 'white', color: site.theme.primary }}
-                    >
-                      {site.sector}
-                    </span>
-                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-zinc-300 group-hover:text-zinc-900 transition-colors shadow-sm">
-                      <MousePointer2 size={18} />
-                    </div>
-                  </div>
+                {/* Efeito de Brilho de Fundo Dinâmico (Sutil) */}
+                <div 
+                  className="absolute -top-24 -right-24 w-48 h-48 blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 rounded-full"
+                  style={{ backgroundColor: site.theme.primary }}
+                />
 
-                  {/* Info do Cliente */}
-                  <div className="mb-6 text-left">
-                    <div className="flex items-center gap-2 text-amber-600 mb-3 text-[10px] font-black uppercase tracking-widest">
-                      <AlertCircle size={14} /> Dor: {site.pain.substring(0, 30)}...
-                    </div>
-                    <h3 className="text-3xl font-black text-zinc-900 mb-4 tracking-tighter leading-none">
-                      {site.companyName}
-                    </h3>
-                  </div>
-
-                  {/* Resumo da Solução */}
-                  <div className="flex items-start gap-3 text-zinc-600 mb-8 grow text-left">
-                    <CheckCircle size={20} className="shrink-0 mt-1" style={{ color: site.theme.primary }} />
-                    <p className="text-sm font-medium leading-relaxed">
-                      <strong>Solução Scuta:</strong> {site.solution.substring(0, 85)}...
-                    </p>
-                  </div>
-
-                  {/* CTA do Cartão */}
-                  <div 
-                    className="mt-auto p-5 rounded-2xl flex items-center justify-between text-white transition-all duration-500 shadow-lg"
-                    style={{ backgroundColor: site.theme.primary }}
+                {/* Badge do Setor com Estilo Glass */}
+                <div className="flex justify-between items-start mb-10">
+                  <span 
+                    className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-slate-300 group-hover:border-white/20 transition-all"
                   >
-                    <div className="flex items-center gap-3">
-                      <TrendingUp size={20} className="text-white/80" />
-                      <span className="text-sm font-black uppercase tracking-widest text-white">Explorar Projeto</span>
-                    </div>
-                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform text-white" />
+                    {site.sector}
+                  </span>
+                  <div 
+                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-scuta-primary border border-white/5 text-slate-500 group-hover:text-scuta-silk group-hover:border-white/20 transition-all shadow-2xl"
+                  >
+                    <MousePointer2 size={18} />
                   </div>
                 </div>
 
-                {/* Overlay de Hover (Glow sutil com a cor do tema) */}
+                {/* Conteúdo do Cliente */}
+                <div className="mb-8 text-left">
+                  <div className="flex items-center gap-2 text-scuta-highlight mb-3 text-[10px] font-black uppercase tracking-widest">
+                    <AlertCircle size={14} /> Caso de Estudo
+                  </div>
+                  <h3 className="text-3xl font-black text-scuta-silk mb-4 tracking-tighter leading-none group-hover:text-scuta-gradient transition-all">
+                    {site.companyName}
+                  </h3>
+                  <p className="text-sm text-slate-500 font-medium leading-relaxed line-clamp-2">
+                    {site.pain}
+                  </p>
+                </div>
+
+                {/* Barra de Progresso/Sucesso Visual */}
+                <div className="flex items-center gap-3 text-scuta-silk/90 mb-10 text-left">
+                  <div 
+                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: `${site.theme.primary}20`, color: site.theme.primary }}
+                  >
+                    <CheckCircle size={18} />
+                  </div>
+                  <p className="text-xs font-bold leading-tight uppercase tracking-tight">
+                    Solução de Alta Performance Ativada
+                  </p>
+                </div>
+
+                {/* Botão de Ação Dinâmico */}
                 <div 
-                  className="absolute inset-0 rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border-2"
-                  style={{ borderColor: site.theme.primary }}
+                  className="p-4 rounded-xl flex items-center justify-between transition-all duration-500 shadow-2xl group-hover:scale-[1.02]"
+                  style={{ backgroundColor: site.theme.primary }}
+                >
+                  <div className="flex items-center gap-3">
+                    <TrendingUp size={18} className="text-white/80" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white">Explorar Estratégia</span>
+                  </div>
+                  <ArrowRight size={18} className="text-white transform group-hover:translate-x-1 transition-transform" />
+                </div>
+
+                {/* Borda de Brilho (Stroke) Ativa no Hover */}
+                <div 
+                  className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border-2 border-transparent"
+                  style={{ borderColor: `${site.theme.primary}40` }}
                 />
               </Link>
             </motion.div>
           ))}
         </div>
 
-        {/* Mensagem de Rodapé da Secção */}
-        <div className="mt-20 text-center">
-          <p className="text-zinc-400 font-bold text-xs uppercase tracking-[0.3em]">
-            Novos estudos de caso adicionados mensalmente
+        {/* --- FOOTER DA SECÇÃO --- */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-24 pt-12 border-t border-white/5 flex flex-col items-center gap-6"
+        >
+          <div className="flex gap-2 text-scuta-highlight animate-pulse">
+            <Sparkles size={16} />
+            <Sparkles size={16} />
+            <Sparkles size={16} />
+          </div>
+          <p className="text-zinc-500 font-black text-[10px] uppercase tracking-[0.5em] text-center">
+            Qualidade Certificada · Scuta Digital Engine
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
