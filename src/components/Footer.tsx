@@ -1,3 +1,5 @@
+import { BRAND_INFO } from '../lib/constants'; // Importação da verdade absoluta
+
 export default function Footer() {
   return (
     <footer className="py-12 px-6 border-t border-black/5 bg-white">
@@ -5,9 +7,11 @@ export default function Footer() {
         {/* Logo / Branding */}
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-            <span className="text-white font-bold text-sm">S</span>
+            <span className="text-white font-bold text-sm">
+              {BRAND_INFO.name.charAt(0)}
+            </span>
           </div>
-          <span className="font-bold text-lg tracking-tight">Scuta Digital</span>
+          <span className="font-bold text-lg tracking-tight">{BRAND_INFO.name}</span>
         </div>
         
         {/* Links Institucionais */}
@@ -19,7 +23,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <p className="text-sm text-zinc-400">
-          © {new Date().getFullYear()} Scuta Digital. Todos os direitos reservados.
+          © {new Date().getFullYear()} {BRAND_INFO.name}. Todos os direitos reservados.
         </p>
       </div>
     </footer>

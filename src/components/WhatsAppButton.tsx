@@ -1,10 +1,9 @@
 import { motion } from 'motion/react';
 import { MessageCircle } from 'lucide-react';
+import { CONTACT_INFO } from '../lib/constants'; // Importação da verdade absoluta
 
 export default function WhatsAppButton() {
-  const phoneNumber = "351914044748"; // Formato internacional para Portugal
-  const message = "Olá! Gostaria de pedir um orçamento para um projeto.";
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = `https://wa.me/${CONTACT_INFO.phoneRaw}?text=${encodeURIComponent(CONTACT_INFO.whatsappMessage)}`;
 
   return (
     <div className="fixed bottom-6 right-6 z-50">

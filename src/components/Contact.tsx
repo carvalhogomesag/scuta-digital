@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { CONTACT_INFO } from '../lib/constants'; // Importação da verdade absoluta
 
 export default function Contact() {
   return (
@@ -23,7 +24,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Email</p>
-                  <p className="text-lg font-medium">contacto@scutadigital.pt</p>
+                  <a href={`mailto:${CONTACT_INFO.email}`} className="text-lg font-medium hover:text-emerald-400 transition-colors">
+                    {CONTACT_INFO.email}
+                  </a>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -32,7 +35,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Telefone</p>
-                  <p className="text-lg font-medium">+351 910 000 000</p>
+                  <a href={`tel:${CONTACT_INFO.phoneRaw}`} className="text-lg font-medium hover:text-emerald-400 transition-colors">
+                    {CONTACT_INFO.phone}
+                  </a>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -41,7 +46,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Localização</p>
-                  <p className="text-lg font-medium">Portugal · Remoto</p>
+                  <p className="text-lg font-medium">{CONTACT_INFO.location}</p>
                 </div>
               </div>
             </div>
