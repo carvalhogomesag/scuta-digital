@@ -146,7 +146,8 @@ export default function VitalisSample() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { name: 'Dr. João Oliveira', role: 'Diretor Clínico / Cardiologia', img: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800&auto=format&fit=crop' },
-              { name: 'Dra. Marta Silva', role: 'Pediatra Integral', img: 'https://images.unsplash.com/photo-1594824436951-7f12bc4142e9?q=80&w=800&auto=format&fit=crop' },
+              // LINK FOTOGRÁFICO DA DRA. MARTA SILVA CORRIGIDO ABAIXO:
+              { name: 'Dra. Marta Silva', role: 'Pediatra Integral', img: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=800&auto=format&fit=crop' },
               { name: 'Dr. Tiago Mendes', role: 'Medicina Interna', img: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop' },
               { name: 'Dra. Inês Costa', role: 'Dermatologia', img: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop' }
             ].map((doc, i) => (
@@ -172,7 +173,6 @@ export default function VitalisSample() {
           </p>
           
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-            {/* Simulação de logos usando tipografia pesada */}
             <div className="text-3xl font-black tracking-tighter text-slate-800">MÉDIS</div>
             <div className="text-3xl font-black tracking-tighter text-slate-800">Multicare</div>
             <div className="text-3xl font-black tracking-tighter text-blue-800 italic">ADSE</div>
