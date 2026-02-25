@@ -1,53 +1,61 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown } from 'lucide-react';
-
-const faqs = [
-  {
-    question: "Porque deve a minha empresa ter um site hoje?",
-    answer: "Um website profissional reforça credibilidade, melhora a presença no Google e cria um canal próprio para gerar contactos todos os dias."
-  },
-  {
-    question: "Quanto custa criar um site em Portugal?",
-    answer: "Depende do objetivo e da complexidade. Uma landing page tem investimento mais reduzido, enquanto websites com várias páginas ou integrações exigem maior planeamento."
-  },
-  {
-    question: "Quanto tempo demora a ter o site pronto?",
-    answer: "Em regra, uma landing page pode ficar pronta em poucos dias. Projetos maiores costumam demorar algumas semanas, consoante o conteúdo e as validações necessárias."
-  },
-  {
-    question: "Como melhoram o SEO do meu site?",
-    answer: "Trabalhamos a estrutura técnica, velocidade, arquitetura de conteúdo e metadados para aumentar a relevância nos motores de busca e gerar tráfego qualificado."
-  }
-];
+import { ChevronDown, HelpCircle } from 'lucide-react';
+import { FAQ_ITEMS } from '../lib/constants'; // Importação da Fonte da Verdade
 
 export default function FAQ() {
+  // Mantemos o primeiro item aberto por padrão para incentivar a leitura (UX)
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-24 bg-white px-6">
-      <div className="max-w-4xl mx-auto">
+    <section id="faq" className="py-24 bg-white px-6 border-t border-zinc-100">
+      <div className="max-w-3xl mx-auto">
+        
+        {/* Cabeçalho: Foco em transparência e confiança */}
         <div className="text-center mb-16">
-          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">SEO + Autoridade</h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Perguntas frequentes antes de contratar</h3>
-          <p className="text-lg text-zinc-600">
-            Esclarecemos as suas dúvidas para que possa avançar com total confiança e transparência na sua estratégia digital.
+          <h2 className="text-sm font-black text-zinc-400 uppercase tracking-[0.2em] mb-4">
+            Esclarecimentos
+          </h2>
+          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6 tracking-tight">
+            Dúvidas frequentes
+          </h3>
+          <p className="text-lg text-zinc-600 leading-relaxed">
+            Não deixamos nada por explicar. Aqui estão as respostas às perguntas que os nossos clientes mais nos fazem antes de começarmos.
           </p>
         </div>
 
+        {/* Lista de Acordéons: Foco em legibilidade e acessibilidade */}
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {FAQ_ITEMS.map((faq, index) => (
             <div 
               key={index}
-              className="border border-zinc-200 rounded-2xl overflow-hidden transition-all duration-300"
+              className={`group border rounded-3xl overflow-hidden transition-all duration-300 ${
+                openIndex === index 
+                ? 'border-black bg-zinc-50 shadow-sm' 
+                : 'border-zinc-200 bg-white hover:border-zinc-400'
+              }`}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-zinc-50 transition-colors"
+                className="w-full flex items-center justify-between p-7 text-left focus:outline-none"
               >
-                <span className="text-lg font-bold text-zinc-900">{faq.question}</span>
+                <div className="flex items-center gap-4">
+                  <HelpCircle 
+                    size={20} 
+                    className={`transition-colors duration-300 ${
+                      openIndex === index ? 'text-black' : 'text-zinc-300'
+                    }`} 
+                  />
+                  <span className={`text-lg font-bold transition-colors duration-300 ${
+                    openIndex === index ? 'text-black' : 'text-zinc-800'
+                  }`}>
+                    {faq.question}
+                  </span>
+                </div>
                 <ChevronDown 
-                  className={`w-5 h-5 text-zinc-500 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} 
+                  className={`w-5 h-5 transition-all duration-300 ${
+                    openIndex === index ? 'rotate-180 text-black' : 'text-zinc-400'
+                  }`} 
                 />
               </button>
               
@@ -57,9 +65,10 @@ export default function FAQ() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                   >
-                    <div className="px-6 pb-6 text-zinc-600 leading-relaxed border-t border-zinc-100 pt-4">
+                    <div className="px-7 pb-8 ml-9 text-zinc-600 leading-relaxed text-base font-medium">
+                      <div className="w-12 h-px bg-zinc-200 mb-4" />
                       {faq.answer}
                     </div>
                   </motion.div>
@@ -67,6 +76,13 @@ export default function FAQ() {
               </AnimatePresence>
             </div>
           ))}
+        </div>
+
+        {/* CTA Auxiliar: Caso a dúvida persista */}
+        <div className="mt-12 text-center">
+          <p className="text-zinc-500 font-medium">
+            Tem outra dúvida? <a href="#contact" className="text-black font-bold underline underline-offset-4 hover:text-zinc-600 transition-colors">Fale connosco pelo WhatsApp.</a>
+          </p>
         </div>
       </div>
     </section>

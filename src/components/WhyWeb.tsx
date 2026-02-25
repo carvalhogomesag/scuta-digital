@@ -1,42 +1,47 @@
 import { motion } from 'motion/react';
-import { Globe, Users, TrendingUp, ShieldCheck } from 'lucide-react';
-
-const reasons = [
-  {
-    icon: Globe,
-    title: "A sua montra digital 24/7",
-    description: "Mesmo fora do horário comercial, o seu website trabalha por si. É o primeiro local onde potenciais clientes procuram validar a seriedade do seu negócio."
-  },
-  {
-    icon: Users,
-    title: "Credibilidade desde a primeira visita",
-    description: "Em Portugal, a ausência de um site profissional gera desconfiança imediata. Transmita autoridade e profissionalismo desde o primeiro clique."
-  },
-  {
-    icon: TrendingUp,
-    title: "Mais visibilidade no Google",
-    description: "Apareça nas pesquisas locais quando procurarem pelos seus serviços, em vez de entregar essas oportunidades diretamente à concorrência."
-  },
-  {
-    icon: ShieldCheck,
-    title: "Canal próprio da sua marca",
-    description: "As redes sociais são terrenos alugados. O seu website é o seu território: controla a mensagem, o design e toda a jornada do seu cliente."
-  }
-];
+import { Search, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
+import { UI_STRINGS } from '../lib/constants';
 
 export default function WhyWeb() {
+  const t = UI_STRINGS.pt.why;
+
+  const reasons = [
+    {
+      icon: Search,
+      title: t.reason1.title,
+      description: t.reason1.desc,
+    },
+    {
+      icon: Clock,
+      title: t.reason2.title,
+      description: t.reason2.desc,
+    },
+    {
+      icon: ShieldCheck,
+      title: t.reason3.title,
+      description: t.reason3.desc,
+    }
+  ];
+
   return (
-    <section id="why" className="py-24 bg-zinc-50 px-6">
+    <section id="why" className="py-24 bg-white px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">A pergunta certa</h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Porque deve a sua empresa ter um site em 2026?</h3>
-          <p className="text-lg text-zinc-600">
-            Hoje, quem não aparece online perde oportunidades reais de negócio. Um website profissional é o motor que melhora a sua reputação, expande o seu alcance e potencia as suas vendas.
+        {/* Cabeçalho da secção: Foco na dor e solução */}
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <h2 className="text-sm font-extrabold text-zinc-400 uppercase tracking-[0.2em] mb-4">
+            Crescimento Profissional
+          </h2>
+          <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6 tracking-tight">
+            {t.title}
+          </h3>
+          <p className="text-lg text-zinc-600 leading-relaxed">
+            Hoje em dia, quem não é encontrado no Google não existe para o mercado. 
+            Um site profissional é a diferença entre ser a **primeira opção** ou ser invisível.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Grelha de Benefícios: Limpa e focada */}
+        <div className="grid md:grid-cols-3 gap-8">
           {reasons.map((reason, index) => (
             <motion.div
               key={index}
@@ -44,15 +49,21 @@ export default function WhyWeb() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white p-8 rounded-3xl border border-black/5 hover:shadow-xl transition-all group"
+              className="group p-8 rounded-3xl bg-zinc-50 border border-zinc-100 hover:bg-black transition-all duration-500"
             >
-              <div className="w-14 h-14 bg-zinc-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-50 transition-colors">
-                <reason.icon className="w-7 h-7 text-zinc-900 group-hover:text-emerald-600 transition-colors" />
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:bg-zinc-800 transition-colors">
+                <reason.icon className="w-7 h-7 text-zinc-900 group-hover:text-white transition-colors" />
               </div>
-              <h4 className="text-xl font-bold text-zinc-900 mb-3">{reason.title}</h4>
-              <p className="text-zinc-600 leading-relaxed">
+              <h4 className="text-xl font-bold text-zinc-900 mb-4 group-hover:text-white transition-colors">
+                {reason.title}
+              </h4>
+              <p className="text-zinc-600 leading-relaxed group-hover:text-zinc-400 transition-colors">
                 {reason.description}
               </p>
+              
+              <div className="mt-8 flex items-center gap-2 text-sm font-bold text-black group-hover:text-zinc-300 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                Saiba como ajudamos <ArrowRight size={16} />
+              </div>
             </motion.div>
           ))}
         </div>

@@ -1,62 +1,78 @@
 import { motion } from 'motion/react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
-import { CONTACT_INFO } from '../lib/constants'; // Importação da verdade absoluta
+import { Mail, Phone, MapPin, MessageSquare, Send } from 'lucide-react';
+import { CONTACT_INFO, UI_STRINGS } from '../lib/constants';
 
 export default function Contact() {
+  const t = UI_STRINGS.pt.contact;
+
   return (
     <section id="contact" className="py-24 bg-black text-white px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto relative">
-        {/* Glow effect */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-200 bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
+        
+        {/* Efeito de luz sutil (Zinc/White) em vez de Emerald para manter a autoridade */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-white/5 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4">Fale connosco</h2>
-            <h3 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">Pronto para aumentar a presença digital da sua empresa?</h3>
-            <p className="text-xl text-zinc-400 mb-12 leading-relaxed">
-              Focamo-nos em websites orientados para resultados e otimização SEO em Portugal. Comece hoje a atrair mais clientes qualificados.
+            <h2 className="text-sm font-black text-zinc-500 uppercase tracking-[0.2em] mb-4">
+              Inicie o seu projeto
+            </h2>
+            <h3 className="text-4xl md:text-6xl font-bold mb-8 leading-tight tracking-tight">
+              {t.title}
+            </h3>
+            <p className="text-xl text-zinc-400 mb-12 leading-relaxed max-w-lg">
+              {t.subtitle}
             </p>
 
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-zinc-900 rounded-xl flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-emerald-400" />
+            {/* Cartões de Contacto Direto */}
+            <div className="space-y-8">
+              <div className="group flex items-center gap-5">
+                <div className="w-14 h-14 bg-zinc-900 rounded-2xl flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-colors">
+                  <MessageSquare className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Email</p>
-                  <a href={`mailto:${CONTACT_INFO.email}`} className="text-lg font-medium hover:text-emerald-400 transition-colors">
-                    {CONTACT_INFO.email}
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-zinc-900 rounded-xl flex items-center justify-center">
-                  <Phone className="w-5 h-5 text-emerald-400" />
-                </div>
-                <div>
-                  <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Telefone</p>
-                  <a href={`tel:${CONTACT_INFO.phoneRaw}`} className="text-lg font-medium hover:text-emerald-400 transition-colors">
+                  <p className="text-xs text-zinc-500 uppercase font-black tracking-widest mb-1">WhatsApp (Resposta rápida)</p>
+                  <a 
+                    href={`https://wa.me/${CONTACT_INFO.phoneRaw}?text=${encodeURIComponent(CONTACT_INFO.whatsappMessage)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xl font-bold hover:text-zinc-300 transition-colors"
+                  >
                     {CONTACT_INFO.phone}
                   </a>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-zinc-900 rounded-xl flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-emerald-400" />
+
+              <div className="group flex items-center gap-5">
+                <div className="w-14 h-14 bg-zinc-900 rounded-2xl flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-colors">
+                  <Mail className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-zinc-500 uppercase font-bold tracking-wider">Localização</p>
-                  <p className="text-lg font-medium">{CONTACT_INFO.location}</p>
+                  <p className="text-xs text-zinc-500 uppercase font-black tracking-widest mb-1">E-mail para Orçamentos</p>
+                  <a href={`mailto:${CONTACT_INFO.email}`} className="text-xl font-bold hover:text-zinc-300 transition-colors">
+                    {CONTACT_INFO.email}
+                  </a>
+                </div>
+              </div>
+
+              <div className="group flex items-center gap-5">
+                <div className="w-14 h-14 bg-zinc-900 rounded-2xl flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-colors">
+                  <MapPin className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <p className="text-xs text-zinc-500 uppercase font-black tracking-widest mb-1">Sediada em</p>
+                  <p className="text-xl font-bold">{CONTACT_INFO.location}</p>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Formulário Profissional (Netlify Ready) */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-zinc-900 p-8 md:p-12 rounded-[40px] border border-white/5 relative z-10"
+            className="bg-zinc-900/50 p-8 md:p-12 rounded-[40px] border border-white/10 backdrop-blur-sm relative z-10 shadow-2xl"
           >
             <form 
               name="contact" 
@@ -72,55 +88,66 @@ export default function Contact() {
               </p>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Nome</label>
+                <div className="space-y-3">
+                  <label className="text-xs font-black text-zinc-400 uppercase tracking-widest ml-1">O seu Nome</label>
                   <input 
                     type="text" 
                     name="nome"
                     required
-                    placeholder="João Silva"
-                    className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors"
+                    placeholder="Como se chama?"
+                    className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-white transition-colors text-white font-medium"
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Email</label>
+                <div className="space-y-3">
+                  <label className="text-xs font-black text-zinc-400 uppercase tracking-widest ml-1">E-mail de Contacto</label>
                   <input 
                     type="email" 
                     name="email"
                     required
-                    placeholder="joao@empresa.pt"
-                    className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors"
+                    placeholder="exemplo@email.pt"
+                    className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-white transition-colors text-white font-medium"
                   />
                 </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Tipo de Projeto</label>
-                <select 
-                  name="tipo_negocio"
-                  className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors appearance-none text-zinc-400"
-                >
-                  <option>Negócio local</option>
-                  <option>Loja online</option>
-                  <option>Serviços profissionais</option>
-                  <option>Outro</option>
-                </select>
+
+              <div className="space-y-3">
+                <label className="text-xs font-black text-zinc-400 uppercase tracking-widest ml-1">O seu Negócio</label>
+                <div className="relative">
+                  <select 
+                    name="tipo_negocio"
+                    className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-white transition-colors appearance-none text-zinc-400 font-medium cursor-pointer"
+                  >
+                    <option>Negócio local (Loja, Salão, Restaurante...)</option>
+                    <option>Serviços profissionais (Advogado, Contabilista...)</option>
+                    <option>Venda Online / E-commerce</option>
+                    <option>Outro tipo de projeto</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-600">
+                    <Send size={14} className="rotate-90" />
+                  </div>
+                </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Como podemos ajudar?</label>
+
+              <div className="space-y-3">
+                <label className="text-xs font-black text-zinc-400 uppercase tracking-widest ml-1">Como podemos ajudar?</label>
                 <textarea 
                   name="mensagem"
                   rows={4}
                   required
-                  placeholder="Fale-nos sobre o seu projeto..."
-                  className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-emerald-500 transition-colors resize-none"
+                  placeholder="Explique-nos brevemente o que o seu negócio faz..."
+                  className="w-full bg-black border border-white/10 rounded-2xl p-4 focus:outline-none focus:border-white transition-colors resize-none text-white font-medium"
                 />
               </div>
+
               <button 
                 type="submit"
-                className="w-full py-5 bg-emerald-500 text-black font-bold text-lg rounded-2xl hover:bg-emerald-400 transition-all flex items-center justify-center gap-2"
+                className="w-full py-5 bg-white text-black font-black text-lg rounded-2xl hover:bg-zinc-200 transition-all flex items-center justify-center gap-3 shadow-xl active:scale-95"
               >
-                Pedir proposta <Send className="w-5 h-5" />
+                Pedir Orçamento Grátis <Send className="w-5 h-5" />
               </button>
+              <p className="text-center text-[10px] text-zinc-600 uppercase tracking-widest font-bold">
+                Respondemos em menos de 24 horas úteis.
+              </p>
             </form>
           </motion.div>
         </div>

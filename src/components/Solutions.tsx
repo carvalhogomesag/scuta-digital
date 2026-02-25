@@ -1,34 +1,39 @@
 import { motion } from 'motion/react';
-import { Layout, Zap, MessageSquare, BarChart3 } from 'lucide-react';
-
-const solutions = [
-  {
-    icon: Layout,
-    title: "Landing pages de alta conversão",
-    description: "Criamos páginas focadas exclusivamente em pedidos de orçamento, geração de leads qualificados e marcações diretas para o seu negócio."
-  },
-  {
-    icon: Zap,
-    title: "Desempenho rápido e estável",
-    description: "Garantimos a melhor base técnica de SEO e uma velocidade de carregamento superior, tanto em desktop como em telemóvel."
-  },
-  {
-    icon: MessageSquare,
-    title: "Mensagem clara para o cliente ideal",
-    description: "Ajudamos a comunicar o seu valor de forma simples e persuasiva, sem utilizar linguagem técnica que afaste os seus potenciais clientes."
-  },
-  {
-    icon: BarChart3,
-    title: "Métricas para decidir melhor",
-    description: "Acompanhamos rigorosamente a origem dos seus contactos para que possa medir o retorno real do seu investimento digital."
-  }
-];
+import { Smartphone, Search, PenTool, Wrench, ArrowRight } from 'lucide-react';
+import { UI_STRINGS } from '../lib/constants'; // Caminho corrigido
 
 export default function Solutions() {
+  const t = UI_STRINGS.pt.solutions;
+
+  const solutions = [
+    {
+      icon: Smartphone,
+      title: "Funciona em qualquer ecrã",
+      description: "O seu site será fácil de ler tanto no computador como no telemóvel. O cliente encontra o que precisa num segundo."
+    },
+    {
+      icon: Search,
+      title: "Configurado para o Google",
+      description: "Preparamos tudo para que o Google entenda o seu negócio e o mostre a quem procura os seus serviços na sua zona."
+    },
+    {
+      icon: PenTool,
+      title: "Textos que convencem",
+      description: "Ajudamos a escrever de forma simples e profissional para que o cliente sinta confiança e carregue no botão para ligar."
+    },
+    {
+      icon: Wrench,
+      title: "Manutenção incluída",
+      description: "Nós tratamos da segurança e das atualizações por si. Assim, pode focar o seu tempo apenas no seu negócio."
+    }
+  ];
+
   return (
-    <section id="solutions" className="py-24 px-6">
+    <section id="solutions" className="py-24 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Grelha de Cartões: Foco na facilidade */}
           <div className="order-2 lg:order-1">
             <div className="grid sm:grid-cols-2 gap-6">
               {solutions.map((solution, index) => (
@@ -38,10 +43,12 @@ export default function Solutions() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="p-6 rounded-3xl bg-zinc-50 border border-black/5"
+                  className="p-8 rounded-3xl bg-zinc-50 border border-zinc-100 shadow-sm hover:shadow-md transition-shadow"
                 >
-                  <solution.icon className="w-8 h-8 text-emerald-600 mb-4" />
-                  <h4 className="text-lg font-bold text-zinc-900 mb-2">{solution.title}</h4>
+                  <solution.icon className="w-10 h-10 text-black mb-6" />
+                  <h4 className="text-lg font-extrabold text-zinc-900 mb-3 leading-tight">
+                    {solution.title}
+                  </h4>
                   <p className="text-sm text-zinc-600 leading-relaxed">
                     {solution.description}
                   </p>
@@ -50,29 +57,39 @@ export default function Solutions() {
             </div>
           </div>
 
+          {/* Texto de Apoio: Foco na paz de espírito do cliente */}
           <div className="order-1 lg:order-2">
-            <h2 className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-4">Como ajudamos</h2>
-            <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">Nós tratamos da tecnologia para que se foque no seu negócio.</h3>
-            <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
-              Desenvolvemos um processo simples e transparente, desenhado especificamente para apoiar pequenas empresas em Portugal a crescerem online sem complicações.
+            <h2 className="text-sm font-black text-zinc-400 uppercase tracking-[0.2em] mb-4">
+              O Nosso Trabalho
+            </h2>
+            <h3 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-8 tracking-tight">
+              {t.title}
+            </h3>
+            <p className="text-lg text-zinc-600 mb-10 leading-relaxed">
+              Desenvolvemos um processo sem complicações. Não precisa de perceber de informática ou design — nós entregamos tudo pronto a faturar.
             </p>
-            <ul className="space-y-4 mb-10">
+            
+            <ul className="space-y-5 mb-12">
               {[
-                "Design alinhado com a identidade da marca",
-                "Website 100% responsivo (mobile-first)",
-                "Hospedagem segura e estável",
-                "Suporte contínuo e otimização"
+                "Design profissional que passa confiança imediata",
+                "Botão direto para o seu WhatsApp ou telefone",
+                "Alojamento rápido e seguro em Portugal",
+                "Apoio sempre que precisar de mudar preços ou fotos"
               ].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-zinc-800 font-medium">
-                  <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <div className="w-2 h-2 bg-emerald-600 rounded-full" />
+                <li key={i} className="flex items-start gap-3 text-zinc-800 font-bold">
+                  <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
                   </div>
-                  {item}
+                  <span className="text-base leading-tight">{item}</span>
                 </li>
               ))}
             </ul>
-            <a href="#contact" className="inline-block px-8 py-4 bg-black text-white rounded-2xl font-semibold text-lg hover:bg-zinc-800 transition-all">
-              Conhecer o processo
+
+            <a 
+              href="#contact" 
+              className="inline-flex items-center gap-2 px-10 py-4 bg-black text-white rounded-2xl font-bold text-lg hover:bg-zinc-800 transition-all active:scale-95 shadow-xl"
+            >
+              Pedir um Orçamento Grátis <ArrowRight size={20} />
             </a>
           </div>
         </div>
