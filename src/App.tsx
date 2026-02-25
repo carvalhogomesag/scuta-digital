@@ -10,13 +10,12 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 
-// Importação da nova página de detalhes
+// Importação da página de detalhes
 import SampleSitePage from './pages/SampleSitePage';
 
 /**
- * Componente Auxiliar: UX de Navegação
- * Garante que a página volta ao topo sempre que mudamos de página.
- * Sem isto, se clicares num link no fundo da página, a página nova abre no fundo.
+ * Componente Auxiliar: Garante que a página volta ao topo 
+ * sempre que mudamos de rota.
  */
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,18 +26,22 @@ function ScrollToTop() {
 }
 
 /**
- * Página Inicial (Home)
- * Agrupa as secções que compõem a Landing Page principal.
+ * PÁGINA INICIAL (HOME)
+ * Agora o Menu, Footer e Botão do WhatsApp vivem AQUI.
+ * Assim, eles não invadem as páginas de demonstração dos clientes.
  */
 function HomePage() {
   return (
     <>
+      <Navbar />
       <Hero />
       <WhyWeb />
       <Solutions />
       <Samples /> 
       <FAQ />
       <Contact />
+      <Footer />
+      <WhatsAppButton />
     </>
   );
 }
@@ -46,25 +49,17 @@ function HomePage() {
 export default function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-black selection:text-white">
-      {/* Helper para resetar o scroll em cada navegação */}
       <ScrollToTop />
 
-      {/* 1. Navegação (Fixa no topo em todo o site) */}
-      <Navbar />
-      
       <main>
         <Routes>
-          {/* Rota Raiz: Mostra a Landing Page completa */}
+          {/* Rota Raiz: Mostra a Landing Page da Agência com o seu menu */}
           <Route path="/" element={<HomePage />} />
           
-          {/* Rota Dinâmica: Mostra o Estudo de Caso baseado no slug (ex: loja-bairro) */}
+          {/* Rota Dinâmica: Mostra APENAS a barra de controlo e o site do cliente */}
           <Route path="/exemplos/:slug" element={<SampleSitePage />} />
         </Routes>
       </main>
-
-      {/* 2. Elementos Globais (Aparecem em todas as rotas) */}
-      <Footer />
-      <WhatsAppButton />
     </div>
   );
 }
