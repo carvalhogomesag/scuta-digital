@@ -21,24 +21,24 @@ export interface SampleSite {
 
 export const SAMPLE_SITES: SampleSite[] = [
   {
-    slug: "loja-bairro",
-    companyName: "Mercearia da Esquina",
-    sector: "Comércio Local",
-    pain: "As pessoas passavam à porta mas não entravam. O WhatsApp estava parado e ninguém conhecia as promoções da semana.",
-    solution: "Criámos uma interface com cores quentes e acolhedoras que convidam à confiança, focada em encomendas rápidas e proximidade.",
-    expectedResult: "Aumento de 50% nos pedidos via telemóvel e maior fluxo de vizinhos novos na loja.",
-    heroTitle: "O sabor do nosso bairro, agora à distância de um clique.",
-    heroSubtitle: "Produtos frescos da nossa quinta diretamente para a sua mesa. Encomende pelo WhatsApp e levante na loja em 15 minutos.",
-    ctaText: "Fazer Encomenda",
+    slug: "loja-bairro", // Mantivemos o slug para estabilidade de rotas, agora como EduSpark
+    companyName: "EduSpark ATL",
+    sector: "Educação & Inovação",
+    pain: "Dificuldade em comunicar o valor da sua metodologia diferenciada, perdendo alunos para centros de estudos genéricos e mais baratos.",
+    solution: "Criação de uma plataforma vibrante com animações fluidas e 'Glassmorphism', focada em demonstrar os benefícios da neuroeducação aos pais.",
+    expectedResult: "Aumento de 45% nas marcações de visitas e preenchimento total das vagas antes do início do ano letivo.",
+    heroTitle: "Onde o aprendizado ganha superpoderes.",
+    heroSubtitle: "ATL especializado em neuroeducação e tecnologia em Lisboa. Preparamos o seu filho para os desafios de amanhã com diversão e foco hoje.",
+    ctaText: "Marcar Visita Grátis",
     theme: SAMPLE_THEMES["loja-bairro"],
-    bgStyle: "dots",
+    bgStyle: "mesh",
     features: [
-      { title: "Frescura Diária", desc: "Colhido hoje, na sua mesa hoje.", iconName: "leaf" },
-      { title: "Entrega Grátis", desc: "Entregas em 15 min no seu quarteirão.", iconName: "truck" },
-      { title: "Pague à Porta", desc: "Aceitamos MB WAY e dinheiro na entrega.", iconName: "wallet" }
+      { title: "Neuroeducação", desc: "Métodos baseados em como o cérebro aprende.", iconName: "user" }, // user mapeia para Brain no Vitalis, ajustaremos no Edu
+      { title: "Robótica & Coding", desc: "Programação para os inventores de amanhã.", iconName: "shield" },
+      { title: "Sucesso Escolar", desc: "Apoio personalizado para notas excelentes.", iconName: "award" }
     ],
-    seoTitle: "Mercearia da Esquina | Produtos Frescos em Lisboa",
-    seoDescription: "A sua loja de bairro agora online. Faça encomendas via WhatsApp e receba produtos frescos em casa."
+    seoTitle: "EduSpark ATL | O Melhor Centro de Estudos em Lisboa",
+    seoDescription: "Mais do que um ATL. Um centro de inovação educativa focado em neurociência, robótica e sucesso escolar em Portugal."
   },
   {
     slug: "clinica-vida-mais",

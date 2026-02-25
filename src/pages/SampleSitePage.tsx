@@ -7,13 +7,14 @@ import {
 } from 'lucide-react';
 import { SAMPLE_SITES } from '../data/sampleSites';
 
-// IMPORTAÇÃO DOS SITES COM VIDA PRÓPRIA
+// IMPORTAÇÃO DOS SITES COM VIDA PRÓPRIA (EXPERIÊNCIAS ÚNICAS)
 import VitalisSample from '../samples/VitalisSample';
 import RenovaSample from '../samples/RenovaSample';
+import EduSparkSample from '../samples/EduSparkSample'; // Novo exemplo integrado
 
 /**
  * MAPEAMENTO DE ÍCONES
- * Transforma strings do dataset em componentes visuais para o template dinâmico.
+ * Transforma as strings do dataset em componentes visuais para o template de fallback.
  */
 const IconMap: Record<string, any> = {
   leaf: Leaf, 
@@ -32,21 +33,35 @@ export default function SampleSitePage() {
   const { slug } = useParams<{ slug: string }>();
   const site = SAMPLE_SITES.find((s) => s.slug === slug);
 
+  // Segurança: Se o link não existir, volta para a home
   if (!site) return <Navigate to="/" replace />;
 
+  // SEO: Atualiza o título da aba do navegador
   document.title = `${site.companyName} | Demonstração Scuta Digital`;
 
   /**
-   * CÉREBRO DE RENDERIZAÇÃO
-   * Decide entre o site Bespoke (único) ou o Template Dinâmico (fallback).
+   * CÉREBRO DE RENDERIZAÇÃO BESPOKE
+   * Decide qual experiência visual carregar com base no cliente selecionado.
    */
   const renderBespokeContent = () => {
-    if (slug === 'clinica-vida-mais') return <VitalisSample />;
-    if (slug === 'assistencia-24h') return <RenovaSample />;
+    // 1. Caso seja a Clínica Vitalis (Saúde)
+    if (slug === 'clinica-vida-mais') {
+      return <VitalisSample />;
+    }
 
+    // 2. Caso seja a Renova (Arquitetura)
+    if (slug === 'assistencia-24h') {
+      return <RenovaSample />;
+    }
+
+    // 3. Caso seja o EduSpark (Educação/Tecnologia)
+    if (slug === 'loja-bairro') {
+      return <EduSparkSample />;
+    }
+
+    // 4. Template Dinâmico (Fallback para novos rascunhos rápidos)
     return (
       <div className="pt-0 text-left">
-        {/* HERO DINÂMICO (Para sites sem componente exclusivo ainda) */}
         <section 
           className="relative py-28 md:py-48 px-6 overflow-hidden"
           style={{ backgroundColor: site.theme.secondary }}
@@ -97,7 +112,6 @@ export default function SampleSitePage() {
           </div>
         </section>
 
-        {/* FEATURES DINÂMICAS */}
         <section className="py-24 px-6 bg-white border-y border-zinc-100">
           <div className="max-w-350 mx-auto grid md:grid-cols-3 gap-10">
             {site.features.map((feature, i) => {
@@ -131,26 +145,26 @@ export default function SampleSitePage() {
   return (
     <div className="min-h-screen bg-white selection:bg-black selection:text-white">
       
-      {/* 1. BARRA DE CONTROLO FIXA (MOLDURA DA AGÊNCIA)
-          h-11 garante 44px de altura. z-100 para estar acima de qualquer menu interno. */}
+      {/* 1. BARRA DE CONTROLO FIXA (A assinatura Scuta Digital) 
+          h-11 (44px) + sticky top-0 + z-100 garantem que nada sobreponha este menu. */}
       <nav className="bg-black text-white px-6 sticky top-0 z-100 border-b border-white/5 shadow-2xl flex justify-between items-center h-11">
         <Link to="/" className="flex items-center gap-2 text-zinc-500 hover:text-white transition-all font-bold text-[10px] uppercase tracking-widest leading-none">
           <ArrowLeft size={14} /> Sair do Exemplo
         </Link>
-        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 animate-pulse hidden sm:block leading-none">
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 animate-pulse hidden sm:block leading-none text-center">
           Demonstração de Alta Performance
         </span>
         <div className="flex items-center gap-3 leading-none">
-           <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest leading-none">{site.companyName}</span>
+           <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest leading-none text-right">{site.companyName}</span>
         </div>
       </nav>
 
-      {/* 2. CONTEÚDO DO EXEMPLO */}
+      {/* 2. O SITE REAL (Renderização Condicional Bespoke) */}
       <div className="relative">
         {renderBespokeContent()}
       </div>
 
-      {/* 3. ANÁLISE ESTRATÉGICA (RODAPÉ DE CONVERSÃO) */}
+      {/* 3. ANÁLISE ESTRATÉGICA (O rodapé que prova o valor do seu trabalho) */}
       <section className="py-32 px-6 bg-zinc-950 text-white relative overflow-hidden border-t border-white/5 text-left">
         <div 
           className="absolute top-0 right-0 w-150 h-150 blur-[150px] opacity-10 pointer-events-none rounded-full" 
@@ -198,7 +212,7 @@ export default function SampleSitePage() {
                 <TrendingUp className="text-black" size={32} />
               </div>
               <div className="text-left">
-                <h4 className="text-emerald-400 font-black uppercase text-[10px] tracking-[0.2em] mb-2 text-left">O Resultado Esperado</h4>
+                <h4 className="text-emerald-400 font-black uppercase text-[10px] tracking-[0.2em] mb-2 text-left">O Resultado Final</h4>
                 <p className="text-3xl font-black text-white leading-none tracking-tighter text-left">{site.expectedResult}</p>
               </div>
             </motion.div>

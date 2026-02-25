@@ -3,33 +3,33 @@
  */
 export const SCUTA_THEME = {
   primary: "#000000",
-  secondary: "#18181b", // zinc-900
+  secondary: "#18181b", 
   accent: "#ffffff",
-  text: "#27272a",      // zinc-800
-  muted: "#71717a",     // zinc-500
+  text: "#27272a",      
+  muted: "#71717a",     
   bg: "#ffffff"
 };
 
 /**
- * PALETAS ESPECÍFICAS PARA OS EXEMPLOS (Para o efeito "Site Real")
+ * PALETAS ESPECÍFICAS PARA OS EXEMPLOS
  */
 export const SAMPLE_THEMES = {
-  "loja-bairro": {
-    primary: "#166534", // Verde floresta (Confiança e frescura)
-    secondary: "#fefce8", // Amarelo creme (Acolhimento)
-    accent: "#ea580c",    // Laranja (Promoção/Ação)
+  "loja-bairro": { // CORRIGIDO: Removido o sublinhado (_)
+    primary: "#6366f1",   
+    secondary: "#f8fafc", 
+    accent: "#f43f5e",    
+    font: "font-edu-display"
+  },
+  "clinica-vida-mais": { 
+    primary: "#2563eb",   
+    secondary: "#eff6ff", 
+    accent: "#3b82f6",    
     font: "font-sans"
   },
-  "clinica-vida-mais": {
-    primary: "#0369a1", // Azul oceano (Saúde e Tecnologia)
-    secondary: "#f0f9ff", // Azul gelo (Limpeza)
-    accent: "#22d3ee",    // Cyan (Modernidade)
-    font: "font-sans"
-  },
-  "assistencia-24h": {
-    primary: "#b91c1c", // Vermelho (Urgência)
-    secondary: "#111827", // Azul escuro quase preto (Segurança/Noite)
-    accent: "#facc15",    // Amarelo (Atenção)
-    font: "font-mono"
+  "assistencia-24h": { 
+    primary: "#b91c1c",   
+    secondary: "#111827", 
+    accent: "#facc15",    
+    font: "font-renova-display"
   }
 };
