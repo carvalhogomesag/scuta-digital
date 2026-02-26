@@ -35,7 +35,7 @@ export const UI_STRINGS = {
       why: "Porquê ter um site?",
       solutions: "O que fazemos",
       samples: "Exemplos",
-      faq: "Dúvidas comuns",
+      faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
     },
     hero: {
