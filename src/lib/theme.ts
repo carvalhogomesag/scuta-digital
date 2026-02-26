@@ -25,32 +25,32 @@ export const SCUTA_THEME = {
 
 /**
  * TEMAS BESPOKE PARA OS SAMPLES
- * Mapeamento robusto para evitar erros de 'undefined' no render.
+ * Mapeamento robusto para garantir a personalidade única de cada "cliente".
  */
 export const SAMPLE_THEMES = {
-  // 1. PRISMA MATEMÁTICA
+  // 1. PRISMA MATEMÁTICA (Bright Excellence - Inspirado em MathMaster)
   "prisma-math": { 
-    primary: "#1e40af", 
-    secondary: "#f8fafc", 
-    accent: "#22d3ee", 
-    font: "font-display" 
+    primary: "#4f46e5",    // Indigo Vibrante (Clareza e Foco)
+    secondary: "#ffffff",  // Fundo Branco Imaculado
+    accent: "#06b6d4",     // Cyan Elétrico
+    font: "font-prisma-display" // Space Grotesk (Técnica)
   },
 
-  // 2. EDUSPARK (Antiga 'loja-bairro')
+  // 2. EDUSPARK (Educação & Inovação)
   "edu-spark": { 
     primary: "#6366f1", 
     secondary: "#f8fafc", 
     accent: "#f43f5e", 
-    font: "font-display" 
+    font: "font-edu-display" 
   },
-  "loja-bairro": { // Mantido para compatibilidade com dados antigos
+  "loja-bairro": { 
     primary: "#6366f1", 
     secondary: "#f8fafc", 
     accent: "#f43f5e", 
-    font: "font-display" 
+    font: "font-edu-display" 
   },
 
-  // 3. CLÍNICA VIDA+ (Vitalis)
+  // 3. CLÍNICA VIDA+ (Saúde Premium)
   "clinica-vida-mais": { 
     primary: "#0ea5e9", 
     secondary: "#f0f9ff", 
@@ -58,31 +58,31 @@ export const SAMPLE_THEMES = {
     font: "font-sans" 
   },
 
-  // 4. RENOVA (Antiga 'assistencia-24h')
+  // 4. RENOVA (Arquitetura & Design)
   "renova-home": { 
     primary: "#7f1d1d", 
     secondary: "#111827", 
     accent: "#d4af37", 
-    font: "font-serif" 
+    font: "font-renova-display" 
   },
-  "assistencia-24h": { // Mantido para compatibilidade com dados antigos
+  "assistencia-24h": { 
     primary: "#7f1d1d", 
     secondary: "#111827", 
     accent: "#d4af37", 
-    font: "font-serif" 
+    font: "font-renova-display" 
   },
 
-  // 5. PADEL PRO HUB
+  // 5. PADEL PRO HUB (Desporto & Social)
   "padel-hub": { 
     primary: "#a3e635", 
     secondary: "#020617", 
     accent: "#f59e0b", 
-    font: "font-black" 
+    font: "font-display" 
   },
-  "padel-pro-hub": { // Aliasing para evitar crash se o slug for usado como chave
+  "padel-pro-hub": { 
     primary: "#a3e635", 
     secondary: "#020617", 
     accent: "#f59e0b", 
-    font: "font-black" 
+    font: "font-display" 
   }
 };
