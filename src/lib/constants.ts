@@ -12,9 +12,9 @@ export const BRAND_INFO = {
 };
 
 export const CONTACT_INFO = {
-  phone: "+351 914 044 748",
-  phoneRaw: "351914044748",
-  email: "contacto@scutadigital.pt",
+  phone: "+351 914 044 836",
+  phoneRaw: "351914044836",
+  email: "appschedy@gmail.com",
   location: "Portugal · Atendimento em todo o país",
   whatsappMessage: "Olá! Gostaria de saber como um site pode ajudar o meu negócio a atrair mais clientes.",
 };
