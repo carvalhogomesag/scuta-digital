@@ -17,7 +17,7 @@ export default function PadelSample() {
   }, []);
 
   return (
-    <div className="font-sans text-slate-100 bg-[#020617] overflow-x-hidden selection:bg-[#a3e635] selection:text-black">
+    <div className="font-sans text-slate-100 bg-scuta-primary overflow-x-hidden selection:bg-[#a3e635] selection:text-black">
       
       {/* 1. NAVBAR DESPORTIVA */}
       <nav className={`sticky top-11 w-full z-50 transition-all duration-500 ${
@@ -100,7 +100,7 @@ export default function PadelSample() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {/* Campo Rental */}
-            <div className="md:col-span-2 bg-[#020617] rounded-[3rem] p-12 text-white flex flex-col justify-between relative overflow-hidden group min-h-[450px]">
+            <div className="md:col-span-2 bg-scuta-primary rounded-[3rem] p-12 text-white flex flex-col justify-between relative overflow-hidden group min-h-[450px]">
               <div className="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Trophy size={280} />
               </div>
