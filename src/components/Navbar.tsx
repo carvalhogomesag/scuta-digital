@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ArrowRight } from 'lucide-react';
-// CORREÇÃO: O import agora aponta para a pasta 'lib' onde está o ficheiro
-import { UI_STRINGS, BRAND_INFO } from '../lib/constants'; 
+import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
+import { UI_STRINGS, BRAND_INFO } from '../lib/constants';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const t = UI_STRINGS.pt.navbar;
 
-  // Lista de links atualizada para incluir a nova secção de amostras (#samples)
+  // Detetar o scroll para mudar o aspeto da barra
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navLinks = [
     { name: t.why, href: '#why' },
     { name: t.solutions, href: '#solutions' },
@@ -17,75 +23,92 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-black/5">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo - Identidade Scuta Digital */}
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center shadow-sm">
-            <span className="text-white font-bold text-xl leading-none">S</span>
+    <nav className={`fixed top-0 left-0 right-0 z-100 transition-all duration-500 ${
+      scrolled ? 'py-4' : 'py-8'
+    }`}>
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Container da Barra com Efeito de Vidro Negro */}
+        <div className={`glass-dark rounded-full px-8 py-4 flex items-center justify-between transition-all duration-500 ${
+          scrolled ? 'border-scuta-accent/30 shadow-[0_0_30px_rgba(124,58,237,0.1)]' : 'bg-transparent border-transparent shadow-none'
+        }`}>
+          
+          {/* LOGO: Mais impactante com ícone Scuta */}
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <div className="w-10 h-10 bg-scuta-silk rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12 duration-300 shadow-xl">
+              <span className="text-scuta-primary font-black text-xl leading-none">S</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-black text-lg tracking-tighter text-scuta-silk leading-none">
+                {BRAND_INFO.name}
+              </span>
+              <span className="text-[9px] font-bold text-scuta-highlight uppercase tracking-[0.2em] mt-1">
+                Estratégia Digital
+              </span>
+            </div>
           </div>
-          <span className="font-bold text-xl tracking-tight text-zinc-900">
-            {BRAND_INFO.name}
-          </span>
-        </div>
 
-        {/* Desktop Nav - Foco em clareza para o empresário português */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {/* DESKTOP NAV: Links com efeito de hover premium */}
+          <div className="hidden md:flex items-center gap-10">
+            {navLinks.map((link) => (
+              <a 
+                key={link.href}
+                href={link.href} 
+                className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-scuta-silk transition-all relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-scuta-highlight transition-all group-hover:w-full" />
+              </a>
+            ))}
+          </div>
+
+          {/* CTA: Botão com Gradiente e Brilho */}
+          <div className="hidden md:flex items-center gap-6">
             <a 
-              key={link.href}
-              href={link.href} 
-              className="text-sm font-medium text-zinc-600 hover:text-black transition-colors"
+              href="#contact" 
+              className="px-6 py-3 bg-scuta-silk text-scuta-primary rounded-full text-xs font-black uppercase tracking-widest hover:bg-scuta-highlight hover:text-scuta-primary transition-all flex items-center gap-2 shadow-2xl active:scale-95"
             >
-              {link.name}
+              {t.contact} <ArrowRight size={14} />
             </a>
-          ))}
-          <a 
-            href="#contact" 
-            className="px-6 py-2.5 bg-black text-white rounded-full text-sm font-bold hover:bg-zinc-800 transition-all flex items-center gap-2 active:scale-95"
-          >
-            {t.contact} <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
+          </div>
 
-        {/* Mobile Toggle - Aumentado para melhor toque (UX) */}
-        <button 
-          className="md:hidden p-2 text-zinc-900 focus:outline-none" 
-          onClick={() => setIsOpen(!isOpen)} 
-          aria-label={isOpen ? "Fechar Menu" : "Abrir Menu"}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+          {/* MOBILE TOGGLE */}
+          <button 
+            className="md:hidden text-scuta-silk p-1" 
+            onClick={() => setIsOpen(!isOpen)} 
+            aria-label="Menu"
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu - Estrutura otimizada para telemóveis */}
+      {/* MOBILE MENU: Efeito imersivo */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden absolute top-20 left-0 right-0 bg-white border-b border-black/10 overflow-hidden shadow-2xl"
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="md:hidden absolute top-full left-6 right-6 mt-4 glass-dark rounded-[2.5rem] p-8 border border-white/10 overflow-hidden shadow-2xl"
           >
-            <div className="p-6 flex flex-col gap-4 bg-white">
+            <div className="flex flex-col gap-8 text-left">
               {navLinks.map((link) => (
                 <a 
                   key={link.href}
                   href={link.href} 
                   onClick={() => setIsOpen(false)} 
-                  className="text-lg font-semibold text-zinc-800 py-3 border-b border-zinc-50 flex justify-between items-center"
+                  className="text-2xl font-black text-scuta-silk tracking-tighter flex items-center justify-between group"
                 >
                   {link.name}
-                  <ArrowRight size={16} className="text-zinc-300" />
+                  <ArrowRight size={20} className="text-scuta-highlight opacity-0 group-hover:opacity-100 transition-all" />
                 </a>
               ))}
               <a 
                 href="#contact" 
                 onClick={() => setIsOpen(false)} 
-                className="w-full py-4 mt-2 bg-black text-white rounded-xl text-center font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg"
+                className="w-full py-5 bg-scuta-accent text-white rounded-2xl text-center font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 shadow-xl active:scale-95"
               >
-                {t.contact} <ArrowRight className="w-5 h-5" />
+                {t.contact} <Sparkles size={16} />
               </a>
             </div>
           </motion.div>
