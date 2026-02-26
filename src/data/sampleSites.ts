@@ -30,8 +30,8 @@ export const SAMPLE_SITES: SampleSite[] = [
     heroTitle: "A Matemática deixa de ser um obstáculo. Torna-se a tua vantagem.",
     heroSubtitle: "Explicações personalizadas do 1º Ciclo ao Secundário. Transformamos a ansiedade dos exames na confiança necessária para entrar no curso dos teus sonhos.",
     ctaText: "Agendar Sessão de Avaliação",
-    theme: SAMPLE_THEMES["prisma-math"] || SAMPLE_THEMES["loja-bairro"], // Fallback seguro até criarmos o tema
-    bgStyle: "dots", // Pontos que lembram papel milimétrico/precisão
+    theme: SAMPLE_THEMES["prisma-math"], 
+    bgStyle: "dots",
     features: [
       { title: "Preparação de Elite", desc: "Foco intensivo em Exames Nacionais e testes intermédios.", iconName: "award" },
       { title: "Método Analítico", desc: "Identificamos as lacunas de base que impedem o progresso atual.", iconName: "shield" },
@@ -50,7 +50,7 @@ export const SAMPLE_SITES: SampleSite[] = [
     heroTitle: "Onde a aprendizagem ganha superpoderes.",
     heroSubtitle: "ATL especializado em neuroeducação e tecnologia em Lisboa. Preparamos o seu filho para os desafios de amanhã com diversão e foco hoje.",
     ctaText: "Marcar Visita Grátis",
-    theme: SAMPLE_THEMES["loja-bairro"],
+    theme: SAMPLE_THEMES["edu-spark"],
     bgStyle: "mesh",
     features: [
       { title: "Neuroeducação", desc: "Métodos baseados em como o cérebro realmente aprende.", iconName: "user" },
@@ -90,7 +90,7 @@ export const SAMPLE_SITES: SampleSite[] = [
     heroTitle: "Redefinindo o seu Espaço Vital.",
     heroSubtitle: "Especialistas em reformas residenciais de alto padrão. Unimos funcionalidade, estética e precisão técnica para criar ambientes extraordinários.",
     ctaText: "Ver Portfólio",
-    theme: SAMPLE_THEMES["assistencia-24h"],
+    theme: SAMPLE_THEMES["renova-home"],
     bgStyle: "simple",
     features: [
       { title: "Gestão Total", desc: "Tratamos de tudo, da licença à entrega das chaves.", iconName: "shield" },
