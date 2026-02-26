@@ -1,13 +1,22 @@
 <!doctype html>
 <html lang="pt-PT">
   <head>
+    <!-- Google tag (gtag.js) - Carregamento Prioritário -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZ576TG188"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DZ576TG188');
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- SEO Básico -->
-    <title>Scuta Digital | Sites que trazem Clientes e Vendas em Portugal</title>
-    <meta name="description" content="Criação de sites profissionais em Portugal. Apareça no Google, facilite agendamentos e venda mais com um site feito para o seu negócio." />
-    <meta name="keywords" content="criação de sites portugal, web design portugal, fazer site empresa, aparecer no google, agência digital" />
+    <!-- SEO Básico e Autoridade -->
+    <title>Scuta Digital | Sites de Alta Performance em Portugal</title>
+    <meta name="description" content="Transformamos o seu negócio numa referência digital. Sites profissionais focados em conversão, SEO local e resultados reais para o mercado português." />
+    <meta name="keywords" content="criação de sites portugal, web design luxo, agência digital lisboa, aparecer no google, landing pages conversão" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://scutadigital.pt/" />
     
@@ -19,16 +28,17 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_PT" />
     <meta property="og:site_name" content="Scuta Digital" />
-    <meta property="og:title" content="Scuta Digital | Pare de depender do passa-palavra" />
-    <meta property="og:description" content="Criamos sites profissionais que funcionam como o seu melhor funcionário: tiram dúvidas e trazem contactos 24h por dia." />
+    <meta property="og:title" content="Scuta Digital | Pare de depender apenas do passa-palavra" />
+    <meta property="og:description" content="Criamos a sua infraestrutura de vendas online. Sites que trabalham 24h por dia para trazer novos clientes." />
     <meta property="og:url" content="https://scutadigital.pt/" />
+    <meta property="og:image" content="/og-image.jpg" /> <!-- Certifique-se de ter esta imagem no public -->
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Scuta Digital | Criação de Sites Profissionais" />
-    <meta name="twitter:description" content="Venda mais e apareça no topo do Google com um site otimizado para o mercado português." />
+    <meta name="twitter:title" content="Scuta Digital | Presença Digital de Elite" />
+    <meta name="twitter:description" content="Venda mais e domine o Google com um site otimizado para o mercado nacional." />
 
-    <!-- Dados Estruturados (JSON-LD) para FAQPage - 100% Sincronizado com FAQ.tsx -->
+    <!-- Dados Estruturados (JSON-LD) - FAQPage -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -40,7 +50,7 @@
           "name": "Preciso de saber de informática para ter um site?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Não. Nós tratamos de toda a parte técnica. O seu único trabalho será receber os contactos dos novos clientes."
+            "text": "Não. A Scuta Digital trata de toda a engenharia técnica. O seu foco permanece na gestão do seu negócio."
           }
         },
         {
@@ -48,7 +58,7 @@
           "name": "O meu site vai funcionar no telemóvel?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sim. Hoje em dia quase todos os clientes usam o telemóvel. O seu site será rápido e fácil de ler em qualquer ecrã."
+            "text": "Sim. Todos os nossos projetos são Mobile-First, garantindo uma experiência fluida em qualquer dispositivo."
           }
         },
         {
@@ -56,7 +66,7 @@
           "name": "Quanto tempo demora até o site estar pronto?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Normalmente, entre 1 a 2 semanas, dependendo do que o seu negócio precisa."
+            "text": "O nosso rito de entrega padrão é de 14 a 21 dias, dependendo da complexidade do ecossistema digital."
           }
         },
         {
@@ -64,7 +74,7 @@
           "name": "O meu negócio vai aparecer no Google?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sim. Configuramos o site com as informações certas para que o Google o mostre a quem procura pelos seus serviços na sua região."
+            "text": "Sim. Implementamos técnicas avançadas de SEO (Search Engine Optimization) para garantir visibilidade nas pesquisas relevantes da sua região."
           }
         }
       ]
@@ -72,11 +82,10 @@
     </script>
   </head>
   
-  <!-- O aviso amarelo do CSS resolve-se aplicando as classes diretamente aqui no body -->
-  <body class="antialiased text-zinc-900 bg-white">
+  <!-- Body ajustado para evitar flash branco (Midnight Obsidian Theme) -->
+  <body class="antialiased text-slate-50 bg-[#030712]">
     
-    <!-- O Netlify precisa de ver este formulário no HTML para ativar o processamento de envios -->
-    <!-- As opções agora coincidem com o Contact.tsx -->
+    <!-- Netlify Form Handling -->
     <form name="contact" netlify netlify-honeypot="bot-field" hidden>
       <input type="text" name="nome" />
       <input type="email" name="email" />
