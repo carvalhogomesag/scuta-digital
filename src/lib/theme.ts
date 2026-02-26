@@ -3,29 +3,17 @@
  * Focado em profundidade, contraste e impacto visual "Premium".
  */
 export const SCUTA_THEME = {
-  // Base: Um azul-noite quase preto, mais rico que o preto puro
   primary: "#020617",    // slate-950
-  
-  // Destaque: Violeta Elétrico (Inovação e Criatividade)
   accent: "#7c3aed",     // violet-600
-  
-  // Sucesso: Esmeralda Digital (Crescimento e Resultados)
   highlight: "#10b981",  // emerald-500
-  
-  // Superfícies: Para cartões e secções com profundidade
   surface: "#0f172a",    // slate-900
-  
-  // Texto: Branco seda e cinza suave para legibilidade luxuosa
   textMain: "#f8fafc",   // slate-50
   textMuted: "#94a3b8",  // slate-400
-  
-  // Fundo Geral
   bg: "#ffffff" 
 };
 
 /**
  * PALETAS ESPECÍFICAS PARA OS EXEMPLOS
- * Mantidas para preservar a identidade única de cada projeto do portfólio.
  */
 export const SAMPLE_THEMES = {
   "loja-bairro": { 
@@ -45,5 +33,12 @@ export const SAMPLE_THEMES = {
     secondary: "#111827", 
     accent: "#facc15",    
     font: "font-renova-display"
+  },
+  // --- NOVO TEMA: PADEL PRO HUB (DESPORTO & SOCIAL) ---
+  "padel-hub": { 
+    primary: "#a3e635",   // Lime 400 (Energia e Desporto)
+    secondary: "#020617", // Slate 950 (Fundo Profundo/Noite)
+    accent: "#f59e0b",    // Amber 500 (Vibe da Cafetaria/Social)
+    font: "font-display"  // Outfit (Moderna e Dinâmica)
   }
 };

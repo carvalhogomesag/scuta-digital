@@ -14,14 +14,14 @@ export interface SampleSite {
   features: { title: string; desc: string; iconName: string }[];
   seoTitle: string;
   seoDescription: string;
-  // Propriedades de Estilo Dinâmico
-  theme: typeof SAMPLE_THEMES["loja-bairro"]; 
+  // Propriedades de Estilo Dinâmico - Atualizado para aceitar o novo tema
+  theme: any; 
   bgStyle: "mesh" | "dots" | "simple";
 }
 
 export const SAMPLE_SITES: SampleSite[] = [
   {
-    slug: "loja-bairro", // Mantivemos o slug para estabilidade de rotas, agora como EduSpark
+    slug: "loja-bairro",
     companyName: "EduSpark ATL",
     sector: "Educação & Inovação",
     pain: "Dificuldade em comunicar o valor da sua metodologia diferenciada, perdendo alunos para centros de estudos genéricos e mais baratos.",
@@ -33,7 +33,7 @@ export const SAMPLE_SITES: SampleSite[] = [
     theme: SAMPLE_THEMES["loja-bairro"],
     bgStyle: "mesh",
     features: [
-      { title: "Neuroeducação", desc: "Métodos baseados em como o cérebro aprende.", iconName: "user" }, // user mapeia para Brain no Vitalis, ajustaremos no Edu
+      { title: "Neuroeducação", desc: "Métodos baseados em como o cérebro aprende.", iconName: "user" },
       { title: "Robótica & Coding", desc: "Programação para os inventores de amanhã.", iconName: "shield" },
       { title: "Sucesso Escolar", desc: "Apoio personalizado para notas excelentes.", iconName: "award" }
     ],
@@ -79,5 +79,26 @@ export const SAMPLE_SITES: SampleSite[] = [
     ],
     seoTitle: "Renova Home | Reformas e Design de Luxo em Portugal",
     seoDescription: "Transforme a sua casa com a Renova. Especialistas em design de interiores e reformas integrais de alto padrão."
+  },
+  // --- NOVO EXEMPLO: PADEL PRO HUB ---
+  {
+    slug: "padel-pro-hub",
+    companyName: "Padel Pro Hub",
+    sector: "Desporto & Lazer",
+    pain: "Dificuldade em preencher campos em horários vazios e excesso de tempo gasto no WhatsApp para gerir reservas manuais.",
+    solution: "Portal focado em conversão direta com sistema de reservas intuitivo e uma secção 'Social & Coffee' para aumentar o consumo médio por cliente.",
+    expectedResult: "Campos com 90% de ocupação e automação total do processo de reserva e pagamento.",
+    heroTitle: "Mais do que um jogo, uma experiência social.",
+    heroSubtitle: "Campos de última geração, academia para todos os níveis e a melhor cafetaria de convívio pós-jogo em Lisboa.",
+    ctaText: "Reservar Campo Agora",
+    theme: SAMPLE_THEMES["padel-hub"],
+    bgStyle: "mesh",
+    features: [
+      { title: "Cancha Premium", desc: "Vidro panorâmico e relva oficial WPT.", iconName: "award" },
+      { title: "Social Club", desc: "Cafetaria, balneários de luxo e zona Lounge.", iconName: "user" },
+      { title: "App de Reservas", desc: "Marque e pague o seu campo em 30 segundos.", iconName: "clock" }
+    ],
+    seoTitle: "Padel Pro Hub | O Melhor Clube de Padel em Lisboa",
+    seoDescription: "Jogue Padel em campos premium. Escola de Padel para todos os níveis, aluguer online e ambiente social único."
   }
 ];
