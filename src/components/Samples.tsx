@@ -5,13 +5,13 @@ import { SAMPLE_SITES } from '../data/sampleSites';
 
 export default function Samples() {
   return (
-    <section id="samples" className="relative py-32 px-6 overflow-hidden noise">
-      {/* Luz de fundo decorativa */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-scuta-accent/5 blur-[180px] pointer-events-none" />
+    <section id="samples" className="relative py-32 px-6 overflow-hidden noise bg-scuta-primary">
+      {/* Brilho de fundo para profundidade */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-scuta-accent/5 blur-[180px] pointer-events-none opacity-50" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* --- CABEÇALHO ESTRATÉGICO --- */}
+        {/* --- CABEÇALHO --- */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -20,11 +20,11 @@ export default function Samples() {
             className="max-w-2xl text-left"
           >
             <div className="flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-4">
-              <Sparkles size={14} /> Portfólio de Alta Conversão
+              <Sparkles size={14} className="animate-pulse" /> Portfólio Estratégico
             </div>
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-scuta-silk leading-none">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-none">
               Experiências que <br />
-              <span className="text-scuta-gradient">Geram Resultados.</span>
+              <span className="text-scuta-gradient">Convertem Cliques.</span>
             </h2>
           </motion.div>
 
@@ -32,9 +32,9 @@ export default function Samples() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-slate-400 max-w-sm text-left font-medium leading-relaxed md:mb-2"
+            className="text-slate-300 max-w-sm text-left font-medium leading-relaxed md:mb-2 opacity-80"
           >
-            Não criamos apenas sites. Desenhamos ferramentas de venda personalizadas para cada setor do mercado português.
+            Cada projeto é um ecossistema único, desenhado para resolver as dores específicas do mercado português.
           </motion.p>
         </div>
 
@@ -50,90 +50,89 @@ export default function Samples() {
             >
               <Link 
                 to={`/exemplos/${site.slug}`}
-                className="group relative block h-full bento-card border border-white/5 overflow-hidden"
+                className="group relative block h-full bento-card border border-white/10 overflow-hidden bg-scuta-surface/90"
               >
-                {/* Efeito de Brilho de Fundo Dinâmico (Sutil) */}
+                {/* Efeito de Brilho Dinâmico */}
                 <div 
-                  className="absolute -top-24 -right-24 w-48 h-48 blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 rounded-full"
+                  className="absolute -top-24 -right-24 w-48 h-48 blur-[80px] opacity-0 group-hover:opacity-30 transition-opacity duration-700 rounded-full"
                   style={{ backgroundColor: site.theme.primary }}
                 />
 
-                {/* Badge do Setor com Estilo Glass */}
-                <div className="flex justify-between items-start mb-10">
+                {/* Badge do Setor */}
+                <div className="flex justify-between items-start mb-12">
                   <span 
-                    className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-slate-300 group-hover:border-white/20 transition-all"
+                    className="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-white shadow-2xl"
                   >
                     {site.sector}
                   </span>
                   <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-scuta-primary border border-white/5 text-slate-500 group-hover:text-scuta-silk group-hover:border-white/20 transition-all shadow-2xl"
+                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-black/40 border border-white/10 text-white group-hover:bg-white group-hover:text-black transition-all shadow-2xl"
                   >
                     <MousePointer2 size={18} />
                   </div>
                 </div>
 
-                {/* Conteúdo do Cliente */}
-                <div className="mb-8 text-left">
-                  <div className="flex items-center gap-2 text-scuta-highlight mb-3 text-[10px] font-black uppercase tracking-widest">
-                    <AlertCircle size={14} /> Caso de Estudo
+                {/* Conteúdo: FOCO TOTAL EM CONTRASTE */}
+                <div className="mb-10 text-left">
+                  <div className="flex items-center gap-2 text-scuta-highlight mb-4 text-[10px] font-black uppercase tracking-[0.2em]">
+                    <AlertCircle size={14} strokeWidth={3} /> Caso de Estudo
                   </div>
-                  <h3 className="text-3xl font-black text-scuta-silk mb-4 tracking-tighter leading-none group-hover:text-scuta-gradient transition-all">
+                  
+                  {/* Título Branco Puro */}
+                  <h3 className="text-3xl md:text-4xl font-black text-white mb-5 tracking-tighter leading-none group-hover:text-scuta-gradient transition-all duration-300">
                     {site.companyName}
                   </h3>
-                  <p className="text-sm text-slate-500 font-medium leading-relaxed line-clamp-2">
+                  
+                  {/* Descrição: Mudada de Slate-500 para Slate-200 (Contraste Máximo) */}
+                  <p className="text-base text-slate-200 font-medium leading-relaxed line-clamp-3 opacity-90 group-hover:opacity-100 transition-opacity">
                     {site.pain}
                   </p>
                 </div>
 
-                {/* Barra de Progresso/Sucesso Visual */}
-                <div className="flex items-center gap-3 text-scuta-silk/90 mb-10 text-left">
+                {/* Barra de Status */}
+                <div className="flex items-center gap-3 py-3 px-4 rounded-2xl bg-white/5 border border-white/5 mb-10 text-left">
                   <div 
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                    style={{ backgroundColor: `${site.theme.primary}20`, color: site.theme.primary }}
+                    className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0 shadow-lg"
+                    style={{ backgroundColor: site.theme.primary, color: 'white' }}
                   >
-                    <CheckCircle size={18} />
+                    <CheckCircle size={14} strokeWidth={3} />
                   </div>
-                  <p className="text-xs font-bold leading-tight uppercase tracking-tight">
-                    Solução de Alta Performance Ativada
+                  <p className="text-[10px] font-black text-white/90 uppercase tracking-widest">
+                    Performance Ativada
                   </p>
                 </div>
 
-                {/* Botão de Ação Dinâmico */}
+                {/* Botão de Ação */}
                 <div 
-                  className="p-4 rounded-xl flex items-center justify-between transition-all duration-500 shadow-2xl group-hover:scale-[1.02]"
+                  className="p-5 rounded-2xl flex items-center justify-between transition-all duration-500 shadow-[0_15px_30px_-10px_rgba(0,0,0,0.5)] group-hover:scale-[1.02] group-hover:shadow-scuta-highlight/20"
                   style={{ backgroundColor: site.theme.primary }}
                 >
                   <div className="flex items-center gap-3">
-                    <TrendingUp size={18} className="text-white/80" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white">Explorar Estratégia</span>
+                    <TrendingUp size={20} className="text-white" strokeWidth={3} />
+                    <span className="text-xs font-black uppercase tracking-widest text-white">Analisar Estratégia</span>
                   </div>
-                  <ArrowRight size={18} className="text-white transform group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight size={20} className="text-white transform group-hover:translate-x-1 transition-transform" />
                 </div>
 
-                {/* Borda de Brilho (Stroke) Ativa no Hover - CORRIGIDO PARA rounded-4xl */}
+                {/* Borda de Iluminação no Hover */}
                 <div 
                   className="absolute inset-0 rounded-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border-2 border-transparent"
-                  style={{ borderColor: `${site.theme.primary}40` }}
+                  style={{ borderColor: `${site.theme.primary}60` }}
                 />
               </Link>
             </motion.div>
           ))}
         </div>
 
-        {/* --- FOOTER DA SECÇÃO --- */}
+        {/* --- FOOTER SECÇÃO --- */}
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="mt-24 pt-12 border-t border-white/5 flex flex-col items-center gap-6"
         >
-          <div className="flex gap-2 text-scuta-highlight animate-pulse">
-            <Sparkles size={16} />
-            <Sparkles size={16} />
-            <Sparkles size={16} />
-          </div>
-          <p className="text-zinc-500 font-black text-[10px] uppercase tracking-[0.5em] text-center">
-            Qualidade Certificada · Scuta Digital Engine
+          <p className="text-slate-500 font-black text-[10px] uppercase tracking-[0.5em] text-center">
+            Standard de Qualidade Scuta Digital
           </p>
         </motion.div>
       </div>

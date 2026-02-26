@@ -61,7 +61,14 @@
 
   /* Cartão Bento Refinado (Azul mais presente e opacidade firme) */
   .bento-card {
-    @apply bg-scuta-surface/60 backdrop-blur-xl border border-white/5 shadow-2xl rounded-4xl p-8 transition-all duration-500 hover:border-blue-500/30 hover:bg-scuta-surface/80 hover:shadow-[0_0_50px_-10px_rgba(59,130,246,0.2)];
+    /* Fundo mais denso e azulado para dar base ao texto claro */
+    @apply bg-scuta-surface/90 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-4xl p-8 transition-all duration-500;
+    
+    /* No hover, o cartão ilumina-se levemente */
+    &:hover {
+      @apply border-white/20 bg-scuta-surface;
+      shadow: 0 0 50px -10px rgba(59, 130, 246, 0.3);
+    }
   }
 
   .blob {

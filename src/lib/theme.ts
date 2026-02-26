@@ -14,7 +14,7 @@ export const SCUTA_THEME = {
   highlight: "#10b981",  // Esmeralda
   
   textMain: "#f8fafc",   
-  textMuted: "#94a3b8",  
+  textMuted: "#cbd5e1",  
   bg: "#ffffff" 
 };
 
