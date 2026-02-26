@@ -14,28 +14,48 @@ export interface SampleSite {
   features: { title: string; desc: string; iconName: string }[];
   seoTitle: string;
   seoDescription: string;
-  // Propriedades de Estilo Dinâmico - Atualizado para aceitar o novo tema
+  // Propriedades de Estilo Dinâmico
   theme: any; 
   bgStyle: "mesh" | "dots" | "simple";
 }
 
 export const SAMPLE_SITES: SampleSite[] = [
   {
-    slug: "loja-bairro",
+    slug: "prisma-matematica",
+    companyName: "Prisma Matemática",
+    sector: "Educação de Alta Performance",
+    pain: "Pais preocupados com a média de acesso à universidade e alunos com 'bloqueio' matemático em métodos de ensino genéricos.",
+    solution: "Interface de 'Clareza Absoluta' com design geométrico minimalista. Foco total em autoridade técnica, provas de sucesso (médias reais) e um sistema de agendamento ultra-rápido.",
+    expectedResult: "Elevação do valor/hora em 60% e preenchimento total das vagas trimestrais em apenas 15 dias.",
+    heroTitle: "A Matemática deixa de ser um obstáculo. Torna-se a tua vantagem.",
+    heroSubtitle: "Explicações personalizadas do 1º Ciclo ao Secundário. Transformamos a ansiedade dos exames na confiança necessária para entrar no curso dos teus sonhos.",
+    ctaText: "Agendar Sessão de Avaliação",
+    theme: SAMPLE_THEMES["prisma-math"] || SAMPLE_THEMES["loja-bairro"], // Fallback seguro até criarmos o tema
+    bgStyle: "dots", // Pontos que lembram papel milimétrico/precisão
+    features: [
+      { title: "Preparação de Elite", desc: "Foco intensivo em Exames Nacionais e testes intermédios.", iconName: "award" },
+      { title: "Método Analítico", desc: "Identificamos as lacunas de base que impedem o progresso atual.", iconName: "shield" },
+      { title: "Relatórios Mensais", desc: "Feedback detalhado para os pais sobre a evolução cognitiva.", iconName: "file" }
+    ],
+    seoTitle: "Prisma Matemática | Explicações de Alta Performance em Portugal",
+    seoDescription: "Domina a matemática do 1º ao 12º ano. Preparação para exames, apoio personalizado e resultados garantidos com o método Prisma."
+  },
+  {
+    slug: "edu-spark",
     companyName: "EduSpark ATL",
     sector: "Educação & Inovação",
-    pain: "Dificuldade em comunicar o valor da sua metodologia diferenciada, perdendo alunos para centros de estudos genéricos e mais baratos.",
+    pain: "Dificuldade em comunicar o valor da sua metodologia diferenciada, perdendo alunos para centros de estudos genéricos.",
     solution: "Criação de uma plataforma vibrante com animações fluidas e 'Glassmorphism', focada em demonstrar os benefícios da neuroeducação aos pais.",
     expectedResult: "Aumento de 45% nas marcações de visitas e preenchimento total das vagas antes do início do ano letivo.",
-    heroTitle: "Onde o aprendizado ganha superpoderes.",
+    heroTitle: "Onde a aprendizagem ganha superpoderes.",
     heroSubtitle: "ATL especializado em neuroeducação e tecnologia em Lisboa. Preparamos o seu filho para os desafios de amanhã com diversão e foco hoje.",
     ctaText: "Marcar Visita Grátis",
     theme: SAMPLE_THEMES["loja-bairro"],
     bgStyle: "mesh",
     features: [
-      { title: "Neuroeducação", desc: "Métodos baseados em como o cérebro aprende.", iconName: "user" },
+      { title: "Neuroeducação", desc: "Métodos baseados em como o cérebro realmente aprende.", iconName: "user" },
       { title: "Robótica & Coding", desc: "Programação para os inventores de amanhã.", iconName: "shield" },
-      { title: "Sucesso Escolar", desc: "Apoio personalizado para notas excelentes.", iconName: "award" }
+      { title: "Sucesso Escolar", desc: "Apoio personalizado para notas de excelência.", iconName: "award" }
     ],
     seoTitle: "EduSpark ATL | O Melhor Centro de Estudos em Lisboa",
     seoDescription: "Mais do que um ATL. Um centro de inovação educativa focado em neurociência, robótica e sucesso escolar em Portugal."
@@ -54,14 +74,14 @@ export const SAMPLE_SITES: SampleSite[] = [
     bgStyle: "mesh",
     features: [
       { title: "Acordos e Seguros", desc: "Trabalhamos com ADSE, Multicare e AdvanceCare.", iconName: "shield" },
-      { title: "Equipa Sénior", desc: "Médicos especialistas com vasta experiência.", iconName: "user" },
-      { title: "Exames Online", desc: "Aceda aos seus resultados no telemóvel.", iconName: "file" }
+      { title: "Equipa Sénior", desc: "Médicos especialistas com vasta experiência clínica.", iconName: "user" },
+      { title: "Exames Online", desc: "Aceda aos seus resultados diretamente no telemóvel.", iconName: "file" }
     ],
     seoTitle: "Clínica Vida+ | Consultas e Exames Online",
     seoDescription: "Marque a sua consulta na Clínica Vida+. Atendimento personalizado e acordos com todos os seguros."
   },
   {
-    slug: "assistencia-24h",
+    slug: "renova-home",
     companyName: "Renova Home & Design",
     sector: "Arquitetura & Reformas",
     pain: "Muitos projetos de qualidade realizados, mas uma imagem online antiquada que não atraía clientes de alto padrão.",
@@ -80,7 +100,6 @@ export const SAMPLE_SITES: SampleSite[] = [
     seoTitle: "Renova Home | Reformas e Design de Luxo em Portugal",
     seoDescription: "Transforme a sua casa com a Renova. Especialistas em design de interiores e reformas integrais de alto padrão."
   },
-  // --- NOVO EXEMPLO: PADEL PRO HUB ---
   {
     slug: "padel-pro-hub",
     companyName: "Padel Pro Hub",

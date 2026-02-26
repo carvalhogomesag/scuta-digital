@@ -1,114 +1,136 @@
 import { motion } from 'motion/react';
-import { Smartphone, Search, PenTool, Wrench, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { UI_STRINGS } from '../lib/constants';
+import { 
+  Smartphone, 
+  Search, 
+  PenTool, 
+  ShieldCheck, 
+  ArrowRight, 
+  CheckCircle2, 
+  Zap,
+  Layers
+} from 'lucide-react';
 
 export default function Solutions() {
-  const t = UI_STRINGS.pt.solutions;
-
   const solutions = [
     {
       icon: Smartphone,
-      title: "Funciona em qualquer ecrã",
-      description: "O seu site será fácil de ler tanto no computador como no telemóvel. O cliente encontra o que precisa num segundo.",
+      title: "Mobile-First de Elite",
+      description: "80% dos seus clientes estão no telemóvel. Criamos interfaces que carregam instantaneamente e convertem cliques em chamadas.",
       delay: 0.1
     },
     {
       icon: Search,
-      title: "Configurado para o Google",
-      description: "Preparamos tudo para que o Google entenda o seu negócio e o mostre a quem procura os seus serviços na sua zona.",
+      title: "Domínio Orgânico (SEO)",
+      description: "Não basta existir. Configuramos a sua presença para que o Google o coloque à frente da concorrência local no momento da decisão.",
       delay: 0.2
     },
     {
       icon: PenTool,
-      title: "Textos que convencem",
-      description: "Ajudamos a escrever de forma simples e profissional para que o cliente sinta confiança e carregue no botão para ligar.",
+      title: "Copywriting Comercial",
+      description: "Textos escritos por especialistas em vendas. Transformamos a história da sua empresa num argumento de venda irresistível.",
       delay: 0.3
     },
     {
-      icon: Wrench,
-      title: "Manutenção incluída",
-      description: "Nós tratamos da segurança e das atualizações por si. Assim, pode focar o seu tempo apenas no seu negócio.",
+      icon: ShieldCheck,
+      title: "Gestão 'Zero Preocupação'",
+      description: "Segurança, backups e atualizações críticas. Tratamos de toda a infraestrutura técnica para que se foque apenas em faturar.",
       delay: 0.4
     }
   ];
 
   return (
-    <section id="solutions" className="relative py-12 px-6 noise bg-scuta-primary overflow-hidden">
-      {/* Brilho de fundo para separar da secção anterior */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-12 gap-16 items-start">
+    <section id="solutions" className="relative py-24 md:py-32 px-6 bg-[#030712] overflow-hidden">
+      {/* Noise e Textura de Fundo */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
-          {/* LADO ESQUERDO: Texto de Apoio e Checklist Premium */}
+          {/* LADO ESQUERDO: A Narrativa de Valor */}
           <div className="lg:col-span-5 lg:sticky lg:top-32">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-scuta-accent font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">
-                O Nosso Método
-              </span>
-              <h2 className="text-4xl md:text-6xl font-black text-scuta-silk leading-tight tracking-tighter mb-8">
-                {t.title.split('para').map((part, i) => (
-                  <span key={i} className={i === 1 ? "text-scuta-gradient block" : ""}>
-                    {i === 1 ? `para ${part}` : part}
-                  </span>
-                ))}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-black uppercase tracking-[0.3em] mb-6">
+                <Zap size={12} className="fill-current" />
+                Engenharia de Conversão
+              </div>
+              
+              <h2 className="text-5xl md:text-7xl font-black text-white leading-[0.85] tracking-tighter mb-8">
+                A infraestrutura <br />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-emerald-400">
+                  dos 1% do mercado.
+                </span>
               </h2>
-              <p className="text-lg text-slate-400 mb-10 leading-relaxed font-medium">
-                Desenvolvemos um processo sem complicações. Não precisa de ser um perito em tecnologia — nós entregamos tudo pronto a faturar.
+              
+              <p className="text-lg text-slate-400 mb-10 leading-relaxed font-medium max-w-md">
+                Eliminamos a barreira tecnológica entre a sua empresa e o sucesso digital. Entregamos uma presença de luxo, pronta a dominar o seu setor.
               </p>
               
-              <ul className="space-y-6 mb-12">
+              <ul className="space-y-5 mb-12">
                 {[
-                  "Design que transmite confiança imediata",
-                  "Botão direto para WhatsApp ou Telefone",
-                  "Alojamento rápido e seguro em Portugal",
-                  "Apoio total para mudar preços ou fotos"
+                  "Design que transmite autoridade imediata",
+                  "Arquitetura focada em agendamentos/vendas",
+                  "Alojamento de ultra-baixa latência em Portugal",
+                  "Suporte prioritário via WhatsApp dedicado"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-4 text-scuta-silk font-bold text-sm group">
-                    <div className="w-6 h-6 rounded-full bg-scuta-highlight/10 flex items-center justify-center shrink-0 group-hover:bg-scuta-highlight transition-colors duration-300">
-                      <CheckCircle2 size={14} className="text-scuta-highlight group-hover:text-scuta-primary" />
+                  <li key={i} className="flex items-center gap-4 text-slate-200 font-bold text-sm group">
+                    <div className="size-6 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:bg-emerald-500 transition-colors duration-500">
+                      <CheckCircle2 size={14} className="text-emerald-400 group-hover:text-black" />
                     </div>
                     <span className="opacity-80 group-hover:opacity-100 transition-opacity">{item}</span>
                   </li>
                 ))}
               </ul>
 
-              <a 
+              <motion.a 
                 href="#contact" 
-                className="inline-flex items-center gap-3 px-8 py-4 bg-scuta-silk text-scuta-primary rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-scuta-highlight transition-all active:scale-95 shadow-2xl"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-4 px-10 py-5 bg-white text-black rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-[0_20px_40px_rgba(255,255,255,0.05)]"
               >
-                Pedir Orçamento Grátis <ArrowRight size={18} />
-              </a>
+                Solicitar Consultoria <ArrowRight size={18} />
+              </motion.a>
             </motion.div>
           </div>
 
-          {/* LADO DIREITO: Grelha Assimétrica de Soluções */}
+          {/* LADO DIREITO: Bento Grid de Soluções */}
           <div className="lg:col-span-7">
             <div className="grid sm:grid-cols-2 gap-6">
               {solutions.map((solution, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: solution.delay }}
-                  className={`bento-card border border-white/5 flex flex-col group ${
-                    index === 1 || index === 3 ? 'sm:translate-y-12' : ''
+                  transition={{ delay: solution.delay, duration: 0.6 }}
+                  whileHover={{ y: -8 }}
+                  className={`relative p-10 rounded-4xl bg-[#0a1229]/60 backdrop-blur-3xl border border-white/5 flex flex-col group overflow-hidden ${
+                    index % 2 !== 0 ? 'sm:mt-12' : ''
                   }`}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6 border border-white/10 group-hover:bg-scuta-accent/20 group-hover:border-scuta-accent/40 transition-all duration-500">
-                    <solution.icon className="w-6 h-6 text-scuta-silk group-hover:text-scuta-accent" />
+                  {/* Efeito de brilho interno no hover */}
+                  <div className="absolute inset-0 bg-linear-to-br from-violet-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  
+                  <div className="size-14 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-violet-500/50 group-hover:bg-violet-500/10 transition-all duration-500 relative z-10">
+                    <solution.icon className="size-7 text-white group-hover:text-violet-400 transition-colors" />
                   </div>
-                  <h4 className="text-xl font-black text-scuta-silk mb-3 tracking-tight group-hover:text-scuta-accent transition-colors">
+                  
+                  <h4 className="text-2xl font-black text-white mb-4 tracking-tighter relative z-10">
                     {solution.title}
                   </h4>
-                  <p className="text-sm text-slate-400 leading-relaxed font-medium">
+                  
+                  <p className="text-slate-400 leading-relaxed font-medium text-sm relative z-10">
                     {solution.description}
                   </p>
+
+                  <div className="mt-8 pt-6 border-t border-white/5 relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <span className="text-[10px] font-black text-violet-400 uppercase tracking-widest flex items-center gap-2">
+                      Padrão Scuta Digital <Layers size={12} />
+                    </span>
+                  </div>
                 </motion.div>
               ))}
             </div>
