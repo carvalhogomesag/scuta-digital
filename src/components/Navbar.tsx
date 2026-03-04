@@ -8,7 +8,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const t = UI_STRINGS.pt.navbar;
 
-  // Detetar o scroll para mudar o aspeto da barra
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
@@ -27,14 +26,15 @@ export default function Navbar() {
       scrolled ? 'py-4' : 'py-8'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
-        {/* Container da Barra com Efeito de Vidro Negro */}
-        <div className={`glass-dark rounded-full px-8 py-4 flex items-center justify-between transition-all duration-500 ${
-          scrolled ? 'border-scuta-accent/30 shadow-[0_0_30px_rgba(124,58,237,0.1)]' : 'bg-transparent border-transparent shadow-none'
+        {/* Container Glass com maior transparência para absorver o fundo das secções */}
+        <div className={`backdrop-blur-xl border transition-all duration-500 rounded-full px-8 py-4 flex items-center justify-between ${
+          scrolled 
+            ? 'bg-scuta-primary/80 border-white/10 shadow-2xl' 
+            : 'bg-transparent border-transparent'
         }`}>
           
-          {/* LOGO: Mais impactante com ícone Scuta */}
           <div className="flex items-center gap-3 group cursor-pointer">
-            <div className="w-10 h-10 bg-scuta-silk rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12 duration-300 shadow-xl">
+            <div className="size-10 bg-scuta-silk rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12 duration-300 shadow-xl">
               <span className="text-scuta-primary font-black text-xl leading-none">S</span>
             </div>
             <div className="flex flex-col">
@@ -47,13 +47,12 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* DESKTOP NAV: Links com efeito de hover premium */}
           <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <a 
                 key={link.href}
                 href={link.href} 
-                className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-scuta-silk transition-all relative group"
+                className="text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-scuta-silk transition-all relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-scuta-highlight transition-all group-hover:w-full" />
@@ -61,17 +60,15 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA: Botão com Gradiente e Brilho */}
           <div className="hidden md:flex items-center gap-6">
             <a 
               href="#contact" 
-              className="px-6 py-3 bg-scuta-silk text-scuta-primary rounded-full text-xs font-black uppercase tracking-widest hover:bg-scuta-highlight hover:text-scuta-primary transition-all flex items-center gap-2 shadow-2xl active:scale-95"
+              className="px-6 py-3 bg-scuta-silk text-scuta-primary rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-scuta-highlight hover:text-scuta-primary transition-all flex items-center gap-2 shadow-2xl active:scale-95"
             >
               {t.contact} <ArrowRight size={14} />
             </a>
           </div>
 
-          {/* MOBILE TOGGLE */}
           <button 
             className="md:hidden text-scuta-silk p-1" 
             onClick={() => setIsOpen(!isOpen)} 
@@ -82,14 +79,13 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE MENU: Efeito imersivo */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="md:hidden absolute top-full left-6 right-6 mt-4 glass-dark rounded-[2.5rem] p-8 border border-white/10 overflow-hidden shadow-2xl"
+            className="md:hidden absolute top-full left-6 right-6 mt-4 bg-scuta-surface border border-white/10 rounded-[2.5rem] p-8 overflow-hidden shadow-2xl"
           >
             <div className="flex flex-col gap-8 text-left">
               {navLinks.map((link) => (
