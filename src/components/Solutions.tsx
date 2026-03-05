@@ -13,7 +13,7 @@ export default function Solutions({ lang }: { lang: Language }) {
   const t = UI_STRINGS[lang].solutions;
 
   return (
-    <section id="solutions" className="relative py-24 md:py-32 px-6 bg-[#030712] overflow-hidden">
+    <section id="solutions" className="relative py-24 md:py-32 px-6 bg-scuta-primary overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
@@ -70,7 +70,7 @@ export default function Solutions({ lang }: { lang: Language }) {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 0.6 }}
                     whileHover={{ y: -8 }}
-                    className={`relative p-10 rounded-4xl bg-[#0a1229]/60 backdrop-blur-3xl border border-white/5 flex flex-col group overflow-hidden ${
+                    className={`relative p-10 rounded-4xl bg-scuta-surface backdrop-blur-3xl border border-white/5 flex flex-col group overflow-hidden ${
                       index % 2 !== 0 ? 'sm:mt-12' : ''
                     }`}
                   >

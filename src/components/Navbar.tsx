@@ -87,7 +87,7 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full right-0 mt-4 bg-scuta-surface border border-white/10 rounded-2xl p-2 shadow-2xl min-w-[140px]"
+                    className="absolute top-full right-0 mt-4 bg-scuta-surface border border-white/10 rounded-2xl p-2 shadow-2xl min-w-35"
                   >
                     {languages.map((l) => (
                       <button
