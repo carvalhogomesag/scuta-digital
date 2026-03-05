@@ -1,19 +1,16 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, HelpCircle, Sparkles, MessageCircle } from 'lucide-react';
-import { FAQ_ITEMS } from '../lib/constants';
+import { FAQ_ITEMS, UI_STRINGS, Language } from '../lib/constants';
 
-export default function FAQ() {
+export default function FAQ({ lang }: { lang: Language }) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
+  const t = UI_STRINGS[lang];
+  const faqs = FAQ_ITEMS[lang];
 
   return (
-    <section id="faq" className="relative py-20 px-6 noise bg-scuta-primary overflow-hidden">
-      {/* Brilho decorativo lateral */}
-      <div className="absolute top-1/2 -right-64 w-125 h-125 bg-scuta-accent/10 blur-[120px] rounded-full pointer-events-none" />
-
+    <section id="faq" className="relative py-20 px-6 bg-scuta-primary overflow-hidden">
       <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Cabeçalho WOW */}
         <div className="text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -21,20 +18,23 @@ export default function FAQ() {
             viewport={{ once: true }}
           >
             <div className="inline-flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-4">
-              <Sparkles size={14} /> Transparência Total
+              <Sparkles size={14} /> {t.faq.sectionBadge}
             </div>
             <h2 className="text-4xl md:text-6xl font-black text-scuta-silk leading-tight tracking-tighter mb-6">
-              Dúvidas <span className="text-scuta-gradient">Frequentes.</span>
+              {t.faq.title.split('\n').map((line, i) => (
+                <span key={i} className={line === t.faq.titleHighlight ? "text-scuta-gradient block" : "block"}>
+                  {line}
+                </span>
+              ))}
             </h2>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed">
-              Esclarecemos os pontos técnicos para que se possa focar no que importa: o crescimento do seu negócio em Portugal.
+              {t.faq.subtitle}
             </p>
           </motion.div>
         </div>
 
-        {/* Lista de Acordéons em Vidro Negro */}
         <div className="space-y-4">
-          {FAQ_ITEMS.map((faq, index) => (
+          {faqs.map((faq, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, y: 10 }}
@@ -43,8 +43,8 @@ export default function FAQ() {
               transition={{ delay: index * 0.1 }}
               className={`group border transition-all duration-500 rounded-4xl overflow-hidden ${
                 openIndex === index 
-                ? 'glass-dark border-scuta-accent/30 shadow-[0_0_40px_rgba(124,58,237,0.1)]' 
-                : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.07]'
+                ? 'bg-scuta-surface/80 backdrop-blur-2xl border-scuta-accent/30 shadow-2xl' 
+                : 'bg-white/5 border-white/5 hover:border-white/10'
               }`}
             >
               <button
@@ -89,18 +89,17 @@ export default function FAQ() {
           ))}
         </div>
 
-        {/* Call to Action Final da Secção */}
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           className="mt-16 text-center"
         >
           <div className="inline-flex items-center gap-3 p-2 pr-6 bg-scuta-surface/50 border border-white/5 rounded-full backdrop-blur-sm">
-            <div className="w-10 h-10 rounded-full bg-scuta-highlight flex items-center justify-center text-scuta-primary shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+            <div className="w-10 h-10 rounded-full bg-scuta-highlight flex items-center justify-center text-scuta-primary shadow-xl">
               <MessageCircle size={20} />
             </div>
             <p className="text-xs font-black uppercase tracking-widest text-slate-400">
-              Dúvida não listada? <a href="#contact" className="text-scuta-highlight hover:underline ml-1">Fale connosco</a>
+              <a href="#contact" className="text-scuta-highlight hover:underline ml-1">{t.faq.ctaText}</a>
             </p>
           </div>
         </motion.div>

@@ -4,22 +4,41 @@ export interface SampleSite {
   slug: string;
   companyName: string;
   sector: string;
-  pain: string; // A dor do cliente
-  solution: string; // O que a Scuta Digital fez
-  expectedResult: string; // O benefício prático
-  // Conteúdo para simular o site real
+  pain: string;
+  solution: string;
+  expectedResult: string;
   heroTitle: string;
   heroSubtitle: string;
   ctaText: string;
   features: { title: string; desc: string; iconName: string }[];
   seoTitle: string;
   seoDescription: string;
-  // Propriedades de Estilo Dinâmico
   theme: any; 
   bgStyle: "mesh" | "dots" | "simple";
 }
 
 export const SAMPLE_SITES: SampleSite[] = [
+  // ... (outros exemplos mantidos)
+  {
+    slug: "lumina-home",
+    companyName: "Lumina Home & Interiors",
+    sector: "Arquitetura & Valorização",
+    pain: "Proprietários que não conseguem vender ou arrendar a preços premium por falta de um design que comunique valor.",
+    solution: "Criação de um site com estética editorial de luxo, focado em transformar a perceção do imóvel e atrair investidores/compradores qualificados.",
+    expectedResult: "Aumento de 25% na valorização final do imóvel e fecho de vendas/arrendamentos 40% mais rápido.",
+    heroTitle: "Redefinimos o valor do seu espaço.",
+    heroSubtitle: "Design de interiores e reformas estratégicas em Portugal. Elevamos a fasquia do seu imóvel para o mercado de alto padrão.",
+    ctaText: "Pedir Avaliação do Projeto",
+    theme: SAMPLE_THEMES["lumina-home"],
+    bgStyle: "simple",
+    features: [
+      { title: "Valorização Real", desc: "Design focado no retorno do investimento.", iconName: "award" },
+      { title: "Curadoria de Materiais", desc: "Seleção exclusiva de acabamentos premium.", iconName: "shield" },
+      { title: "Gestão Chave na Mão", desc: "Do conceito à entrega impecável.", iconName: "clock" }
+    ],
+    seoTitle: "Lumina Home | Design e Valorização de Interiores em Portugal",
+    seoDescription: "Transforme o seu imóvel com a Lumina. Design de interiores focado em valorização imobiliária e sofisticação."
+  },
   {
     slug: "prisma-matematica",
     companyName: "Prisma Matemática",

@@ -1,64 +1,38 @@
 <!doctype html>
 <html lang="pt-PT">
   <head>
-    <!-- Google tag (gtag.js) - Carregamento Prioritário -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZ576TG188"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-DZ576TG188');
-    </script>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- SEO Básico e Autoridade -->
-    <title>Scuta Digital | Sites de Alta Performance em Portugal</title>
-    <meta name="description" content="Transformamos o seu negócio numa referência digital. Sites profissionais focados em conversão, SEO local e resultados reais para o mercado português." />
-    <meta name="keywords" content="criação de sites portugal, web design luxo, agência digital lisboa, aparecer no google, landing pages conversão" />
-    <meta name="robots" content="index, follow" />
+    <!-- SEO Principal (PT-PT como padrão canónico) -->
+    <title>Scuta Digital | Sites que trazem clientes para o seu negócio</title>
+    <meta name="description" content="Criamos sites para pequenos negócios em Portugal. Apareça no Google, receba mais contactos e pare de perder clientes para a concorrência. Orçamento sem compromisso." />
     <link rel="canonical" href="https://scutadigital.pt/" />
-    
-    <!-- Geo Tags para Portugal -->
-    <meta name="geo.region" content="PT" />
-    <meta name="geo.placename" content="Portugal" />
 
-    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="pt_PT" />
-    <meta property="og:site_name" content="Scuta Digital" />
-    <meta property="og:title" content="Scuta Digital | Pare de depender apenas do passa-palavra" />
-    <meta property="og:description" content="Criamos a sua infraestrutura de vendas online. Sites que trabalham 24h por dia para trazer novos clientes." />
-    <meta property="og:url" content="https://scutadigital.pt/" />
-    <meta property="og:image" content="/og-image.jpg" /> <!-- Certifique-se de ter esta imagem no public -->
+    <!-- hreflang para multimercado -->
+    <link rel="alternate" hreflang="pt-PT" href="https://scutadigital.pt/" />
+    <link rel="alternate" hreflang="pt-BR" href="https://scutadigital.pt/?lang=pt-br" />
+    <link rel="alternate" hreflang="en" href="https://scutadigital.pt/?lang=en" />
+    <link rel="alternate" hreflang="es" href="https://scutadigital.pt/?lang=es" />
+    <link rel="alternate" hreflang="x-default" href="https://scutadigital.pt/" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Scuta Digital | Presença Digital de Elite" />
-    <meta name="twitter:description" content="Venda mais e domine o Google com um site otimizado para o mercado nacional." />
+    <!-- Open Graph principal -->
+    <meta property="og:title" content="Scuta Digital | O seu negócio no Google. Mais clientes. Sem complicação." />
+    <meta property="og:description" content="Criamos sites profissionais para pequenos negócios em Portugal. Apareça quando pesquisam por si. Orçamento grátis." />
 
     <!-- Dados Estruturados (JSON-LD) - FAQPage -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "inLanguage": "pt-PT",
-      "mainEntity":[
+      "inLanguage": ["pt-PT", "pt-BR", "en", "es"],
+      "mainEntity": [
         {
           "@type": "Question",
           "name": "Preciso de saber de informática para ter um site?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Não. A Scuta Digital trata de toda a engenharia técnica. O seu foco permanece na gestão do seu negócio."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "O meu site vai funcionar no telemóvel?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sim. Todos os nossos projetos são Mobile-First, garantindo uma experiência fluida em qualquer dispositivo."
+            "text": "Não. A Scuta Digital trata de toda a parte técnica. O seu único trabalho é receber os novos clientes que o site vai trazer."
           }
         },
         {
@@ -66,7 +40,7 @@
           "name": "Quanto tempo demora até o site estar pronto?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "O nosso rito de entrega padrão é de 14 a 21 dias, dependendo da complexidade do ecossistema digital."
+            "text": "Normalmente entre 1 a 2 semanas, dependendo do seu negócio. Mantemos sempre o cliente informado durante o processo."
           }
         },
         {
@@ -74,31 +48,22 @@
           "name": "O meu negócio vai aparecer no Google?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sim. Implementamos técnicas avançadas de SEO (Search Engine Optimization) para garantir visibilidade nas pesquisas relevantes da sua região."
+            "text": "Sim. Configuramos o site com as informações certas para que o Google o mostre a quem procura os seus serviços na sua zona."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quanto custa ter um site profissional?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende do que o seu negócio precisa. Temos pacotes para negócios de todos os tamanhos. Peça um orçamento — é gratuito e sem compromisso."
           }
         }
       ]
     }
     </script>
   </head>
-  
-  <!-- Body ajustado para evitar flash branco (Midnight Obsidian Theme) -->
-  <body class="antialiased text-slate-50 bg-scuta-primary">
-    
-    <!-- Netlify Form Handling -->
-    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-      <input type="text" name="nome" />
-      <input type="email" name="email" />
-      <select name="tipo_negocio">
-        <option>Negócio local (Loja, Salão, Restaurante...)</option>
-        <option>Serviços profissionais (Advogado, Contabilista...)</option>
-        <option>Venda Online / E-commerce</option>
-        <option>Outro tipo de projeto</option>
-      </select>
-      <textarea name="mensagem"></textarea>
-      <input name="bot-field" />
-    </form>
-
+  <body class="antialiased text-slate-50 bg-[#030712]">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

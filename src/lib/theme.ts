@@ -36,7 +36,15 @@ export const SAMPLE_THEMES = {
     font: "font-prisma-display" // Space Grotesk (Técnica)
   },
 
-  // 2. EDUSPARK (Educação & Inovação)
+  // 2. LUMINA HOME (Editorial de Luxo)
+  "lumina-home": {
+    primary: "#78350f",    // Terracota Mate
+    secondary: "#fdf8f6",  // Off-White Quente
+    accent: "#b45309",     // Bronze
+    font: "font-serif"     // Elegância editorial
+  },
+
+  // 3. EDUSPARK (Educação & Inovação)
   "edu-spark": { 
     primary: "#6366f1", 
     secondary: "#f8fafc", 
@@ -50,7 +58,7 @@ export const SAMPLE_THEMES = {
     font: "font-edu-display" 
   },
 
-  // 3. CLÍNICA VIDA+ (Saúde Premium)
+  // 4. CLÍNICA VIDA+ (Saúde Premium)
   "clinica-vida-mais": { 
     primary: "#0ea5e9", 
     secondary: "#f0f9ff", 
@@ -58,7 +66,7 @@ export const SAMPLE_THEMES = {
     font: "font-sans" 
   },
 
-  // 4. RENOVA (Arquitetura & Design)
+  // 5. RENOVA (Arquitetura & Design)
   "renova-home": { 
     primary: "#7f1d1d", 
     secondary: "#111827", 
@@ -72,7 +80,7 @@ export const SAMPLE_THEMES = {
     font: "font-renova-display" 
   },
 
-  // 5. PADEL PRO HUB (Desporto & Social)
+  // 6. PADEL PRO HUB (Desporto & Social)
   "padel-hub": { 
     primary: "#a3e635", 
     secondary: "#020617", 

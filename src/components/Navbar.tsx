@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
-import { UI_STRINGS, BRAND_INFO } from '../lib/constants';
+import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
+import { UI_STRINGS, BRAND_INFO, Language } from '../lib/constants';
 
-export default function Navbar() {
+export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const t = UI_STRINGS.pt.navbar;
+  const [showLangMenu, setShowLangMenu] = useState(false);
+  const t = UI_STRINGS[lang];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -15,18 +16,26 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: t.why, href: '#why' },
-    { name: t.solutions, href: '#solutions' },
-    { name: t.samples, href: '#samples' },
-    { name: t.faq, href: '#faq' },
+    { name: t.navbar.why, href: '#why' },
+    { name: t.navbar.solutions, href: '#solutions' },
+    { name: t.navbar.samples, href: '#samples' },
+    { name: t.navbar.faq, href: '#faq' },
   ];
 
+  const languages: { code: Language; label: string; flag: string }[] = [
+    { code: "pt-pt", label: "Portugal", flag: "🇵🇹" },
+    { code: "pt-br", label: "Brasil",   flag: "🇧🇷" },
+    { code: "en",    label: "English",  flag: "🇬🇧" },
+    { code: "es",    label: "Español",  flag: "🇪🇸" },
+  ];
+
+  const currentLang = languages.find(l => l.code === lang) || languages[0];
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-100 transition-all duration-500 ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       scrolled ? 'py-4' : 'py-8'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
-        {/* Container Glass com maior transparência para absorver o fundo das secções */}
         <div className={`backdrop-blur-xl border transition-all duration-500 rounded-full px-8 py-4 flex items-center justify-between ${
           scrolled 
             ? 'bg-scuta-primary/80 border-white/10 shadow-2xl' 
@@ -61,11 +70,50 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-6">
+            {/* Language Selector */}
+            <div className="relative">
+              <button 
+                onClick={() => setShowLangMenu(!showLangMenu)}
+                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-scuta-silk transition-all"
+              >
+                <span>{currentLang.flag}</span>
+                <span className="hidden lg:inline">{currentLang.label}</span>
+                <ChevronDown size={12} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <AnimatePresence>
+                {showLangMenu && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full right-0 mt-4 bg-scuta-surface border border-white/10 rounded-2xl p-2 shadow-2xl min-w-[140px]"
+                  >
+                    {languages.map((l) => (
+                      <button
+                        key={l.code}
+                        onClick={() => {
+                          setLang(l.code);
+                          setShowLangMenu(false);
+                        }}
+                        className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                          lang === l.code ? 'bg-scuta-highlight text-scuta-primary' : 'text-slate-400 hover:bg-white/5 hover:text-scuta-silk'
+                        }`}
+                      >
+                        <span>{l.flag}</span>
+                        <span>{l.label}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <a 
               href="#contact" 
               className="px-6 py-3 bg-scuta-silk text-scuta-primary rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-scuta-highlight hover:text-scuta-primary transition-all flex items-center gap-2 shadow-2xl active:scale-95"
             >
-              {t.contact} <ArrowRight size={14} />
+              {t.navbar.contact} <ArrowRight size={14} />
             </a>
           </div>
 
@@ -82,9 +130,9 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             className="md:hidden absolute top-full left-6 right-6 mt-4 bg-scuta-surface border border-white/10 rounded-[2.5rem] p-8 overflow-hidden shadow-2xl"
           >
             <div className="flex flex-col gap-8 text-left">
@@ -99,12 +147,31 @@ export default function Navbar() {
                   <ArrowRight size={20} className="text-scuta-highlight opacity-0 group-hover:opacity-100 transition-all" />
                 </a>
               ))}
+              
+              <div className="grid grid-cols-2 gap-4">
+                {languages.map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => {
+                      setLang(l.code);
+                      setIsOpen(false);
+                    }}
+                    className={`flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${
+                      lang === l.code ? 'bg-scuta-highlight border-scuta-highlight text-scuta-primary' : 'bg-white/5 border-white/10 text-slate-400'
+                    }`}
+                  >
+                    <span>{l.flag}</span>
+                    <span>{l.label}</span>
+                  </button>
+                ))}
+              </div>
+
               <a 
                 href="#contact" 
                 onClick={() => setIsOpen(false)} 
                 className="w-full py-5 bg-scuta-accent text-white rounded-2xl text-center font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 shadow-xl active:scale-95"
               >
-                {t.contact} <Sparkles size={16} />
+                {t.navbar.contact}
               </a>
             </div>
           </motion.div>
