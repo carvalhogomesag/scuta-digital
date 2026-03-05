@@ -130,7 +130,7 @@ export const SOCIAL_LINKS = {
 export const UI_STRINGS: Record<Language, LanguageStrings> = {
   "pt-pt": {
     navbar: {
-      why: "Porquê ter um site?",
+      why: "Por que ter um site?",
       solutions: "O que fazemos",
       samples: "Exemplos reais",
       faq: "Dúvidas frequentes",
