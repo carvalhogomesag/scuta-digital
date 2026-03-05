@@ -251,7 +251,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
           author: "Ricardo Oliveira",
           role: "CEO, TechFlow Portugal",
           content: "A Scuta Digital não criou apenas um site, criou uma máquina de vendas. O nosso tráfego orgânico subiu 40% em apenas 3 meses.",
-          avatar: "https://i.pravatar.cc/150?u=ricardo"
+          avatar: "https://i.ibb.co/0yYpvhJZ/pexels-olly-3777570.webp"
         },
         {
           author: "Helena Santos",
@@ -263,7 +263,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
           author: "Tiago Mendes",
           role: "Diretor Clínico, Vitalis",
           content: "A automação de marcações no site poupou-nos horas de trabalho administrativo. O investimento pagou-se no primeiro mês.",
-          avatar: "https://i.pravatar.cc/150?u=tiago"
+          avatar: "https://i.ibb.co/cSZFvrJb/pexels-linkedin-2182970.webp"
         }
       ]
     },
