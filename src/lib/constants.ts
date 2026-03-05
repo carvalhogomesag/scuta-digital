@@ -150,7 +150,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
       }
     },
     why: {
-      sectionBadge: "Porque é que precisa de um site hoje?",
+      sectionBadge: "Por que é que precisa de um site hoje?",
       title: "O seu cliente procura no Google.\nEle encontra o seu concorrente.",
       titleHighlight: "encontra o seu concorrente.",
       subtitle: "Se não aparecer online quando alguém precisa do que oferece, esse cliente vai a outro lado — e provavelmente não volta.",
