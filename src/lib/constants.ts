@@ -257,7 +257,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
           author: "Helena Santos",
           role: "Fundadora, Bloom Interiors",
           content: "O design editorial que desenvolveram para o nosso portfólio elevou a nossa marca para um patamar de luxo que não conseguíamos atingir sozinhos.",
-          avatar: "https://i.pravatar.cc/150?u=helena"
+          avatar: "https://i.ibb.co/Mk525cHL/pexels-edmond-dantes-4342352.webp"
         },
         {
           author: "Tiago Mendes",
