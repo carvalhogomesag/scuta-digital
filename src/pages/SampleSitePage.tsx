@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 // IMPORTAÇÃO DOS SITES BESPOKE
 import VitalisSample from '../samples/VitalisSample';
 import PrismaMathSample from '../samples/PrismaMathSample';
+import LuminaSample from '../samples/LuminaSample';
 
 export default function SampleSitePage({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
   const { slug } = useParams<{ slug: string }>();
@@ -22,16 +23,18 @@ export default function SampleSitePage({ lang, setLang }: { lang: Language; setL
         return <PrismaMathSample />;
       case 'clinica-vida-mais':
         return <VitalisSample />;
+      case 'lumina-home':
+        return <LuminaSample />;
       default:
         return (
           <div className="pt-0 text-left">
-            <section 
+            <section
               className="relative py-28 md:py-48 px-6 overflow-hidden"
               style={{ backgroundColor: site.theme.secondary }}
             >
               <div className="max-w-6xl mx-auto relative z-10 text-left">
                 <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                  <span 
+                  <span
                     className="inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 shadow-sm"
                     style={{ backgroundColor: 'white', color: site.theme.primary }}
                   >
@@ -43,7 +46,7 @@ export default function SampleSitePage({ lang, setLang }: { lang: Language; setL
                   <p className="text-xl md:text-2xl text-zinc-600 mb-14 max-w-3xl leading-relaxed font-medium">
                     {site.heroSubtitle}
                   </p>
-                  <button 
+                  <button
                     className="px-12 py-6 rounded-3xl font-black text-xl shadow-2xl flex items-center gap-3 transition-all"
                     style={{ backgroundColor: site.theme.primary, color: 'white' }}
                   >
@@ -60,7 +63,7 @@ export default function SampleSitePage({ lang, setLang }: { lang: Language; setL
   return (
     <div className="min-h-screen bg-white">
       <Navbar lang={lang} setLang={setLang} />
-      
+
       <nav className="bg-black text-white px-6 sticky top-24 z-40 flex justify-between items-center h-12 border-y border-white/10">
         <a href="/" className="flex items-center gap-2 text-zinc-500 hover:text-white transition-all font-bold text-[10px] uppercase tracking-widest">
           <ArrowLeft size={14} /> {lang === 'en' ? 'Exit Example' : lang === 'es' ? 'Salir del Ejemplo' : 'Sair do Exemplo'}
