@@ -41,9 +41,9 @@ export default function Hero({ lang }: { lang: Language }) {
           </motion.div>
 
           {/* Título — stagger + rotação 3D preservados; tamanho clampado para caber no viewport */}
-          <h1 className="text-[clamp(2.8rem,6vw,5.5rem)] font-black tracking-tighter text-white mb-5 leading-[0.88]">
+          <h1 className="text-[clamp(2.8rem,6vw,5.5rem)] font-black tracking-tighter text-white mb-5 leading-[1]">
             {titleLines.map((line, lineIndex) => (
-              <span key={lineIndex} className="block overflow-hidden">
+              <span key={lineIndex} className="block">
                 {line.split(' ').map((word, wordIndex) => (
                   <motion.span
                     key={wordIndex}
