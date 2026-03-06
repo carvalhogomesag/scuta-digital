@@ -16,11 +16,13 @@ export default function Hero({ lang }: { lang: Language }) {
 
   return (
     // min-h-screen + flex col → garante que o hero ocupa exactamente o viewport
-    <section className="relative min-h-screen flex items-center pt-24 pb-8 px-6 overflow-hidden bg-scuta-primary">
-      {/* Glow de fundo */}
-      <div className="absolute top-0 left-1/4 w-150 h-150 bg-scuta-accent/20 blur-[140px] rounded-full pointer-events-none" />
+    <section className="relative min-h-screen flex items-start pt-24 pb-16 px-6 bg-scuta-primary">
+      {/* Glow de fundo — clip próprio para não afectar overflow da section */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-150 h-150 bg-scuta-accent/20 blur-[140px] rounded-full" />
+      </div>
 
-      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-start relative z-10">
 
         {/* --- Coluna esquerda --- */}
         <div>

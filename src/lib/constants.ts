@@ -133,7 +133,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
     navbar: {
       why: "Por que ter um site?",
       solutions: "O que fazemos",
-      samples: "Exemplos reais",
+      samples: "Exemplos",
       pricing: "Preços",
       faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
@@ -349,7 +349,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
     navbar: {
       why: "Por que ter um site?",
       solutions: "O que fazemos",
-      samples: "Exemplos reais",
+      samples: "Exemplos",
       pricing: "Preços",
       faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
@@ -557,7 +557,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
     navbar: {
       why: "Why do I need a website?",
       solutions: "What we do",
-      samples: "Real examples",
+      samples: "Examples",
       pricing: "Pricing",
       faq: "Common questions",
       contact: "Get a quote",
@@ -765,7 +765,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
     navbar: {
       why: "¿Por qué necesito una web?",
       solutions: "Qué hacemos",
-      samples: "Ejemplos reales",
+      samples: "Ejemplos",
       pricing: "Precios",
       faq: "Preguntas frecuentes",
       contact: "Pedir presupuesto",
