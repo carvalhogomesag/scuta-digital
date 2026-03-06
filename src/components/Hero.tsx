@@ -15,11 +15,12 @@ export default function Hero({ lang }: { lang: Language }) {
   const titleLines = t.title.split('\n');
 
   return (
-    <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-scuta-primary">
+    // min-h-screen + flex col → garante que o hero ocupa exactamente o viewport
+    <section className="relative min-h-screen flex items-center pt-24 pb-8 px-6 overflow-hidden bg-scuta-primary">
       {/* Glow de fundo */}
       <div className="absolute top-0 left-1/4 w-150 h-150 bg-scuta-accent/20 blur-[140px] rounded-full pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-center relative z-10">
 
         {/* --- Coluna esquerda --- */}
         <div>
@@ -28,7 +29,7 @@ export default function Hero({ lang }: { lang: Language }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-scuta-silk text-[10px] font-black uppercase tracking-[0.2em] mb-10 backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-scuta-silk text-[10px] font-black uppercase tracking-[0.2em] mb-6 backdrop-blur-md"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-scuta-highlight opacity-75" />
@@ -37,8 +38,8 @@ export default function Hero({ lang }: { lang: Language }) {
             {t.badge}
           </motion.div>
 
-          {/* Título — cada palavra entra com stagger e rotação 3D */}
-          <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.85]">
+          {/* Título — stagger + rotação 3D preservados; tamanho clampado para caber no viewport */}
+          <h1 className="text-[clamp(2.8rem,6vw,5.5rem)] font-black tracking-tighter text-white mb-5 leading-[0.88]">
             {titleLines.map((line, lineIndex) => (
               <span key={lineIndex} className="block overflow-hidden">
                 {line.split(' ').map((word, wordIndex) => (
@@ -66,7 +67,7 @@ export default function Hero({ lang }: { lang: Language }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.65, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-            className="text-xl text-slate-400 mb-12 max-w-lg leading-relaxed font-medium"
+            className="text-lg text-slate-400 mb-8 max-w-lg leading-relaxed font-medium"
           >
             {t.subtitle}
           </motion.p>
@@ -76,18 +77,18 @@ export default function Hero({ lang }: { lang: Language }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.78, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-            className="flex flex-col sm:flex-row gap-6"
+            className="flex flex-col sm:flex-row gap-4"
           >
             <a
               href="#contact"
-              className="px-10 py-5 bg-scuta-silk text-scuta-primary rounded-2xl font-black text-lg hover:bg-scuta-highlight transition-all flex items-center justify-center gap-3 group active:scale-95 shadow-2xl"
+              className="px-8 py-4 bg-scuta-silk text-scuta-primary rounded-2xl font-black text-base hover:bg-scuta-highlight transition-all flex items-center justify-center gap-3 group active:scale-95 shadow-2xl"
             >
               {t.cta}
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#samples"
-              className="px-10 py-5 bg-white/5 text-scuta-silk border border-white/10 rounded-2xl font-black text-lg hover:bg-white/10 transition-all text-center active:scale-95 backdrop-blur-md"
+              className="px-8 py-4 bg-white/5 text-scuta-silk border border-white/10 rounded-2xl font-black text-base hover:bg-white/10 transition-all text-center active:scale-95 backdrop-blur-md"
             >
               {t.secondaryCta}
             </a>
@@ -98,7 +99,7 @@ export default function Hero({ lang }: { lang: Language }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.95, duration: 0.6 }}
-            className="mt-12 flex flex-wrap gap-8"
+            className="mt-8 flex flex-wrap gap-6"
           >
             {[
               { text: t.trust.noSurprise, icon: ShieldCheck },
@@ -149,7 +150,6 @@ export default function Hero({ lang }: { lang: Language }) {
             </div>
           </motion.div>
         </motion.div>
-
       </div>
     </section>
   );
