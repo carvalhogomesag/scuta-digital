@@ -12,6 +12,7 @@ import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import CookieBanner from './components/CookieBanner';
 import SampleSitePage from './pages/SampleSitePage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -19,9 +20,7 @@ import { Language } from './lib/constants';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 }
 
@@ -37,7 +36,7 @@ function HomePage({ lang, setLang }: { lang: Language; setLang: (l: Language) =>
       <Pricing lang={lang} />
       <Process lang={lang} />
       <FAQ lang={lang} />
-      <Contact lang={lang} />
+      <Contact lang={lang} />     {/* ← só lang, sem setLang */}
       <Footer lang={lang} />
       <WhatsAppButton />
     </>
@@ -45,17 +44,18 @@ function HomePage({ lang, setLang }: { lang: Language; setLang: (l: Language) =>
 }
 
 export default function App() {
-  const [lang, setLang] = useState<Language>("pt-pt");
+  const [lang, setLang] = useState<Language>('pt-pt');
 
   return (
     <div className="min-h-screen bg-scuta-primary font-sans text-scuta-silk selection:bg-scuta-highlight selection:text-scuta-primary">
       <ScrollToTop />
+      <CookieBanner lang={lang} />
       <main>
         <Routes>
-          <Route path="/" element={<HomePage lang={lang} setLang={setLang} />} />
-          <Route path="/exemplos/:slug" element={<SampleSitePage lang={lang} setLang={setLang} />} />
-          <Route path="/privacidade" element={<PrivacyPolicy lang={lang} setLang={setLang} />} />
-          <Route path="/termos" element={<TermsOfService lang={lang} setLang={setLang} />} />
+          <Route path="/"                  element={<HomePage    lang={lang} setLang={setLang} />} />
+          <Route path="/exemplos/:slug"    element={<SampleSitePage lang={lang} setLang={setLang} />} />
+          <Route path="/privacidade"       element={<PrivacyPolicy  lang={lang} setLang={setLang} />} />
+          <Route path="/termos"            element={<TermsOfService lang={lang} setLang={setLang} />} />
         </Routes>
       </main>
     </div>
