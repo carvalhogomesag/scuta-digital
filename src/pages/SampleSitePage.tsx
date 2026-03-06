@@ -3,8 +3,6 @@ import { motion } from 'motion/react';
 import { ArrowLeft, MousePointer2 } from 'lucide-react';
 import { SAMPLE_SITES } from '../data/sampleSites';
 import { Language, UI_STRINGS } from '../lib/constants';
-import Navbar from '../components/Navbar';
-
 // IMPORTAÇÃO DOS SITES BESPOKE
 import VitalisSample from '../samples/VitalisSample';
 import PrismaMathSample from '../samples/PrismaMathSample';
@@ -62,9 +60,9 @@ export default function SampleSitePage({ lang, setLang }: { lang: Language; setL
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar lang={lang} setLang={setLang} />
 
-      <nav className="bg-black text-white px-6 sticky top-24 z-40 flex justify-between items-center h-12 border-y border-white/10">
+      {/* Barra de exemplo colada no topo — sem Navbar Scuta nesta página */}
+      <nav className="bg-black text-white px-6 fixed top-0 left-0 right-0 z-[1000] flex justify-between items-center h-12">
         <a href="/" className="flex items-center gap-2 text-zinc-500 hover:text-white transition-all font-bold text-[10px] uppercase tracking-widest">
           <ArrowLeft size={14} /> {lang === 'en' ? 'Exit Example' : lang === 'es' ? 'Salir del Ejemplo' : 'Sair do Exemplo'}
         </a>
@@ -74,7 +72,8 @@ export default function SampleSitePage({ lang, setLang }: { lang: Language; setL
         <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{site.companyName}</span>
       </nav>
 
-      <div className="relative">
+      {/* pt-12 = 48px = apenas a barra preta */}
+      <div className="relative pt-12">
         {renderBespokeContent()}
       </div>
     </div>

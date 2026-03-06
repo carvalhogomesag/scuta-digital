@@ -106,34 +106,9 @@ export default function LuminaSample() {
       className="min-h-screen overflow-x-hidden font-serif"
       style={{ backgroundColor: C.cream, color: C.charcoal }}
     >
-      {/* ── NAVBAR ────────────────────────────────────────────────────────── */}
-      <nav
-        className="fixed w-full z-50 px-8 py-6 flex justify-between items-center"
-        style={{ mixBlendMode: 'multiply' }}
-      >
-        <span className="text-xl font-black uppercase tracking-[0.25em]" style={{ color: C.charcoal }}>
-          LUMINA
-        </span>
-        <div className="hidden md:flex items-center gap-10">
-          {['Serviços', 'Projetos', 'Processo', 'Contacto'].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`}
-              className="text-[10px] font-black uppercase tracking-[0.25em] transition-all hover:opacity-50"
-              style={{ color: C.charcoal }}
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-        <a href="#contacto"
-          className="px-6 py-3 text-[10px] font-black uppercase tracking-widest rounded-full transition-all hover:opacity-80"
-          style={{ backgroundColor: C.terracota, color: 'white' }}
-        >
-          Avaliação Gratuita
-        </a>
-      </nav>
-
       {/* ── HERO EDITORIAL ────────────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative h-screen flex flex-col justify-end pb-24 px-8 overflow-hidden">
+      {/* Navbar interna removida — a Navbar Scuta e a barra de exemplo já estão presentes */}
+      <section ref={heroRef} className="relative h-[calc(100vh-48px)] flex flex-col justify-end pb-24 px-8 overflow-hidden">
 
         {/* Imagem paralaxe */}
         <motion.div
