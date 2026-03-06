@@ -208,14 +208,17 @@ import { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import WhyWeb from './components/WhyWeb';
 import Solutions from './components/Solutions';
 import Samples from './components/Samples';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
+import Pricing from './components/Pricing';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import CookieBanner from './components/CookieBanner';
 import SampleSitePage from './pages/SampleSitePage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -223,9 +226,7 @@ import { Language } from './lib/constants';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 }
 
@@ -234,12 +235,14 @@ function HomePage({ lang, setLang }: { lang: Language; setLang: (l: Language) =>
     <>
       <Navbar lang={lang} setLang={setLang} />
       <Hero lang={lang} />
+      <WhyWeb lang={lang} />
       <Solutions lang={lang} />
-      <Process lang={lang} />
       <Testimonials lang={lang} />
       <Samples lang={lang} />
+      <Pricing lang={lang} />
+      <Process lang={lang} />
       <FAQ lang={lang} />
-      <Contact lang={lang} />
+      <Contact lang={lang} />     {/* ← só lang, sem setLang */}
       <Footer lang={lang} />
       <WhatsAppButton />
     </>
@@ -247,161 +250,616 @@ function HomePage({ lang, setLang }: { lang: Language; setLang: (l: Language) =>
 }
 
 export default function App() {
-  const [lang, setLang] = useState<Language>("pt-pt");
+  const [lang, setLang] = useState<Language>('pt-pt');
 
   return (
     <div className="min-h-screen bg-scuta-primary font-sans text-scuta-silk selection:bg-scuta-highlight selection:text-scuta-primary">
       <ScrollToTop />
+      <CookieBanner lang={lang} />
       <main>
         <Routes>
-          <Route path="/" element={<HomePage lang={lang} setLang={setLang} />} />
-          <Route path="/exemplos/:slug" element={<SampleSitePage lang={lang} setLang={setLang} />} />
-          <Route path="/privacidade" element={<PrivacyPolicy lang={lang} setLang={setLang} />} />
-          <Route path="/termos" element={<TermsOfService lang={lang} setLang={setLang} />} />
+          <Route path="/"                  element={<HomePage    lang={lang} setLang={setLang} />} />
+          <Route path="/exemplos/:slug"    element={<SampleSitePage lang={lang} setLang={setLang} />} />
+          <Route path="/privacidade"       element={<PrivacyPolicy  lang={lang} setLang={setLang} />} />
+          <Route path="/termos"            element={<TermsOfService lang={lang} setLang={setLang} />} />
         </Routes>
       </main>
     </div>
   );
 }
 
-
 ================================================================================
 Arquivo: src/components/Contact.tsx
 ================================================================================
 
-import { motion } from 'motion/react';
-import { Mail, MessageSquare, Send, Sparkles, ShieldCheck } from 'lucide-react';
-import { CONTACT_INFO, UI_STRINGS, Language } from '../lib/constants';
+/**
+ * PrivacyPolicy.tsx — Scuta Digital
+ * Política de Privacidade completa
+ * Conformidade: RGPD (UE/Portugal) · LGPD (Brasil) · UK GDPR
+ */
 
-export default function Contact({ lang }: { lang: Language }) {
-  const t = UI_STRINGS[lang].contact;
+import { motion } from 'motion/react';
+import { ShieldCheck, ArrowLeft } from 'lucide-react';
+import { Language } from '../lib/constants';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+
+// ---------------------------------------------------------------------------
+// CONTEÚDO LEGAL POR IDIOMA
+// ---------------------------------------------------------------------------
+
+const CONTENT = {
+  'pt-pt': {
+    title: 'Política de Privacidade',
+    updated: 'Última atualização: 1 de Janeiro de 2025',
+    intro: 'A Scuta Digital ("nós", "nosso") está comprometida com a proteção dos seus dados pessoais. Esta política explica quais os dados que recolhemos, como os usamos, com base em que fundamento legal, e quais os seus direitos ao abrigo do Regulamento Geral sobre a Proteção de Dados (RGPD — Regulamento UE 2016/679) e da legislação aplicável.',
+    sections: [
+      {
+        title: '1. Quem é o responsável pelo tratamento',
+        content: 'Scuta Digital, com sede em Portugal. Contacto do responsável pelo tratamento: appschedy@gmail.com. Para questões relativas à proteção de dados, pode contactar-nos através deste endereço de email.',
+      },
+      {
+        title: '2. Que dados recolhemos e porquê',
+        items: [
+          { label: 'Formulário de contacto', text: 'Nome, endereço de email, tipo de negócio e mensagem. Base legal: execução de medidas pré-contratuais a pedido do titular (Art. 6.º, n.º 1, al. b) do RGPD). Finalidade: responder ao seu pedido de orçamento.' },
+          { label: 'Google Analytics', text: 'Endereço IP anonimizado, tipo de browser, sistema operativo, páginas visitadas, duração da visita, fonte de tráfego. Base legal: consentimento (Art. 6.º, n.º 1, al. a) do RGPD) — só recolhemos estes dados após o seu consentimento explícito no banner de cookies. Finalidade: análise do desempenho do site para fins de melhoria do serviço.' },
+          { label: 'Cookies técnicos', text: 'Preferências de cookies e idioma. Base legal: interesse legítimo (Art. 6.º, n.º 1, al. f) do RGPD). Finalidade: funcionamento básico do site.' },
+        ],
+      },
+      {
+        title: '3. Cookies e tecnologias de rastreio',
+        content: 'Utilizamos os seguintes tipos de cookies:\n\n• Cookies essenciais — necessários para o funcionamento do site. Não requerem consentimento.\n• Cookies de análise (Google Analytics) — só são ativados com o seu consentimento explícito. O Google Analytics é configurado com anonimização de IP ativa. Os dados são transferidos para servidores do Google nos Estados Unidos com base nas Cláusulas Contratuais Padrão da Comissão Europeia.\n\nPode gerir ou revogar o seu consentimento a qualquer momento através do banner de cookies ou limpando os dados do browser.',
+      },
+      {
+        title: '4. Com quem partilhamos os seus dados',
+        content: 'Não vendemos nem cedemos os seus dados pessoais a terceiros para fins comerciais. Os seus dados podem ser partilhados com:\n\n• Google LLC (Google Analytics) — transferência para os EUA com base em Cláusulas Contratuais Padrão.\n• WhatsApp/Meta — apenas quando utiliza o botão de contacto direto, os dados que partilha são processados pela Meta nos termos da sua política de privacidade.\n\nNão realizamos qualquer outra transferência internacional de dados.',
+      },
+      {
+        title: '5. Por quanto tempo guardamos os seus dados',
+        content: '• Dados do formulário de contacto: 12 meses após o último contacto, salvo obrigação legal de conservação mais longa.\n• Dados de analytics: 14 meses (configuração padrão do Google Analytics GA4).\n• Preferências de cookies: 12 meses (armazenamento local no seu browser).',
+      },
+      {
+        title: '6. Os seus direitos',
+        content: 'Ao abrigo do RGPD, tem os seguintes direitos:\n\n• Direito de acesso — saber que dados temos sobre si.\n• Direito de retificação — corrigir dados incorretos.\n• Direito de apagamento ("direito a ser esquecido").\n• Direito de limitação do tratamento.\n• Direito de portabilidade dos dados.\n• Direito de oposição ao tratamento.\n• Direito de retirar o consentimento a qualquer momento, sem afetar a licitude do tratamento anterior.\n\nPara exercer qualquer um destes direitos, contacte-nos em appschedy@gmail.com. Tem também o direito de apresentar reclamação à Comissão Nacional de Proteção de Dados (CNPD) em www.cnpd.pt.',
+      },
+      {
+        title: '7. Segurança',
+        content: 'Adotamos medidas técnicas e organizativas adequadas para proteger os seus dados pessoais contra acesso não autorizado, perda ou destruição. A comunicação entre o seu browser e o nosso site é encriptada via HTTPS.',
+      },
+      {
+        title: '8. Alterações a esta política',
+        content: 'Podemos atualizar esta política periodicamente. A data de "última atualização" no topo desta página indica quando foi revista pela última vez. Em caso de alterações significativas, notificaremos os utilizadores através de aviso no site.',
+      },
+      {
+        title: '9. Contacto',
+        content: 'Para qualquer questão sobre esta política ou sobre o tratamento dos seus dados pessoais, contacte-nos em: appschedy@gmail.com',
+      },
+    ],
+  },
+
+  'pt-br': {
+    title: 'Política de Privacidade',
+    updated: 'Última atualização: 1 de Janeiro de 2025',
+    intro: 'A Scuta Digital ("nós", "nosso") está comprometida com a proteção dos seus dados pessoais. Esta política explica quais dados coletamos, como os usamos, com base em qual fundamento legal, e quais são os seus direitos nos termos da Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018) e do RGPD europeu.',
+    sections: [
+      {
+        title: '1. Controlador dos dados',
+        content: 'Scuta Digital, com sede em Portugal. Contato do encarregado de dados (DPO): appschedy@gmail.com.',
+      },
+      {
+        title: '2. Dados que coletamos e por quê',
+        items: [
+          { label: 'Formulário de contato', text: 'Nome, e-mail, tipo de negócio e mensagem. Base legal (LGPD): execução de contrato ou procedimentos preliminares (Art. 7º, V). Finalidade: responder ao seu pedido de orçamento.' },
+          { label: 'Google Analytics', text: 'IP anonimizado, tipo de navegador, sistema operacional, páginas visitadas, duração da visita, fonte de tráfego. Base legal (LGPD): consentimento (Art. 7º, I) — só coletamos após seu consentimento explícito no banner de cookies. Finalidade: análise de desempenho do site.' },
+          { label: 'Cookies técnicos', text: 'Preferências de cookies e idioma. Base legal: legítimo interesse (Art. 7º, IX da LGPD). Finalidade: funcionamento básico do site.' },
+        ],
+      },
+      {
+        title: '3. Cookies e tecnologias de rastreamento',
+        content: 'Utilizamos os seguintes tipos de cookies:\n\n• Cookies essenciais — necessários para o funcionamento do site. Não requerem consentimento.\n• Cookies de análise (Google Analytics) — só são ativados com o seu consentimento explícito. O Google Analytics é configurado com anonimização de IP ativa.\n\nVocê pode gerenciar ou revogar seu consentimento a qualquer momento pelo banner de cookies ou limpando os dados do navegador.',
+      },
+      {
+        title: '4. Com quem compartilhamos seus dados',
+        content: 'Não vendemos nem cedemos seus dados pessoais a terceiros para fins comerciais. Seus dados podem ser compartilhados com:\n\n• Google LLC (Google Analytics) — transferência internacional com base em Cláusulas Contratuais Padrão.\n• WhatsApp/Meta — apenas quando você usa o botão de contato direto.\n\nNenhuma outra transferência internacional de dados é realizada.',
+      },
+      {
+        title: '5. Por quanto tempo guardamos seus dados',
+        content: '• Dados do formulário de contato: 12 meses após o último contato.\n• Dados de analytics: 14 meses (configuração padrão do Google Analytics GA4).\n• Preferências de cookies: 12 meses (armazenamento local no seu navegador).',
+      },
+      {
+        title: '6. Seus direitos (LGPD)',
+        content: 'Nos termos da LGPD, você tem os seguintes direitos:\n\n• Confirmação da existência de tratamento.\n• Acesso aos dados.\n• Correção de dados incompletos, inexatos ou desatualizados.\n• Anonimização, bloqueio ou eliminação de dados desnecessários.\n• Portabilidade dos dados.\n• Eliminação dos dados tratados com consentimento.\n• Informação sobre compartilhamento.\n• Revogação do consentimento a qualquer momento.\n• Peticionar à Autoridade Nacional de Proteção de Dados (ANPD) em www.gov.br/anpd.\n\nPara exercer qualquer direito, contate-nos em: appschedy@gmail.com',
+      },
+      {
+        title: '7. Segurança',
+        content: 'Adotamos medidas técnicas e organizacionais adequadas para proteger seus dados pessoais contra acesso não autorizado, perda ou destruição. A comunicação é encriptada via HTTPS.',
+      },
+      {
+        title: '8. Alterações nesta política',
+        content: 'Podemos atualizar esta política periodicamente. A data de "última atualização" indica quando foi revisada pela última vez.',
+      },
+      {
+        title: '9. Contato',
+        content: 'Para qualquer dúvida sobre esta política: appschedy@gmail.com',
+      },
+    ],
+  },
+
+  'en': {
+    title: 'Privacy Policy',
+    updated: 'Last updated: 1 January 2025',
+    intro: 'Scuta Digital ("we", "our") is committed to protecting your personal data. This policy explains what data we collect, how we use it, the legal basis for doing so, and your rights under the UK General Data Protection Regulation (UK GDPR), the EU General Data Protection Regulation (GDPR — Regulation EU 2016/679), and applicable data protection law.',
+    sections: [
+      {
+        title: '1. Data Controller',
+        content: 'Scuta Digital, based in Portugal. Data protection contact: appschedy@gmail.com.',
+      },
+      {
+        title: '2. Data we collect and why',
+        items: [
+          { label: 'Contact form', text: 'Name, email address, business type, and message. Legal basis: pre-contractual measures at the request of the data subject (Art. 6(1)(b) GDPR). Purpose: to respond to your enquiry.' },
+          { label: 'Google Analytics', text: 'Anonymised IP address, browser type, operating system, pages visited, session duration, traffic source. Legal basis: consent (Art. 6(1)(a) GDPR) — collected only after your explicit consent via the cookie banner. Purpose: site performance analysis to improve our service.' },
+          { label: 'Technical cookies', text: 'Cookie preferences and language settings. Legal basis: legitimate interests (Art. 6(1)(f) GDPR). Purpose: basic site functionality.' },
+        ],
+      },
+      {
+        title: '3. Cookies and tracking technologies',
+        content: 'We use the following types of cookies:\n\n• Essential cookies — required for the site to function. No consent required.\n• Analytics cookies (Google Analytics) — only activated with your explicit consent. IP anonymisation is enabled. Data is transferred to Google servers in the United States under Standard Contractual Clauses approved by the European Commission.\n\nYou can manage or withdraw your consent at any time via the cookie banner or by clearing your browser data.',
+      },
+      {
+        title: '4. Who we share your data with',
+        content: 'We do not sell or share your personal data with third parties for commercial purposes. Your data may be shared with:\n\n• Google LLC (Google Analytics) — transfer to the US under Standard Contractual Clauses.\n• WhatsApp/Meta — only when you use the direct contact button; data is then processed by Meta under their privacy policy.\n\nNo other international data transfers take place.',
+      },
+      {
+        title: '5. How long we keep your data',
+        content: '• Contact form data: 12 months after the last interaction, unless a longer retention period is required by law.\n• Analytics data: 14 months (Google Analytics GA4 default).\n• Cookie preferences: 12 months (stored locally in your browser).',
+      },
+      {
+        title: '6. Your rights',
+        content: 'Under the UK GDPR and EU GDPR, you have the following rights:\n\n• Right of access — to know what data we hold about you.\n• Right to rectification — to correct inaccurate data.\n• Right to erasure ("right to be forgotten").\n• Right to restriction of processing.\n• Right to data portability.\n• Right to object to processing.\n• Right to withdraw consent at any time, without affecting the lawfulness of processing before withdrawal.\n\nTo exercise any of these rights, contact us at appschedy@gmail.com. You also have the right to lodge a complaint with the Information Commissioner\'s Office (ICO) at www.ico.org.uk (UK) or your local supervisory authority (EU).',
+      },
+      {
+        title: '7. Security',
+        content: 'We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, loss, or destruction. All communication between your browser and our site is encrypted via HTTPS.',
+      },
+      {
+        title: '8. Changes to this policy',
+        content: 'We may update this policy from time to time. The "last updated" date at the top of this page indicates when it was last revised. For material changes, we will notify users via a notice on the site.',
+      },
+      {
+        title: '9. Contact',
+        content: 'For any questions about this policy or our data processing: appschedy@gmail.com',
+      },
+    ],
+  },
+
+  'es': {
+    title: 'Política de Privacidad',
+    updated: 'Última actualización: 1 de enero de 2025',
+    intro: 'Scuta Digital ("nosotros") está comprometida con la protección de tus datos personales. Esta política explica qué datos recopilamos, cómo los usamos, la base legal para hacerlo y tus derechos conforme al Reglamento General de Protección de Datos (RGPD — Reglamento UE 2016/679) y la normativa aplicable.',
+    sections: [
+      {
+        title: '1. Responsable del tratamiento',
+        content: 'Scuta Digital, con sede en Portugal. Contacto: appschedy@gmail.com.',
+      },
+      {
+        title: '2. Datos que recopilamos y por qué',
+        items: [
+          { label: 'Formulario de contacto', text: 'Nombre, correo electrónico, tipo de negocio y mensaje. Base legal: medidas precontractuales a petición del interesado (Art. 6.1.b RGPD). Finalidad: responder a tu solicitud de presupuesto.' },
+          { label: 'Google Analytics', text: 'IP anonimizada, tipo de navegador, sistema operativo, páginas visitadas, duración de la visita, fuente de tráfico. Base legal: consentimiento (Art. 6.1.a RGPD) — solo se recopilan tras tu consentimiento explícito en el banner de cookies. Finalidad: análisis del rendimiento del sitio.' },
+          { label: 'Cookies técnicas', text: 'Preferencias de cookies e idioma. Base legal: interés legítimo (Art. 6.1.f RGPD). Finalidad: funcionamiento básico del sitio.' },
+        ],
+      },
+      {
+        title: '3. Cookies y tecnologías de seguimiento',
+        content: 'Utilizamos los siguientes tipos de cookies:\n\n• Cookies esenciales — necesarias para el funcionamiento del sitio. No requieren consentimiento.\n• Cookies de análisis (Google Analytics) — solo se activan con tu consentimiento explícito. La anonimización de IP está activada. Los datos se transfieren a servidores de Google en EE.UU. bajo Cláusulas Contractuales Estándar.\n\nPuedes gestionar o revocar tu consentimiento en cualquier momento desde el banner de cookies.',
+      },
+      {
+        title: '4. Con quién compartimos tus datos',
+        content: 'No vendemos ni cedemos tus datos personales a terceros con fines comerciales. Tus datos pueden compartirse con:\n\n• Google LLC (Google Analytics) — transferencia a EE.UU. bajo Cláusulas Contractuales Estándar.\n• WhatsApp/Meta — solo cuando usas el botón de contacto directo.\n\nNo se realizan otras transferencias internacionales de datos.',
+      },
+      {
+        title: '5. Durante cuánto tiempo conservamos tus datos',
+        content: '• Datos del formulario de contacto: 12 meses tras el último contacto.\n• Datos de analytics: 14 meses (configuración estándar de Google Analytics GA4).\n• Preferencias de cookies: 12 meses (almacenamiento local en tu navegador).',
+      },
+      {
+        title: '6. Tus derechos',
+        content: 'Conforme al RGPD, tienes los siguientes derechos:\n\n• Derecho de acceso.\n• Derecho de rectificación.\n• Derecho de supresión ("derecho al olvido").\n• Derecho a la limitación del tratamiento.\n• Derecho a la portabilidad.\n• Derecho de oposición.\n• Derecho a retirar el consentimiento en cualquier momento.\n\nPara ejercer tus derechos, contáctanos en appschedy@gmail.com. También puedes reclamar ante la Agencia Española de Protección de Datos (AEPD) en www.aepd.es o ante tu autoridad supervisora local.',
+      },
+      {
+        title: '7. Seguridad',
+        content: 'Aplicamos medidas técnicas y organizativas adecuadas para proteger tus datos personales frente al acceso no autorizado, pérdida o destrucción. La comunicación está cifrada mediante HTTPS.',
+      },
+      {
+        title: '8. Cambios en esta política',
+        content: 'Podemos actualizar esta política periódicamente. La fecha de "última actualización" indica cuándo fue revisada por última vez.',
+      },
+      {
+        title: '9. Contacto',
+        content: 'Para cualquier consulta sobre esta política: appschedy@gmail.com',
+      },
+    ],
+  },
+};
+
+// ---------------------------------------------------------------------------
+// TIPOS
+// ---------------------------------------------------------------------------
+type Section = {
+  title: string;
+  content?: string;
+  items?: { label: string; text: string }[];
+};
+
+// ---------------------------------------------------------------------------
+// COMPONENTE
+// ---------------------------------------------------------------------------
+export default function PrivacyPolicy({
+  lang,
+  setLang,
+}: {
+  lang: Language;
+  setLang: (l: Language) => void;
+}) {
+  const c = CONTENT[lang] ?? CONTENT['pt-pt'];
 
   return (
-    <section id="contact" className="relative py-24 px-6 bg-scuta-primary overflow-hidden">
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          
-          <div>
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="inline-flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-6">
-                <Sparkles size={14} /> {t.badge}
-              </div>
-              <h2 className="text-5xl md:text-7xl font-black text-scuta-silk leading-[0.9] tracking-tighter mb-8 text-left">
-                {t.title}
-              </h2>
-              <p className="text-xl text-slate-400 mb-12 leading-relaxed font-medium max-w-md text-left">
-                {t.subtitle}
-              </p>
+    <div className="min-h-screen bg-scuta-primary">
+      <Navbar lang={lang} setLang={setLang} />
 
-              <div className="space-y-6">
-                <a 
-                  href={`https://wa.me/${CONTACT_INFO.phoneRaw}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-center gap-6 p-4 rounded-3xl bg-white/5 border border-white/5 hover:border-scuta-highlight/50 transition-all duration-500"
-                >
-                  <div className="w-12 h-12 rounded-2xl bg-scuta-highlight flex items-center justify-center text-scuta-primary shadow-xl">
-                    <MessageSquare size={24} />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">WhatsApp Rápido</p>
-                    <p className="text-lg font-bold text-scuta-silk">{CONTACT_INFO.phone}</p>
-                  </div>
-                </a>
-
-                <a 
-                  href={`mailto:${CONTACT_INFO.email}`}
-                  className="group flex items-center gap-6 p-4 rounded-3xl bg-white/5 border border-white/5 hover:border-scuta-accent/50 transition-all duration-500"
-                >
-                  <div className="w-12 h-12 rounded-2xl bg-scuta-accent flex items-center justify-center text-scuta-silk shadow-xl">
-                    <Mail size={24} />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Email Corporativo</p>
-                    <p className="text-lg font-bold text-scuta-silk">{CONTACT_INFO.email}</p>
-                  </div>
-                </a>
-              </div>
-            </motion.div>
-          </div>
-
+      <main className="pt-32 pb-24 px-6">
+        <div className="max-w-3xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="bg-scuta-surface/90 backdrop-blur-3xl border border-white/10 rounded-4xl p-8 relative"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <h3 className="text-2xl font-black text-scuta-silk mb-8 tracking-tight flex items-center gap-3 text-left">
-              {t.form.title} <div className="h-px bg-white/10 grow ml-2" />
-            </h3>
+            {/* Voltar */}
+            <a
+              href="/"
+              className="inline-flex items-center gap-2 text-slate-500 hover:text-scuta-silk text-xs font-bold uppercase tracking-widest mb-10 transition-colors group"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              Voltar ao site
+            </a>
 
-            <form className="space-y-5">
-              <div className="grid md:grid-cols-2 gap-5">
-                <div className="space-y-2 text-left">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{t.form.name}</label>
-                  <input 
-                    type="text" 
-                    required
-                    placeholder="João Silva"
-                    className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all"
-                  />
-                </div>
-                <div className="space-y-2 text-left">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{t.form.email}</label>
-                  <input 
-                    type="email" 
-                    required
-                    placeholder="joao@empresa.pt"
-                    className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all"
-                  />
-                </div>
+            {/* Cabeçalho */}
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-scuta-highlight/10 border border-scuta-highlight/20 flex items-center justify-center shrink-0">
+                <ShieldCheck size={24} className="text-scuta-highlight" />
               </div>
+              <h1 className="text-4xl md:text-6xl font-black text-scuta-silk tracking-tighter">
+                {c.title}
+              </h1>
+            </div>
+            <p className="text-slate-500 font-mono text-xs mb-4 ml-16">{c.updated}</p>
 
-              <div className="space-y-2 text-left">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{t.form.subject}</label>
-                <select 
-                  className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-slate-400 outline-none focus:border-scuta-accent transition-all"
+            {/* Badges de conformidade */}
+            <div className="flex flex-wrap gap-2 mb-12 ml-16">
+              {['RGPD / EU GDPR', 'LGPD', 'UK GDPR'].map((badge) => (
+                <span
+                  key={badge}
+                  className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-scuta-highlight/10 text-scuta-highlight border border-scuta-highlight/20"
                 >
-                  <option>Negócio local (Loja, Salão, Restaurante...)</option>
-                  <option>Serviços profissionais (Advogado, Contabilista...)</option>
-                  <option>Venda Online / E-commerce</option>
-                  <option>Outro tipo de projeto</option>
-                </select>
-              </div>
+                  {badge}
+                </span>
+              ))}
+            </div>
 
-              <div className="space-y-2 text-left">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{t.form.message}</label>
-                <textarea 
-                  rows={3}
-                  required
-                  placeholder="O que o seu negócio precisa hoje?"
-                  className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all resize-none"
-                />
-              </div>
+            {/* Introdução */}
+            <div className="p-6 rounded-3xl bg-scuta-surface/50 border border-white/5 mb-12">
+              <p className="text-slate-300 leading-relaxed font-medium">{c.intro}</p>
+            </div>
 
-              <button 
-                type="submit"
-                className="w-full py-5 bg-scuta-silk text-scuta-primary font-black text-sm uppercase tracking-[0.2em] rounded-2xl hover:bg-scuta-highlight transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95"
-              >
-                {t.form.send} <Send size={16} />
-              </button>
-              
-              <div className="flex items-center justify-center gap-2 text-[9px] font-bold text-slate-600 uppercase tracking-widest mt-4">
-                <ShieldCheck size={12} className="text-scuta-highlight" />
-                Os seus dados estão seguros · Resposta em 24h
-              </div>
-            </form>
+            {/* Secções */}
+            <div className="space-y-10">
+              {c.sections.map((section: Section, index: number) => (
+                <section key={index} className="space-y-4">
+                  <h2 className="text-xl font-black text-scuta-highlight tracking-tight">
+                    {section.title}
+                  </h2>
+
+                  {/* Conteúdo simples */}
+                  {section.content && (
+                    <div className="text-slate-400 leading-relaxed text-base font-medium whitespace-pre-line">
+                      {section.content}
+                    </div>
+                  )}
+
+                  {/* Lista de itens com label em destaque */}
+                  {section.items && (
+                    <div className="space-y-4">
+                      {section.items.map((item, i) => (
+                        <div
+                          key={i}
+                          className="p-5 rounded-2xl bg-scuta-surface/50 border border-white/5"
+                        >
+                          <p className="text-scuta-silk font-black text-sm mb-2">
+                            {item.label}
+                          </p>
+                          <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                            {item.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </section>
+              ))}
+            </div>
+
+            {/* Rodapé da página */}
+            <div className="mt-16 pt-8 border-t border-white/5 text-center">
+              <p className="text-slate-600 text-xs font-bold uppercase tracking-widest">
+                Scuta Digital · appschedy@gmail.com
+              </p>
+            </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </main>
+
+      <Footer lang={lang} />
+    </div>
   );
 }
 
+================================================================================
+Arquivo: src/components/CookieBanner.tsx
+================================================================================
+
+/**
+ * CookieBanner.tsx — Scuta Digital
+ * Conformidade: RGPD (UE/Portugal), LGPD (Brasil), UK GDPR
+ * Google Analytics só corre APÓS consentimento explícito do utilizador.
+ */
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Cookie, ShieldCheck, BarChart2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Language } from '../lib/constants';
+
+// --- Substitua pelo seu Measurement ID do Google Analytics ---
+const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+
+const STRINGS = {
+  'pt-pt': {
+    title: 'Utilizamos cookies',
+    description: 'Usamos cookies para melhorar a sua experiência e analisar o tráfego do site (Google Analytics). Pode escolher quais aceita.',
+    acceptAll: 'Aceitar todos',
+    essentialOnly: 'Só essenciais',
+    manage: 'Gerir preferências',
+    save: 'Guardar preferências',
+    essential: { title: 'Cookies essenciais', description: 'Necessários para o funcionamento básico do site. Não podem ser desativados.', always: 'Sempre ativos' },
+    analytics: { title: 'Cookies de análise', description: 'Google Analytics — permitem-nos perceber como os visitantes usam o site. Não são usados para publicidade.' },
+    privacy: 'Política de Privacidade',
+    badge: 'Os seus dados, as suas escolhas.',
+  },
+  'pt-br': {
+    title: 'Usamos cookies',
+    description: 'Usamos cookies para melhorar sua experiência e analisar o tráfego do site (Google Analytics). Você pode escolher quais aceita.',
+    acceptAll: 'Aceitar todos',
+    essentialOnly: 'Só essenciais',
+    manage: 'Gerenciar preferências',
+    save: 'Salvar preferências',
+    essential: { title: 'Cookies essenciais', description: 'Necessários para o funcionamento básico do site. Não podem ser desativados.', always: 'Sempre ativos' },
+    analytics: { title: 'Cookies de análise', description: 'Google Analytics — nos permitem entender como os visitantes usam o site. Não são usados para publicidade.' },
+    privacy: 'Política de Privacidade',
+    badge: 'Seus dados, suas escolhas.',
+  },
+  'en': {
+    title: 'We use cookies',
+    description: 'We use cookies to improve your experience and analyse site traffic (Google Analytics). You can choose which ones you accept.',
+    acceptAll: 'Accept all',
+    essentialOnly: 'Essential only',
+    manage: 'Manage preferences',
+    save: 'Save preferences',
+    essential: { title: 'Essential cookies', description: 'Required for the site to function. These cannot be disabled.', always: 'Always active' },
+    analytics: { title: 'Analytics cookies', description: 'Google Analytics — help us understand how visitors use the site. Not used for advertising.' },
+    privacy: 'Privacy Policy',
+    badge: 'Your data, your choices.',
+  },
+  'es': {
+    title: 'Usamos cookies',
+    description: 'Usamos cookies para mejorar tu experiencia y analizar el tráfico del sitio (Google Analytics). Puedes elegir cuáles aceptas.',
+    acceptAll: 'Aceptar todos',
+    essentialOnly: 'Solo esenciales',
+    manage: 'Gestionar preferencias',
+    save: 'Guardar preferencias',
+    essential: { title: 'Cookies esenciales', description: 'Necesarios para el funcionamiento básico del sitio. No se pueden desactivar.', always: 'Siempre activos' },
+    analytics: { title: 'Cookies de análisis', description: 'Google Analytics — nos ayudan a entender cómo los visitantes usan el sitio. No se usan para publicidad.' },
+    privacy: 'Política de Privacidad',
+    badge: 'Tus datos, tus elecciones.',
+  },
+};
+
+// --- Declaração correcta do tipo Window para evitar ts(2352) ---
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
+    [key: `ga-disable-${string}`]: boolean;
+  }
+}
+
+function loadGoogleAnalytics() {
+  if (document.getElementById('ga-script')) return;
+
+  const script = document.createElement('script');
+  script.id = 'ga-script';
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function (...args: unknown[]) {
+    window.dataLayer.push(args);
+  };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true, storage: 'granted' });
+}
+
+function disableGoogleAnalytics() {
+  // Usa a chave tipada correctamente via declaração de interface acima
+  window[`ga-disable-${GA_MEASUREMENT_ID}`] = true;
+}
+
+type ConsentState = 'pending' | 'accepted' | 'essential' | 'custom';
+interface Preferences { analytics: boolean }
+
+export default function CookieBanner({ lang }: { lang: Language }) {
+  const t = STRINGS[lang] ?? STRINGS['pt-pt'];
+  const [consent, setConsent] = useState<ConsentState>('pending');
+  const [showDetails, setShowDetails] = useState(false);
+  const [prefs, setPrefs] = useState<Preferences>({ analytics: false });
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('scuta_cookie_consent');
+      if (saved) {
+        const parsed = JSON.parse(saved) as { state: ConsentState; prefs: Preferences };
+        setConsent(parsed.state);
+        if (parsed.prefs.analytics) loadGoogleAnalytics();
+        else disableGoogleAnalytics();
+      } else {
+        const timer = setTimeout(() => setVisible(true), 1000);
+        return () => clearTimeout(timer);
+      }
+    } catch {
+      setVisible(true);
+    }
+  }, []);
+
+  function saveConsent(state: ConsentState, analytics: boolean) {
+    const data = { state, prefs: { analytics }, date: new Date().toISOString() };
+    localStorage.setItem('scuta_cookie_consent', JSON.stringify(data));
+    setConsent(state);
+    setVisible(false);
+    if (analytics) loadGoogleAnalytics();
+    else disableGoogleAnalytics();
+  }
+
+  if (consent !== 'pending') return null;
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <>
+          {showDetails && (
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/60 z-998 backdrop-blur-sm"
+            />
+          )}
+
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 80 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            className="fixed bottom-0 left-0 right-0 z-999 p-4 md:p-6"
+          >
+            <div className="max-w-4xl mx-auto bg-scuta-surface border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+
+              <div className="p-6 md:p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-scuta-highlight/10 border border-scuta-highlight/20 flex items-center justify-center shrink-0">
+                    <Cookie size={20} className="text-scuta-highlight" />
+                  </div>
+                  <div>
+                    <h3 className="text-scuta-silk font-black text-lg tracking-tight">{t.title}</h3>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-scuta-highlight">{t.badge}</p>
+                  </div>
+                </div>
+
+                <p className="text-slate-400 text-sm leading-relaxed mb-6 font-medium">
+                  {t.description}{' '}
+                  <a href="/privacidade" className="text-scuta-highlight underline hover:no-underline">{t.privacy}</a>.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    onClick={() => saveConsent('accepted', true)}
+                    className="flex-1 py-3 px-6 bg-scuta-highlight text-scuta-primary font-black text-sm uppercase tracking-widest rounded-2xl hover:brightness-110 transition-all active:scale-95"
+                  >
+                    {t.acceptAll}
+                  </button>
+                  <button
+                    onClick={() => saveConsent('essential', false)}
+                    className="flex-1 py-3 px-6 bg-white/5 border border-white/10 text-slate-300 font-black text-sm uppercase tracking-widest rounded-2xl hover:bg-white/10 transition-all active:scale-95"
+                  >
+                    {t.essentialOnly}
+                  </button>
+                  <button
+                    onClick={() => setShowDetails(!showDetails)}
+                    className="flex items-center justify-center gap-2 py-3 px-6 text-slate-500 font-bold text-xs uppercase tracking-widest rounded-2xl hover:text-slate-300 transition-all"
+                  >
+                    {t.manage}
+                    {showDetails ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                  </button>
+                </div>
+              </div>
+
+              <AnimatePresence>
+                {showDetails && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+                    className="overflow-hidden border-t border-white/5"
+                  >
+                    <div className="p-6 md:p-8 space-y-4">
+
+                      {/* Essenciais — sempre activos */}
+                      <div className="flex items-start justify-between gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div className="flex items-start gap-3">
+                          <ShieldCheck size={18} className="text-slate-500 mt-0.5 shrink-0" />
+                          <div className="text-left">
+                            <p className="text-scuta-silk font-bold text-sm">{t.essential.title}</p>
+                            <p className="text-slate-500 text-xs mt-1 leading-relaxed">{t.essential.description}</p>
+                          </div>
+                        </div>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 shrink-0 mt-1">{t.essential.always}</span>
+                      </div>
+
+                      {/* Analytics — toggle */}
+                      <div className="flex items-start justify-between gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div className="flex items-start gap-3">
+                          <BarChart2 size={18} className="text-slate-500 mt-0.5 shrink-0" />
+                          <div className="text-left">
+                            <p className="text-scuta-silk font-bold text-sm">{t.analytics.title}</p>
+                            <p className="text-slate-500 text-xs mt-1 leading-relaxed">{t.analytics.description}</p>
+                          </div>
+                        </div>
+                        <button
+                          role="switch"
+                          aria-checked={prefs.analytics}
+                          onClick={() => setPrefs(p => ({ ...p, analytics: !p.analytics }))}
+                          className={`relative shrink-0 mt-0.5 w-11 h-6 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-scuta-highlight/50 ${prefs.analytics ? 'bg-scuta-highlight' : 'bg-white/10'}`}
+                        >
+                          <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-300 ${prefs.analytics ? 'translate-x-5' : 'translate-x-0'}`} />
+                        </button>
+                      </div>
+
+                      <button
+                        onClick={() => saveConsent('custom', prefs.analytics)}
+                        className="w-full py-3 bg-scuta-accent text-white font-black text-sm uppercase tracking-widest rounded-2xl hover:brightness-110 transition-all active:scale-95"
+                      >
+                        {t.save}
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
 
 ================================================================================
 Arquivo: src/components/FAQ.tsx
@@ -604,10 +1062,10 @@ Arquivo: src/components/Hero.tsx
 ================================================================================
 
 import { motion } from 'motion/react';
-import { 
-  ArrowRight, 
-  ShieldCheck, 
-  Clock, 
+import {
+  ArrowRight,
+  ShieldCheck,
+  Clock,
   Smartphone,
   TrendingUp
 } from 'lucide-react';
@@ -616,61 +1074,112 @@ import { UI_STRINGS, Language } from '../lib/constants';
 export default function Hero({ lang }: { lang: Language }) {
   const t = UI_STRINGS[lang].hero;
 
+  // Divide o título em linhas e cada linha em palavras para o stagger
+  const titleLines = t.title.split('\n');
+
   return (
     <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-scuta-primary">
+      {/* Glow de fundo */}
       <div className="absolute top-0 left-1/4 w-150 h-150 bg-scuta-accent/20 blur-[140px] rounded-full pointer-events-none" />
-      
+
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-scuta-silk text-[10px] font-black uppercase tracking-[0.2em] mb-10 backdrop-blur-md">
+
+        {/* --- Coluna esquerda --- */}
+        <div>
+          {/* Badge animado */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-scuta-silk text-[10px] font-black uppercase tracking-[0.2em] mb-10 backdrop-blur-md"
+          >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-scuta-highlight opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-scuta-highlight"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-scuta-highlight opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-scuta-highlight" />
             </span>
             {t.badge}
-          </div>
+          </motion.div>
 
+          {/* Título — cada palavra entra com stagger e rotação 3D */}
           <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.85]">
-            {t.title}
+            {titleLines.map((line, lineIndex) => (
+              <span key={lineIndex} className="block overflow-hidden">
+                {line.split(' ').map((word, wordIndex) => (
+                  <motion.span
+                    key={wordIndex}
+                    initial={{ opacity: 0, y: 48, rotateX: -25 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{
+                      delay: 0.15 + lineIndex * 0.18 + wordIndex * 0.07,
+                      duration: 0.65,
+                      ease: [0.23, 1, 0.32, 1],
+                    }}
+                    className="inline-block mr-[0.22em] origin-bottom"
+                    style={{ display: 'inline-block' }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </span>
+            ))}
           </h1>
-          
-          <p className="text-xl text-slate-400 mb-12 max-w-lg leading-relaxed font-medium">
-            {t.subtitle}
-          </p>
 
-          <div className="flex flex-col sm:flex-row gap-6">
-            <a 
-              href="#contact" 
+          {/* Subtítulo */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.65, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+            className="text-xl text-slate-400 mb-12 max-w-lg leading-relaxed font-medium"
+          >
+            {t.subtitle}
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.78, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+            className="flex flex-col sm:flex-row gap-6"
+          >
+            <a
+              href="#contact"
               className="px-10 py-5 bg-scuta-silk text-scuta-primary rounded-2xl font-black text-lg hover:bg-scuta-highlight transition-all flex items-center justify-center gap-3 group active:scale-95 shadow-2xl"
             >
-              {t.cta} <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              {t.cta}
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a 
-              href="#samples" 
+            <a
+              href="#samples"
               className="px-10 py-5 bg-white/5 text-scuta-silk border border-white/10 rounded-2xl font-black text-lg hover:bg-white/10 transition-all text-center active:scale-95 backdrop-blur-md"
             >
               {t.secondaryCta}
             </a>
-          </div>
-          
-          <div className="mt-12 flex flex-wrap gap-8">
+          </motion.div>
+
+          {/* Selos de confiança */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.95, duration: 0.6 }}
+            className="mt-12 flex flex-wrap gap-8"
+          >
             {[
               { text: t.trust.noSurprise, icon: ShieldCheck },
               { text: t.trust.fast, icon: Clock },
-              { text: t.trust.mobile, icon: Smartphone }
+              { text: t.trust.mobile, icon: Smartphone },
             ].map((item, index) => (
-              <div key={index} className="flex items-center gap-3 text-[10px] text-slate-500 font-black uppercase tracking-widest">
+              <div
+                key={index}
+                className="flex items-center gap-3 text-[10px] text-slate-500 font-black uppercase tracking-widest"
+              >
                 <item.icon className="w-4 h-4 text-scuta-highlight shrink-0" />
                 {item.text}
               </div>
             ))}
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
+        {/* --- Coluna direita --- */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -678,17 +1187,18 @@ export default function Hero({ lang }: { lang: Language }) {
           className="relative lg:ml-6"
         >
           <div className="relative aspect-4/3 rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group">
-            <img 
-              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" 
-              alt="Estratégia Scuta" 
+            <img
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
+              alt="Estratégia Scuta"
               className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000"
               referrerPolicy="no-referrer"
             />
           </div>
 
-          <motion.div 
+          {/* Card flutuante */}
+          <motion.div
             animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             className="absolute -bottom-6 -right-6 bg-scuta-surface/90 backdrop-blur-xl p-6 rounded-3xl border border-scuta-highlight/30 hidden md:flex items-center gap-4 max-w-60 shadow-2xl"
           >
             <div className="w-12 h-12 bg-scuta-highlight rounded-xl flex items-center justify-center shrink-0">
@@ -696,21 +1206,23 @@ export default function Hero({ lang }: { lang: Language }) {
             </div>
             <div className="text-left">
               <p className="text-sm font-black text-white leading-tight mb-0.5">Resultados</p>
-              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest leading-none">Foco em Vendas</p>
+              <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest leading-none">
+                Foco em Vendas
+              </p>
             </div>
           </motion.div>
         </motion.div>
+
       </div>
     </section>
   );
 }
 
-
 ================================================================================
 Arquivo: src/components/Navbar.tsx
 ================================================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
 import { UI_STRINGS, BRAND_INFO, Language } from '../lib/constants';
@@ -719,6 +1231,7 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
+  const langMenuRef = useRef<HTMLDivElement>(null);
   const t = UI_STRINGS[lang];
 
   useEffect(() => {
@@ -727,33 +1240,53 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Fechar menu de idioma ao clicar fora — usa ref em vez de id
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (langMenuRef.current && !langMenuRef.current.contains(e.target as Node)) {
+        setShowLangMenu(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const navLinks = [
-    { name: t.navbar.why, href: '#why' },
+    { name: t.navbar.why,       href: '#why' },
     { name: t.navbar.solutions, href: '#solutions' },
-    { name: t.navbar.samples, href: '#samples' },
-    { name: t.navbar.faq, href: '#faq' },
+    { name: t.navbar.samples,   href: '#samples' },
+    { name: t.navbar.pricing ?? 'Preços', href: '#pricing' },
+    { name: t.navbar.faq,       href: '#faq' },
   ];
 
   const languages: { code: Language; label: string; flag: string }[] = [
-    { code: "pt-pt", label: "Portugal", flag: "🇵🇹" },
-    { code: "pt-br", label: "Brasil",   flag: "🇧🇷" },
-    { code: "en",    label: "English",  flag: "🇬🇧" },
-    { code: "es",    label: "Español",  flag: "🇪🇸" },
+    { code: 'pt-pt', label: 'Portugal', flag: '🇵🇹' },
+    { code: 'pt-br', label: 'Brasil',   flag: '🇧🇷' },
+    { code: 'en',    label: 'English',  flag: '🇬🇧' },
+    { code: 'es',    label: 'Español',  flag: '🇪🇸' },
   ];
 
   const currentLang = languages.find(l => l.code === lang) || languages[0];
 
+  function handleLangSelect(code: Language) {
+    setLang(code);
+    setShowLangMenu(false);
+    setIsOpen(false);
+  }
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    // z-[1000] — acima do CookieBanner (z-[999]) e do seu overlay (z-[998])
+    <nav className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-500 ${
       scrolled ? 'py-4' : 'py-8'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className={`backdrop-blur-xl border transition-all duration-500 rounded-full px-8 py-4 flex items-center justify-between ${
-          scrolled 
-            ? 'bg-scuta-primary/80 border-white/10 shadow-2xl' 
+          scrolled
+            ? 'bg-scuta-primary/80 border-white/10 shadow-2xl'
             : 'bg-transparent border-transparent'
         }`}>
-          
+
+          {/* Logo */}
           <div className="flex items-center gap-3 group cursor-pointer">
             <div className="size-10 bg-scuta-silk rounded-xl flex items-center justify-center transition-transform group-hover:rotate-12 duration-300 shadow-xl">
               <span className="text-scuta-primary font-black text-xl leading-none">S</span>
@@ -768,11 +1301,12 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
             </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-10">
+          {/* Links desktop */}
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a 
+              <a
                 key={link.href}
-                href={link.href} 
+                href={link.href}
                 className="text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-scuta-silk transition-all relative group"
               >
                 {link.name}
@@ -781,35 +1315,45 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
             ))}
           </div>
 
+          {/* Direita: idioma + CTA */}
           <div className="hidden md:flex items-center gap-6">
-            {/* Language Selector */}
-            <div className="relative">
-              <button 
-                onClick={() => setShowLangMenu(!showLangMenu)}
+
+            {/* Selector de idioma — usa ref para detectar cliques fora */}
+            <div className="relative" ref={langMenuRef}>
+              <button
+                onClick={() => setShowLangMenu(prev => !prev)}
                 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-scuta-silk transition-all"
+                aria-haspopup="listbox"
+                aria-expanded={showLangMenu}
               >
                 <span>{currentLang.flag}</span>
                 <span className="hidden lg:inline">{currentLang.label}</span>
-                <ChevronDown size={12} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
+                <ChevronDown
+                  size={12}
+                  className={`transition-transform duration-200 ${showLangMenu ? 'rotate-180' : ''}`}
+                />
               </button>
-              
+
               <AnimatePresence>
                 {showLangMenu && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full right-0 mt-4 bg-scuta-surface border border-white/10 rounded-2xl p-2 shadow-2xl min-w-35"
+                  <motion.div
+                    role="listbox"
+                    initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
+                    className="absolute top-full right-0 mt-3 bg-scuta-surface border border-white/10 rounded-2xl p-2 shadow-2xl min-w-[150px]"
                   >
                     {languages.map((l) => (
                       <button
                         key={l.code}
-                        onClick={() => {
-                          setLang(l.code);
-                          setShowLangMenu(false);
-                        }}
-                        className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-                          lang === l.code ? 'bg-scuta-highlight text-scuta-primary' : 'text-slate-400 hover:bg-white/5 hover:text-scuta-silk'
+                        role="option"
+                        aria-selected={lang === l.code}
+                        onClick={() => handleLangSelect(l.code)}
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                          lang === l.code
+                            ? 'bg-scuta-highlight text-scuta-primary'
+                            : 'text-slate-400 hover:bg-white/5 hover:text-scuta-silk'
                         }`}
                       >
                         <span>{l.flag}</span>
@@ -821,17 +1365,19 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
               </AnimatePresence>
             </div>
 
-            <a 
-              href="#contact" 
+            {/* Botão CTA */}
+            <a
+              href="#contact"
               className="px-6 py-3 bg-scuta-silk text-scuta-primary rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-scuta-highlight hover:text-scuta-primary transition-all flex items-center gap-2 shadow-2xl active:scale-95"
             >
               {t.navbar.contact} <ArrowRight size={14} />
             </a>
           </div>
 
-          <button 
-            className="md:hidden text-scuta-silk p-1" 
-            onClick={() => setIsOpen(!isOpen)} 
+          {/* Hamburger mobile */}
+          <button
+            className="md:hidden text-scuta-silk p-1"
+            onClick={() => setIsOpen(prev => !prev)}
             aria-label="Menu"
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -839,37 +1385,39 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
         </div>
       </div>
 
+      {/* Menu mobile */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             className="md:hidden absolute top-full left-6 right-6 mt-4 bg-scuta-surface border border-white/10 rounded-[2.5rem] p-8 overflow-hidden shadow-2xl"
           >
             <div className="flex flex-col gap-8 text-left">
               {navLinks.map((link) => (
-                <a 
+                <a
                   key={link.href}
-                  href={link.href} 
-                  onClick={() => setIsOpen(false)} 
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
                   className="text-2xl font-black text-scuta-silk tracking-tighter flex items-center justify-between group"
                 >
                   {link.name}
                   <ArrowRight size={20} className="text-scuta-highlight opacity-0 group-hover:opacity-100 transition-all" />
                 </a>
               ))}
-              
-              <div className="grid grid-cols-2 gap-4">
+
+              {/* Selector de idioma mobile */}
+              <div className="grid grid-cols-2 gap-3">
                 {languages.map((l) => (
                   <button
                     key={l.code}
-                    onClick={() => {
-                      setLang(l.code);
-                      setIsOpen(false);
-                    }}
+                    onClick={() => handleLangSelect(l.code)}
                     className={`flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${
-                      lang === l.code ? 'bg-scuta-highlight border-scuta-highlight text-scuta-primary' : 'bg-white/5 border-white/10 text-slate-400'
+                      lang === l.code
+                        ? 'bg-scuta-highlight border-scuta-highlight text-scuta-primary'
+                        : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
                     }`}
                   >
                     <span>{l.flag}</span>
@@ -878,9 +1426,10 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
                 ))}
               </div>
 
-              <a 
-                href="#contact" 
-                onClick={() => setIsOpen(false)} 
+              {/* CTA mobile */}
+              <a
+                href="#contact"
+                onClick={() => setIsOpen(false)}
                 className="w-full py-5 bg-scuta-accent text-white rounded-2xl text-center font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 shadow-xl active:scale-95"
               >
                 {t.navbar.contact}
@@ -893,28 +1442,403 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
   );
 }
 
+================================================================================
+Arquivo: src/components/Pricing.tsx
+================================================================================
+
+import { motion } from 'motion/react';
+import { CheckCircle2, Sparkles, ArrowRight } from 'lucide-react';
+import { Language } from '../lib/constants';
+
+const PLANS = {
+  'pt-pt': [
+    {
+      name: 'Presença',
+      tagline: 'Para quem quer existir online',
+      price: 'A partir de 297€',
+      period: 'pagamento único',
+      highlight: false,
+      features: [
+        'Site profissional de 1 página',
+        'Aparece no Google (SEO local)',
+        'Adaptado a telemóvel',
+        'Formulário de contacto',
+        'Entregue em 7 dias',
+      ],
+      cta: 'Quero este plano',
+    },
+    {
+      name: 'Crescimento',
+      tagline: 'Para quem quer mais clientes',
+      price: 'A partir de 597€',
+      period: 'pagamento único',
+      highlight: true,
+      features: [
+        'Site completo com várias páginas',
+        'SEO avançado — mais visibilidade',
+        'Galeria de fotos / portfólio',
+        'Integração com WhatsApp e redes sociais',
+        'Relatório mensal de visitas',
+        'Suporte durante 3 meses',
+      ],
+      cta: 'Quero crescer',
+    },
+    {
+      name: 'Autoridade',
+      tagline: 'Para liderar no seu sector',
+      price: 'Orçamento personalizado',
+      period: 'projecto à medida',
+      highlight: false,
+      features: [
+        'Tudo do plano Crescimento',
+        'Loja online (e-commerce)',
+        'Design exclusivo para a sua marca',
+        'Blog e conteúdo para SEO',
+        'Suporte prioritário 12 meses',
+      ],
+      cta: 'Falar com a equipa',
+    },
+  ],
+  'pt-br': [
+    {
+      name: 'Presença',
+      tagline: 'Para quem quer existir online',
+      price: 'A partir de R$ 1.497',
+      period: 'pagamento único',
+      highlight: false,
+      features: [
+        'Site profissional de 1 página',
+        'Aparece no Google (SEO local)',
+        'Adaptado para celular',
+        'Formulário de contato',
+        'Entregue em 7 dias',
+      ],
+      cta: 'Quero esse plano',
+    },
+    {
+      name: 'Crescimento',
+      tagline: 'Para quem quer mais clientes',
+      price: 'A partir de R$ 2.997',
+      period: 'pagamento único',
+      highlight: true,
+      features: [
+        'Site completo com várias páginas',
+        'SEO avançado — mais visibilidade',
+        'Galeria de fotos / portfólio',
+        'Integração com WhatsApp e redes sociais',
+        'Relatório mensal de visitas',
+        'Suporte durante 3 meses',
+      ],
+      cta: 'Quero crescer',
+    },
+    {
+      name: 'Autoridade',
+      tagline: 'Para liderar no seu setor',
+      price: 'Orçamento personalizado',
+      period: 'projeto sob medida',
+      highlight: false,
+      features: [
+        'Tudo do plano Crescimento',
+        'Loja online (e-commerce)',
+        'Design exclusivo para a sua marca',
+        'Blog e conteúdo para SEO',
+        'Suporte prioritário 12 meses',
+      ],
+      cta: 'Falar com a equipe',
+    },
+  ],
+  'en': [
+    {
+      name: 'Presence',
+      tagline: 'For those who want to exist online',
+      price: 'From €297',
+      period: 'one-time payment',
+      highlight: false,
+      features: [
+        'Professional 1-page website',
+        'Shows up on Google (local SEO)',
+        'Mobile-friendly',
+        'Contact form',
+        'Delivered in 7 days',
+      ],
+      cta: 'I want this plan',
+    },
+    {
+      name: 'Growth',
+      tagline: 'For those who want more clients',
+      price: 'From €597',
+      period: 'one-time payment',
+      highlight: true,
+      features: [
+        'Full multi-page website',
+        'Advanced SEO — more visibility',
+        'Photo gallery / portfolio',
+        'WhatsApp & social media integration',
+        'Monthly visitor report',
+        '3-month support',
+      ],
+      cta: 'I want to grow',
+    },
+    {
+      name: 'Authority',
+      tagline: 'To lead in your sector',
+      price: 'Custom quote',
+      period: 'tailored project',
+      highlight: false,
+      features: [
+        'Everything in Growth',
+        'Online store (e-commerce)',
+        'Exclusive brand design',
+        'SEO blog & content',
+        '12-month priority support',
+      ],
+      cta: 'Talk to the team',
+    },
+  ],
+  'es': [
+    {
+      name: 'Presencia',
+      tagline: 'Para quienes quieren existir online',
+      price: 'Desde €297',
+      period: 'pago único',
+      highlight: false,
+      features: [
+        'Sitio profesional de 1 página',
+        'Aparece en Google (SEO local)',
+        'Adaptado para móvil',
+        'Formulario de contacto',
+        'Entregado en 7 días',
+      ],
+      cta: 'Quiero este plan',
+    },
+    {
+      name: 'Crecimiento',
+      tagline: 'Para quienes quieren más clientes',
+      price: 'Desde €597',
+      period: 'pago único',
+      highlight: true,
+      features: [
+        'Sitio completo con varias páginas',
+        'SEO avanzado — más visibilidad',
+        'Galería de fotos / portafolio',
+        'Integración con WhatsApp y redes sociales',
+        'Informe mensual de visitas',
+        'Soporte durante 3 meses',
+      ],
+      cta: 'Quiero crecer',
+    },
+    {
+      name: 'Autoridad',
+      tagline: 'Para liderar en tu sector',
+      price: 'Presupuesto personalizado',
+      period: 'proyecto a medida',
+      highlight: false,
+      features: [
+        'Todo del plan Crecimiento',
+        'Tienda online (e-commerce)',
+        'Diseño exclusivo para tu marca',
+        'Blog y contenido para SEO',
+        'Soporte prioritario 12 meses',
+      ],
+      cta: 'Hablar con el equipo',
+    },
+  ],
+};
+
+const HEADING = {
+  'pt-pt': {
+    badge: 'Investimento',
+    title: 'Quanto custa ter',
+    highlight: 'um site profissional?',
+    subtitle: 'Preços transparentes, sem surpresas. Escolha o que faz mais sentido para o seu negócio agora.',
+    popular: 'Mais popular',
+    footer: 'Todos os preços incluem domínio e alojamento no primeiro ano. Sem mensalidades escondidas.',
+  },
+  'pt-br': {
+    badge: 'Investimento',
+    title: 'Quanto custa ter',
+    highlight: 'um site profissional?',
+    subtitle: 'Preços transparentes, sem surpresas. Escolha o que faz mais sentido para o seu negócio agora.',
+    popular: 'Mais popular',
+    footer: 'Todos os preços incluem domínio e hospedagem no primeiro ano. Sem mensalidades escondidas.',
+  },
+  'en': {
+    badge: 'Investment',
+    title: 'How much does',
+    highlight: 'a professional website cost?',
+    subtitle: 'Transparent pricing, no surprises. Choose what makes the most sense for your business right now.',
+    popular: 'Most popular',
+    footer: 'All prices include domain and hosting for the first year. No hidden monthly fees.',
+  },
+  'es': {
+    badge: 'Inversión',
+    title: '¿Cuánto cuesta',
+    highlight: 'una web profesional?',
+    subtitle: 'Precios transparentes, sin sorpresas. Elige lo que tiene más sentido para tu negocio ahora.',
+    popular: 'Más popular',
+    footer: 'Todos los precios incluyen dominio y alojamiento el primer año. Sin cuotas mensuales ocultas.',
+  },
+};
+
+export default function Pricing({ lang }: { lang: Language }) {
+  const plans = PLANS[lang] ?? PLANS['pt-pt'];
+  const h = HEADING[lang] ?? HEADING['pt-pt'];
+
+  return (
+    <section id="pricing" className="relative py-32 px-6 bg-scuta-primary overflow-hidden">
+      {/* Glow central */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-scuta-highlight/5 blur-[180px] rounded-full pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+
+        {/* Cabeçalho */}
+        <div className="text-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="inline-flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-4">
+              <Sparkles size={14} /> {h.badge}
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-scuta-silk leading-tight tracking-tighter mb-6">
+              {h.title} <br />
+              <span className="text-scuta-highlight">{h.highlight}</span>
+            </h2>
+            <p className="text-lg text-slate-400 max-w-xl mx-auto font-medium leading-relaxed">
+              {h.subtitle}
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Cards de planos */}
+        <div className="grid md:grid-cols-3 gap-8 items-start">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15 }}
+              className={`relative rounded-4xl p-8 border flex flex-col transition-all duration-500 ${
+                plan.highlight
+                  ? 'bg-scuta-highlight border-scuta-highlight shadow-2xl shadow-scuta-highlight/20 md:scale-105'
+                  : 'bg-scuta-surface/50 border-white/10 hover:border-white/20'
+              }`}
+            >
+              {/* Badge "Mais popular" */}
+              {plan.highlight && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span className="bg-scuta-silk text-scuta-primary text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-xl whitespace-nowrap">
+                    {h.popular}
+                  </span>
+                </div>
+              )}
+
+              {/* Nome e tagline */}
+              <div className="mb-8">
+                <h3 className={`text-2xl font-black tracking-tighter mb-1 ${
+                  plan.highlight ? 'text-scuta-primary' : 'text-scuta-silk'
+                }`}>
+                  {plan.name}
+                </h3>
+                <p className={`text-sm font-medium ${
+                  plan.highlight ? 'text-scuta-primary/70' : 'text-slate-400'
+                }`}>
+                  {plan.tagline}
+                </p>
+              </div>
+
+              {/* Preço */}
+              <div className="mb-8">
+                <p className={`text-3xl font-black tracking-tighter ${
+                  plan.highlight ? 'text-scuta-primary' : 'text-scuta-silk'
+                }`}>
+                  {plan.price}
+                </p>
+                <p className={`text-xs font-bold uppercase tracking-widest mt-1 ${
+                  plan.highlight ? 'text-scuta-primary/60' : 'text-slate-500'
+                }`}>
+                  {plan.period}
+                </p>
+              </div>
+
+              {/* Lista de features */}
+              <ul className="space-y-4 mb-10 grow">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <CheckCircle2
+                      size={18}
+                      className={`shrink-0 mt-0.5 ${
+                        plan.highlight ? 'text-scuta-primary' : 'text-scuta-highlight'
+                      }`}
+                      strokeWidth={2.5}
+                    />
+                    <span className={`text-sm font-medium leading-snug ${
+                      plan.highlight ? 'text-scuta-primary/90' : 'text-slate-300'
+                    }`}>
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA */}
+              <a
+                href="#contact"
+                className={`w-full py-4 rounded-2xl text-center text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all active:scale-95 ${
+                  plan.highlight
+                    ? 'bg-scuta-primary text-scuta-highlight hover:bg-scuta-primary/90'
+                    : 'bg-white/5 border border-white/10 text-scuta-silk hover:bg-white/10'
+                }`}
+              >
+                {plan.cta} <ArrowRight size={16} />
+              </a>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Nota de rodapé */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center text-slate-500 text-sm mt-12 font-medium"
+        >
+          {h.footer}
+        </motion.p>
+
+      </div>
+    </section>
+  );
+}
 
 ================================================================================
 Arquivo: src/components/Process.tsx
 ================================================================================
 
 import { motion } from 'motion/react';
-import { Search, PenTool, Layout, Rocket, Sparkles } from 'lucide-react';
+import { Search, PenTool, Layout, Rocket, Sparkles, ArrowRight } from 'lucide-react';
 import { UI_STRINGS, Language } from '../lib/constants';
 
 const ICONS = {
   Search,
   PenTool,
   Layout,
-  Rocket
+  Rocket,
 };
 
 export default function Process({ lang }: { lang: Language }) {
   const t = UI_STRINGS[lang].process;
 
   return (
-    <section id="process" className="relative py-24 px-6 bg-scuta-primary overflow-hidden">
+    <section id="process" className="relative py-24 px-6 bg-scuta-surface overflow-hidden">
+      {/* Glow de fundo */}
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-scuta-accent/10 blur-[140px] rounded-full pointer-events-none" />
+
       <div className="max-w-7xl mx-auto relative z-10">
+
+        {/* Cabeçalho */}
         <div className="text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -930,40 +1854,65 @@ export default function Process({ lang }: { lang: Language }) {
           </motion.div>
         </div>
 
+        {/* Steps */}
         <div className="grid md:grid-cols-4 gap-8">
           {t.steps.map((step, index) => {
             const Icon = ICONS[step.icon as keyof typeof ICONS] || Search;
+            const isLast = index === t.steps.length - 1;
+
             return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative p-8 rounded-4xl bg-scuta-surface/50 border border-white/5 hover:border-white/10 transition-all group"
+                transition={{ delay: index * 0.12 }}
+                className="relative p-8 rounded-4xl bg-scuta-primary/60 border border-white/5 hover:border-white/15 transition-all duration-500 group"
               >
-                <div className={`size-16 rounded-2xl bg-linear-to-br from-scuta-highlight/20 to-scuta-highlight/5 flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 transition-transform duration-500`}>
+                {/* Ícone */}
+                <div className="size-16 rounded-2xl bg-gradient-to-br from-scuta-highlight/20 to-scuta-highlight/5 flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 group-hover:border-scuta-highlight/30 transition-all duration-500">
                   <Icon size={28} className="text-white" />
                 </div>
-                <h3 className="text-xl font-black text-white mb-4 tracking-tight text-left">{step.title}</h3>
+
+                {/* Texto */}
+                <h3 className="text-xl font-black text-white mb-4 tracking-tight text-left">
+                  {step.title}
+                </h3>
                 <p className="text-slate-400 text-sm leading-relaxed font-medium text-left">
                   {step.description}
                 </p>
-                
-                {index < t.steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-4 translate-x-1/2 -translate-y-1/2 z-20">
-                    <div className="w-8 h-px bg-linear-to-r from-white/20 to-transparent" />
+
+                {/* Connector entre steps — visível apenas em desktop */}
+                {!isLast && (
+                  <div className="hidden lg:flex absolute top-1/2 -right-4 -translate-y-1/2 z-20 items-center">
+                    <ArrowRight size={16} className="text-slate-700" />
                   </div>
                 )}
               </motion.div>
             );
           })}
         </div>
+
+        {/* CTA inferior */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-20 text-center"
+        >
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-scuta-silk text-scuta-primary rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-scuta-highlight transition-all shadow-2xl active:scale-95 group"
+          >
+            {UI_STRINGS[lang].solutions.cta}
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+        </motion.div>
+
       </div>
     </section>
   );
 }
-
 
 ================================================================================
 Arquivo: src/components/Samples.tsx
@@ -971,7 +1920,7 @@ Arquivo: src/components/Samples.tsx
 
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, AlertCircle, TrendingUp, ArrowRight, MousePointer2, Sparkles } from 'lucide-react';
+import { CheckCircle, TrendingUp, ArrowRight, MousePointer2, Sparkles } from 'lucide-react';
 import { SAMPLE_SITES } from '../data/sampleSites';
 import { UI_STRINGS, Language } from '../lib/constants';
 
@@ -983,6 +1932,8 @@ export default function Samples({ lang }: { lang: Language }) {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-scuta-accent/5 blur-[180px] pointer-events-none opacity-50" />
 
       <div className="max-w-7xl mx-auto relative z-10">
+
+        {/* Cabeçalho */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -998,7 +1949,7 @@ export default function Samples({ lang }: { lang: Language }) {
             </h2>
           </motion.div>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -1008,6 +1959,7 @@ export default function Samples({ lang }: { lang: Language }) {
           </motion.p>
         </div>
 
+        {/* Grid de cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SAMPLE_SITES.map((site, index) => (
             <motion.div
@@ -1017,10 +1969,11 @@ export default function Samples({ lang }: { lang: Language }) {
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
             >
-              <Link 
+              <Link
                 to={`/exemplos/${site.slug}`}
                 className="group relative block h-full bento-card border border-white/10 overflow-hidden bg-scuta-surface/90"
               >
+                {/* Topo do card: sector + ícone */}
                 <div className="flex justify-between items-start mb-12">
                   <span className="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-white">
                     {site.sector}
@@ -1030,18 +1983,22 @@ export default function Samples({ lang }: { lang: Language }) {
                   </div>
                 </div>
 
+                {/* Conteúdo principal: resultado esperado */}
                 <div className="mb-10 text-left">
                   <div className="flex items-center gap-2 text-scuta-highlight mb-4 text-[10px] font-black uppercase tracking-[0.2em]">
-                    <AlertCircle size={14} strokeWidth={3} /> {t.caseStudy}
+                    <TrendingUp size={14} strokeWidth={3} />
+                    {t.cardBadge || 'Resultado real'}
                   </div>
                   <h3 className="text-3xl font-black text-white mb-5 tracking-tighter leading-none group-hover:text-scuta-gradient transition-all duration-300">
                     {site.companyName}
                   </h3>
+                  {/* Mostra o resultado esperado em vez do problema */}
                   <p className="text-base text-slate-200 font-medium leading-relaxed line-clamp-3 opacity-90">
-                    {site.pain}
+                    {site.expectedResult}
                   </p>
                 </div>
 
+                {/* Faixa de performance */}
                 <div className="flex items-center gap-3 py-3 px-4 rounded-2xl bg-white/5 border border-white/5 mb-10 text-left">
                   <div className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0 bg-scuta-highlight text-white">
                     <CheckCircle size={14} strokeWidth={3} />
@@ -1051,10 +2008,13 @@ export default function Samples({ lang }: { lang: Language }) {
                   </p>
                 </div>
 
+                {/* Botão de análise */}
                 <div className="p-5 rounded-2xl flex items-center justify-between bg-scuta-accent transition-all duration-500 group-hover:scale-[1.02]">
                   <div className="flex items-center gap-3">
                     <TrendingUp size={20} className="text-white" strokeWidth={3} />
-                    <span className="text-xs font-black uppercase tracking-widest text-white">{t.analyze}</span>
+                    <span className="text-xs font-black uppercase tracking-widest text-white">
+                      {t.analyze}
+                    </span>
                   </div>
                   <ArrowRight size={20} className="text-white transform group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -1062,11 +2022,11 @@ export default function Samples({ lang }: { lang: Language }) {
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );
 }
-
 
 ================================================================================
 Arquivo: src/components/Solutions.tsx
@@ -1192,7 +2152,7 @@ export default function Testimonials({ lang }: { lang: Language }) {
   return (
     <section id="testimonials" className="relative py-24 px-6 bg-scuta-surface overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
-      
+
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-6xl font-black text-scuta-silk tracking-tighter mb-6">
@@ -1211,10 +2171,10 @@ export default function Testimonials({ lang }: { lang: Language }) {
               className="p-10 rounded-[2.5rem] bg-scuta-primary/50 border border-white/5 relative group hover:bg-scuta-primary transition-all"
             >
               <Quote className="absolute top-8 right-8 text-white/5 size-16 group-hover:text-scuta-highlight/10 transition-colors" />
-              
+
               <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={14} className="fill-scuta-highlight text-scuta-highlight" />
+                {[...Array(5)].map((_, j) => (
+                  <Star key={j} size={14} className="fill-scuta-highlight text-scuta-highlight" />
                 ))}
               </div>
 
@@ -1223,10 +2183,35 @@ export default function Testimonials({ lang }: { lang: Language }) {
               </p>
 
               <div className="flex items-center gap-4">
-                <img src={item.avatar} alt={item.author} className="size-12 rounded-full border-2 border-white/10" referrerPolicy="no-referrer" />
+                {/* Avatar com fallback para inicial do nome */}
+                <div className="relative size-12 shrink-0">
+                  <img
+                    src={item.avatar}
+                    alt={item.author}
+                    className="size-12 rounded-full border-2 border-white/10 object-cover"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      img.style.display = 'none';
+                      const parent = img.parentElement;
+                      if (parent && !parent.querySelector('.avatar-fallback')) {
+                        const div = document.createElement('div');
+                        div.className =
+                          'avatar-fallback size-12 rounded-full border-2 border-white/10 bg-scuta-accent flex items-center justify-center text-white font-black text-lg absolute inset-0';
+                        div.textContent = item.author.charAt(0).toUpperCase();
+                        parent.appendChild(div);
+                      }
+                    }}
+                  />
+                </div>
+
                 <div className="text-left">
-                  <h4 className="text-white font-black text-sm uppercase tracking-widest">{item.author}</h4>
-                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">{item.role}</p>
+                  <h4 className="text-white font-black text-sm uppercase tracking-widest">
+                    {item.author}
+                  </h4>
+                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
+                    {item.role}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -1236,7 +2221,6 @@ export default function Testimonials({ lang }: { lang: Language }) {
     </section>
   );
 }
-
 
 ================================================================================
 Arquivo: src/components/WhatsAppButton.tsx
@@ -1285,126 +2269,301 @@ export default function WhatsAppButton() {
 Arquivo: src/components/WhyWeb.tsx
 ================================================================================
 
-import { motion } from 'motion/react';
+import { useRef } from 'react';
+import { motion, useInView, useMotionValue, useTransform, animate } from 'motion/react';
+import { useEffect } from 'react';
 import { Search, Clock, ShieldCheck, ArrowRight, TrendingUp, Zap } from 'lucide-react';
-import { UI_STRINGS } from '../lib/constants';
+import { Language } from '../lib/constants';
 
-export default function WhyWeb() {
-  const t = UI_STRINGS.pt.why;
+// --- Textos por idioma ---
+const WHY_STRINGS = {
+  'pt-pt': {
+    badge: 'O seu negócio',
+    title: 'Porquê é que precisa',
+    titleHighlight: 'de um site hoje?',
+    subtitle: 'Enquanto não aparece no Google, o seu vizinho do lado está a receber os clientes que podiam ser seus.',
+    cards: [
+      {
+        icon: Search,
+        color: 'text-blue-400',
+        title: 'Aparecer no Google',
+        description:
+          'Quando alguém pesquisa pelo que vende na sua zona, o seu negócio tem de aparecer. Caso contrário, essa pessoa vai ao concorrente — e nem sabe que você existe.',
+        delay: 0.1,
+      },
+      {
+        icon: Clock,
+        color: 'text-emerald-400',
+        title: 'Receber clientes a dormir',
+        description:
+          'O site trabalha por si 24 horas por dia. Enquanto descansa, potenciais clientes ficam a conhecer o seu negócio e entram em contacto.',
+        delay: 0.2,
+      },
+      {
+        icon: ShieldCheck,
+        color: 'text-violet-400',
+        title: 'Transmitir confiança imediata',
+        description:
+          'Hoje em dia, se não tem site, as pessoas desconfiam. Um site profissional é o equivalente a ter a montra mais bonita da rua.',
+        delay: 0.3,
+      },
+    ],
+    stat1Value: 70,
+    stat1Suffix: '%',
+    stat1Label: 'dos clientes perdidos para a concorrência por falta de presença online',
+    stat2Value: 8,
+    stat2Suffix: '',
+    stat2Label: 'em cada 10 pessoas pesquisam no Google antes de escolher um negócio local',
+  },
+  'pt-br': {
+    badge: 'O seu negócio',
+    title: 'Por que você precisa',
+    titleHighlight: 'de um site hoje?',
+    subtitle: 'Enquanto você não aparece no Google, o seu concorrente está recebendo os clientes que poderiam ser seus.',
+    cards: [
+      {
+        icon: Search,
+        color: 'text-blue-400',
+        title: 'Aparecer no Google',
+        description:
+          'Quando alguém pesquisa pelo que você vende na sua região, o seu negócio precisa aparecer. Do contrário, essa pessoa vai ao concorrente — e nem sabe que você existe.',
+        delay: 0.1,
+      },
+      {
+        icon: Clock,
+        color: 'text-emerald-400',
+        title: 'Receber clientes enquanto dorme',
+        description:
+          'O site trabalha por você 24 horas por dia. Enquanto descansa, potenciais clientes ficam conhecendo o seu negócio e entram em contato.',
+        delay: 0.2,
+      },
+      {
+        icon: ShieldCheck,
+        color: 'text-violet-400',
+        title: 'Passar credibilidade imediata',
+        description:
+          'Hoje em dia, empresa sem site parece empresa que não cresceu ainda. Um site bem feito passa seriedade antes mesmo de qualquer contato.',
+        delay: 0.3,
+      },
+    ],
+    stat1Value: 70,
+    stat1Suffix: '%',
+    stat1Label: 'dos clientes perdidos para a concorrência por falta de presença online',
+    stat2Value: 8,
+    stat2Suffix: '',
+    stat2Label: 'em cada 10 pessoas pesquisam no Google antes de escolher um negócio local',
+  },
+  'en': {
+    badge: 'Your business',
+    title: 'Why you need',
+    titleHighlight: 'a website today?',
+    subtitle: 'While you are not showing up on Google, your competitor down the road is getting the clients that could be yours.',
+    cards: [
+      {
+        icon: Search,
+        color: 'text-blue-400',
+        title: 'Show up on Google',
+        description:
+          'When someone searches for what you sell in your area, your business needs to appear. Otherwise, that person goes to your competitor — and doesn\'t even know you exist.',
+        delay: 0.1,
+      },
+      {
+        icon: Clock,
+        color: 'text-emerald-400',
+        title: 'Get clients while you sleep',
+        description:
+          'Your website works for you 24 hours a day. While you rest, potential clients are discovering your business and getting in touch.',
+        delay: 0.2,
+      },
+      {
+        icon: ShieldCheck,
+        color: 'text-violet-400',
+        title: 'Build instant trust',
+        description:
+          'These days, no website means no credibility. A professional site is the equivalent of having the most impressive shopfront on the street.',
+        delay: 0.3,
+      },
+    ],
+    stat1Value: 70,
+    stat1Suffix: '%',
+    stat1Label: 'of clients lost to competitors due to lack of online presence',
+    stat2Value: 8,
+    stat2Suffix: '',
+    stat2Label: 'out of 10 people search Google before choosing a local business',
+  },
+  'es': {
+    badge: 'Tu negocio',
+    title: 'Por qué necesitas',
+    titleHighlight: 'una web hoy?',
+    subtitle: 'Mientras no apareces en Google, tu competidor de la esquina está recibiendo los clientes que podrían ser tuyos.',
+    cards: [
+      {
+        icon: Search,
+        color: 'text-blue-400',
+        title: 'Aparecer en Google',
+        description:
+          'Cuando alguien busca lo que vendes en tu zona, tu negocio tiene que aparecer. Si no, esa persona va a la competencia — y ni sabe que existes.',
+        delay: 0.1,
+      },
+      {
+        icon: Clock,
+        color: 'text-emerald-400',
+        title: 'Recibir clientes mientras duermes',
+        description:
+          'Tu web trabaja por ti las 24 horas. Mientras descansas, potenciales clientes conocen tu negocio y se ponen en contacto.',
+        delay: 0.2,
+      },
+      {
+        icon: ShieldCheck,
+        color: 'text-violet-400',
+        title: 'Transmitir confianza al instante',
+        description:
+          'Hoy en día, sin web parece que el negocio no es serio. Una web profesional es como tener el escaparate más bonito de la calle.',
+        delay: 0.3,
+      },
+    ],
+    stat1Value: 70,
+    stat1Suffix: '%',
+    stat1Label: 'de clientes perdidos ante la competencia por falta de presencia online',
+    stat2Value: 8,
+    stat2Suffix: '',
+    stat2Label: 'de cada 10 personas buscan en Google antes de elegir un negocio local',
+  },
+};
 
-  const reasons = [
-    {
-      icon: Search,
-      title: "Dominar a Visibilidade Local",
-      description: "Estar no Google não é luxo, é sobrevivência. Garantimos que, quando o seu cliente precisa, a sua empresa é a primeira a aparecer.",
-      color: "text-blue-400",
-      delay: 0.1
-    },
-    {
-      icon: Clock,
-      title: "Automação de Contactos",
-      description: "O seu site filtra as dúvidas básicas e qualifica os seus leads. Menos mensagens inúteis, mais tempo para vender.",
-      color: "text-emerald-400",
-      delay: 0.2
-    },
-    {
-      icon: ShieldCheck,
-      title: "Autoridade de Mercado",
-      description: "Um site amador é um convite para o seu cliente ir ao concorrente. Projetamos confiança imediata com design premium.",
-      color: "text-violet-400",
-      delay: 0.3
+// --- Componente de número animado ---
+function AnimatedNumber({
+  value,
+  suffix,
+  prefix = '',
+}: {
+  value: number;
+  suffix: string;
+  prefix?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const motionValue = useMotionValue(0);
+  const rounded = useTransform(motionValue, (latest) => Math.round(latest));
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView) {
+      animate(motionValue, value, { duration: 2, ease: 'easeOut' });
     }
-  ];
+  }, [isInView, motionValue, value]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      {prefix}
+      <motion.span>{rounded}</motion.span>
+      {suffix}
+    </span>
+  );
+}
+
+// --- Componente principal ---
+export default function WhyWeb({ lang }: { lang: Language }) {
+  const t = WHY_STRINGS[lang] || WHY_STRINGS['pt-pt'];
 
   return (
     <section id="why" className="relative py-32 px-6 noise bg-scuta-primary overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-0 w-125 h-125 bg-violet-600/10 blur-[150px] rounded-full pointer-events-none" />
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-violet-600/10 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* Header */}
+
+        {/* Cabeçalho */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="max-w-2xl text-left"
           >
             <span className="text-emerald-400 font-black uppercase tracking-[0.3em] text-[10px] mb-6 block">
-              Performance Digital de Elite
+              {t.badge}
             </span>
             <h2 className="text-5xl md:text-7xl font-black text-white leading-none tracking-tighter">
-              Porquê um site <br />
-              <span className="text-zinc-600 italic font-light">de alta performance?</span>
+              {t.title} <br />
+              <span className="text-zinc-500 italic font-light">{t.titleHighlight}</span>
             </h2>
           </motion.div>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-slate-400 max-w-sm text-left font-medium leading-relaxed pb-2"
           >
-            A diferença entre o crescimento sustentado e a estagnação é a qualidade da sua infraestrutura digital.
+            {t.subtitle}
           </motion.p>
         </div>
 
-        {/* Bento Grid Refinado */}
+        {/* Cards */}
         <div className="grid md:grid-cols-3 gap-8">
-          {reasons.map((reason, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: reason.delay }}
-              className="bento-card group flex flex-col h-full border border-white/5 relative overflow-hidden"
-            >
-              {/* Efeito Hover */}
-              <div className="absolute inset-0 bg-linear-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <div className="size-16 rounded-2xl bg-white/5 flex items-center justify-center mb-10 border border-white/10 group-hover:border-white/20 group-hover:scale-110 transition-all duration-500 relative z-10">
-                <reason.icon className={`size-8 ${reason.color}`} />
-              </div>
+          {t.cards.map((card, index) => {
+            const Icon = card.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: card.delay }}
+                className="bento-card group flex flex-col h-full border border-white/5 relative overflow-hidden"
+              >
+                {/* Efeito hover */}
+                <div className="absolute inset-0 bg-linear-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="text-left grow relative z-10">
-                <h3 className="text-2xl font-black text-white mb-6 tracking-tight group-hover:text-emerald-400 transition-colors">
-                  {reason.title}
-                </h3>
-                <p className="text-slate-400 leading-relaxed font-medium">
-                  {reason.description}
-                </p>
-              </div>
-              
-              <div className="mt-12 pt-6 border-t border-white/5 flex items-center justify-between relative z-10">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
-                  Arquitetura Scuta
-                </span>
-                <div className="size-10 rounded-full bg-white/5 flex items-center justify-center text-white group-hover:bg-emerald-500 transition-all">
-                  <ArrowRight size={18} />
+                <div className="size-16 rounded-2xl bg-white/5 flex items-center justify-center mb-10 border border-white/10 group-hover:border-white/20 group-hover:scale-110 transition-all duration-500 relative z-10">
+                  <Icon className={`size-8 ${card.color}`} />
                 </div>
-              </div>
-            </motion.div>
-          ))}
+
+                <div className="text-left grow relative z-10">
+                  <h3 className="text-2xl font-black text-white mb-6 tracking-tight group-hover:text-emerald-400 transition-colors">
+                    {card.title}
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed font-medium">
+                    {card.description}
+                  </p>
+                </div>
+
+                <div className="mt-12 pt-6 border-t border-white/5 flex items-center justify-between relative z-10">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    Padrão Scuta Digital
+                  </span>
+                  <div className="size-10 rounded-full bg-white/5 flex items-center justify-center text-white group-hover:bg-emerald-500 transition-all">
+                    <ArrowRight size={18} />
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Stat Bar */}
-        <motion.div 
+        {/* Barra de estatísticas animadas */}
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-24 py-10 border-y border-white/5 flex flex-wrap justify-center md:justify-start gap-16"
+          className="mt-24 py-10 border-y border-white/5 flex flex-col md:flex-row justify-center md:justify-start gap-10 md:gap-16"
         >
           <div className="flex items-center gap-4">
-            <Zap size={20} className="text-emerald-400" />
-            <span className="text-[11px] font-black uppercase tracking-widest text-slate-300">+40% Contactos qualificados</span>
+            <Zap size={20} className="text-emerald-400 shrink-0" />
+            <span className="text-[11px] font-black uppercase tracking-widest text-slate-300">
+              <AnimatedNumber value={t.stat1Value} suffix={t.stat1Suffix} />{' '}
+              {t.stat1Label}
+            </span>
           </div>
           <div className="flex items-center gap-4">
-            <TrendingUp size={20} className="text-emerald-400" />
-            <span className="text-[11px] font-black uppercase tracking-widest text-slate-300">Posicionamento SEO Local</span>
+            <TrendingUp size={20} className="text-emerald-400 shrink-0" />
+            <span className="text-[11px] font-black uppercase tracking-widest text-slate-300">
+              <AnimatedNumber value={t.stat2Value} suffix={t.stat2Suffix} />{' '}
+              {t.stat2Label}
+            </span>
           </div>
         </motion.div>
+
       </div>
     </section>
   );
@@ -1693,6 +2852,7 @@ interface LanguageStrings {
     why: string;
     solutions: string;
     samples: string;
+    pricing: string;
     faq: string;
     contact: string;
   };
@@ -1794,7 +2954,7 @@ interface LanguageStrings {
 export const BRAND_INFO = {
   name: "Scuta Digital",
   tagline: "Criamos o seu site. Você recebe os clientes.",
-  url: "https://scutadigital.pt/", 
+  url: "https://scutadigital.pt/",
 };
 
 export const CONTACT_INFO = {
@@ -1816,6 +2976,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
       why: "Por que ter um site?",
       solutions: "O que fazemos",
       samples: "Exemplos reais",
+      pricing: "Preços",
       faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
     },
@@ -2031,6 +3192,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
       why: "Por que ter um site?",
       solutions: "O que fazemos",
       samples: "Exemplos reais",
+      pricing: "Preços",
       faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
     },
@@ -2238,6 +3400,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
       why: "Why do I need a website?",
       solutions: "What we do",
       samples: "Real examples",
+      pricing: "Pricing",
       faq: "Common questions",
       contact: "Get a quote",
     },
@@ -2445,6 +3608,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
       why: "¿Por qué necesito una web?",
       solutions: "Qué hacemos",
       samples: "Ejemplos reales",
+      pricing: "Precios",
       faq: "Preguntas frecuentes",
       contact: "Pedir presupuesto",
     },
@@ -2752,7 +3916,6 @@ export const FAQ_ITEMS: Record<Language, { question: string; answer: string }[]>
   ],
 };
 
-
 ================================================================================
 Arquivo: src/lib/theme.ts
 ================================================================================
@@ -2889,43 +4052,327 @@ createRoot(document.getElementById('root')!).render(
 Arquivo: src/pages/PrivacyPolicy.tsx
 ================================================================================
 
+/**
+ * PrivacyPolicy.tsx — Scuta Digital
+ * Política de Privacidade completa
+ * Conformidade: RGPD (UE/Portugal) · LGPD (Brasil) · UK GDPR
+ */
+
 import { motion } from 'motion/react';
-import { Language, UI_STRINGS } from '../lib/constants';
+import { ShieldCheck, ArrowLeft } from 'lucide-react';
+import { Language } from '../lib/constants';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-export default function PrivacyPolicy({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
-  const t = UI_STRINGS[lang].legalPages.privacy;
+// ---------------------------------------------------------------------------
+// CONTEÚDO LEGAL POR IDIOMA
+// ---------------------------------------------------------------------------
+
+const CONTENT = {
+  'pt-pt': {
+    title: 'Política de Privacidade',
+    updated: 'Última atualização: 1 de Janeiro de 2025',
+    intro: 'A Scuta Digital ("nós", "nosso") está comprometida com a proteção dos seus dados pessoais. Esta política explica quais os dados que recolhemos, como os usamos, com base em que fundamento legal, e quais os seus direitos ao abrigo do Regulamento Geral sobre a Proteção de Dados (RGPD — Regulamento UE 2016/679) e da legislação aplicável.',
+    sections: [
+      {
+        title: '1. Quem é o responsável pelo tratamento',
+        content: 'Scuta Digital, com sede em Portugal. Contacto do responsável pelo tratamento: appschedy@gmail.com. Para questões relativas à proteção de dados, pode contactar-nos através deste endereço de email.',
+      },
+      {
+        title: '2. Que dados recolhemos e porquê',
+        items: [
+          { label: 'Formulário de contacto', text: 'Nome, endereço de email, tipo de negócio e mensagem. Base legal: execução de medidas pré-contratuais a pedido do titular (Art. 6.º, n.º 1, al. b) do RGPD). Finalidade: responder ao seu pedido de orçamento.' },
+          { label: 'Google Analytics', text: 'Endereço IP anonimizado, tipo de browser, sistema operativo, páginas visitadas, duração da visita, fonte de tráfego. Base legal: consentimento (Art. 6.º, n.º 1, al. a) do RGPD) — só recolhemos estes dados após o seu consentimento explícito no banner de cookies. Finalidade: análise do desempenho do site para fins de melhoria do serviço.' },
+          { label: 'Cookies técnicos', text: 'Preferências de cookies e idioma. Base legal: interesse legítimo (Art. 6.º, n.º 1, al. f) do RGPD). Finalidade: funcionamento básico do site.' },
+        ],
+      },
+      {
+        title: '3. Cookies e tecnologias de rastreio',
+        content: 'Utilizamos os seguintes tipos de cookies:\n\n• Cookies essenciais — necessários para o funcionamento do site. Não requerem consentimento.\n• Cookies de análise (Google Analytics) — só são ativados com o seu consentimento explícito. O Google Analytics é configurado com anonimização de IP ativa. Os dados são transferidos para servidores do Google nos Estados Unidos com base nas Cláusulas Contratuais Padrão da Comissão Europeia.\n\nPode gerir ou revogar o seu consentimento a qualquer momento através do banner de cookies ou limpando os dados do browser.',
+      },
+      {
+        title: '4. Com quem partilhamos os seus dados',
+        content: 'Não vendemos nem cedemos os seus dados pessoais a terceiros para fins comerciais. Os seus dados podem ser partilhados com:\n\n• Google LLC (Google Analytics) — transferência para os EUA com base em Cláusulas Contratuais Padrão.\n• WhatsApp/Meta — apenas quando utiliza o botão de contacto direto, os dados que partilha são processados pela Meta nos termos da sua política de privacidade.\n\nNão realizamos qualquer outra transferência internacional de dados.',
+      },
+      {
+        title: '5. Por quanto tempo guardamos os seus dados',
+        content: '• Dados do formulário de contacto: 12 meses após o último contacto, salvo obrigação legal de conservação mais longa.\n• Dados de analytics: 14 meses (configuração padrão do Google Analytics GA4).\n• Preferências de cookies: 12 meses (armazenamento local no seu browser).',
+      },
+      {
+        title: '6. Os seus direitos',
+        content: 'Ao abrigo do RGPD, tem os seguintes direitos:\n\n• Direito de acesso — saber que dados temos sobre si.\n• Direito de retificação — corrigir dados incorretos.\n• Direito de apagamento ("direito a ser esquecido").\n• Direito de limitação do tratamento.\n• Direito de portabilidade dos dados.\n• Direito de oposição ao tratamento.\n• Direito de retirar o consentimento a qualquer momento, sem afetar a licitude do tratamento anterior.\n\nPara exercer qualquer um destes direitos, contacte-nos em appschedy@gmail.com. Tem também o direito de apresentar reclamação à Comissão Nacional de Proteção de Dados (CNPD) em www.cnpd.pt.',
+      },
+      {
+        title: '7. Segurança',
+        content: 'Adotamos medidas técnicas e organizativas adequadas para proteger os seus dados pessoais contra acesso não autorizado, perda ou destruição. A comunicação entre o seu browser e o nosso site é encriptada via HTTPS.',
+      },
+      {
+        title: '8. Alterações a esta política',
+        content: 'Podemos atualizar esta política periodicamente. A data de "última atualização" no topo desta página indica quando foi revista pela última vez. Em caso de alterações significativas, notificaremos os utilizadores através de aviso no site.',
+      },
+      {
+        title: '9. Contacto',
+        content: 'Para qualquer questão sobre esta política ou sobre o tratamento dos seus dados pessoais, contacte-nos em: appschedy@gmail.com',
+      },
+    ],
+  },
+
+  'pt-br': {
+    title: 'Política de Privacidade',
+    updated: 'Última atualização: 1 de Janeiro de 2025',
+    intro: 'A Scuta Digital ("nós", "nosso") está comprometida com a proteção dos seus dados pessoais. Esta política explica quais dados coletamos, como os usamos, com base em qual fundamento legal, e quais são os seus direitos nos termos da Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018) e do RGPD europeu.',
+    sections: [
+      {
+        title: '1. Controlador dos dados',
+        content: 'Scuta Digital, com sede em Portugal. Contato do encarregado de dados (DPO): appschedy@gmail.com.',
+      },
+      {
+        title: '2. Dados que coletamos e por quê',
+        items: [
+          { label: 'Formulário de contato', text: 'Nome, e-mail, tipo de negócio e mensagem. Base legal (LGPD): execução de contrato ou procedimentos preliminares (Art. 7º, V). Finalidade: responder ao seu pedido de orçamento.' },
+          { label: 'Google Analytics', text: 'IP anonimizado, tipo de navegador, sistema operacional, páginas visitadas, duração da visita, fonte de tráfego. Base legal (LGPD): consentimento (Art. 7º, I) — só coletamos após seu consentimento explícito no banner de cookies. Finalidade: análise de desempenho do site.' },
+          { label: 'Cookies técnicos', text: 'Preferências de cookies e idioma. Base legal: legítimo interesse (Art. 7º, IX da LGPD). Finalidade: funcionamento básico do site.' },
+        ],
+      },
+      {
+        title: '3. Cookies e tecnologias de rastreamento',
+        content: 'Utilizamos os seguintes tipos de cookies:\n\n• Cookies essenciais — necessários para o funcionamento do site. Não requerem consentimento.\n• Cookies de análise (Google Analytics) — só são ativados com o seu consentimento explícito. O Google Analytics é configurado com anonimização de IP ativa.\n\nVocê pode gerenciar ou revogar seu consentimento a qualquer momento pelo banner de cookies ou limpando os dados do navegador.',
+      },
+      {
+        title: '4. Com quem compartilhamos seus dados',
+        content: 'Não vendemos nem cedemos seus dados pessoais a terceiros para fins comerciais. Seus dados podem ser compartilhados com:\n\n• Google LLC (Google Analytics) — transferência internacional com base em Cláusulas Contratuais Padrão.\n• WhatsApp/Meta — apenas quando você usa o botão de contato direto.\n\nNenhuma outra transferência internacional de dados é realizada.',
+      },
+      {
+        title: '5. Por quanto tempo guardamos seus dados',
+        content: '• Dados do formulário de contato: 12 meses após o último contato.\n• Dados de analytics: 14 meses (configuração padrão do Google Analytics GA4).\n• Preferências de cookies: 12 meses (armazenamento local no seu navegador).',
+      },
+      {
+        title: '6. Seus direitos (LGPD)',
+        content: 'Nos termos da LGPD, você tem os seguintes direitos:\n\n• Confirmação da existência de tratamento.\n• Acesso aos dados.\n• Correção de dados incompletos, inexatos ou desatualizados.\n• Anonimização, bloqueio ou eliminação de dados desnecessários.\n• Portabilidade dos dados.\n• Eliminação dos dados tratados com consentimento.\n• Informação sobre compartilhamento.\n• Revogação do consentimento a qualquer momento.\n• Peticionar à Autoridade Nacional de Proteção de Dados (ANPD) em www.gov.br/anpd.\n\nPara exercer qualquer direito, contate-nos em: appschedy@gmail.com',
+      },
+      {
+        title: '7. Segurança',
+        content: 'Adotamos medidas técnicas e organizacionais adequadas para proteger seus dados pessoais contra acesso não autorizado, perda ou destruição. A comunicação é encriptada via HTTPS.',
+      },
+      {
+        title: '8. Alterações nesta política',
+        content: 'Podemos atualizar esta política periodicamente. A data de "última atualização" indica quando foi revisada pela última vez.',
+      },
+      {
+        title: '9. Contato',
+        content: 'Para qualquer dúvida sobre esta política: appschedy@gmail.com',
+      },
+    ],
+  },
+
+  'en': {
+    title: 'Privacy Policy',
+    updated: 'Last updated: 1 January 2025',
+    intro: 'Scuta Digital ("we", "our") is committed to protecting your personal data. This policy explains what data we collect, how we use it, the legal basis for doing so, and your rights under the UK General Data Protection Regulation (UK GDPR), the EU General Data Protection Regulation (GDPR — Regulation EU 2016/679), and applicable data protection law.',
+    sections: [
+      {
+        title: '1. Data Controller',
+        content: 'Scuta Digital, based in Portugal. Data protection contact: appschedy@gmail.com.',
+      },
+      {
+        title: '2. Data we collect and why',
+        items: [
+          { label: 'Contact form', text: 'Name, email address, business type, and message. Legal basis: pre-contractual measures at the request of the data subject (Art. 6(1)(b) GDPR). Purpose: to respond to your enquiry.' },
+          { label: 'Google Analytics', text: 'Anonymised IP address, browser type, operating system, pages visited, session duration, traffic source. Legal basis: consent (Art. 6(1)(a) GDPR) — collected only after your explicit consent via the cookie banner. Purpose: site performance analysis to improve our service.' },
+          { label: 'Technical cookies', text: 'Cookie preferences and language settings. Legal basis: legitimate interests (Art. 6(1)(f) GDPR). Purpose: basic site functionality.' },
+        ],
+      },
+      {
+        title: '3. Cookies and tracking technologies',
+        content: 'We use the following types of cookies:\n\n• Essential cookies — required for the site to function. No consent required.\n• Analytics cookies (Google Analytics) — only activated with your explicit consent. IP anonymisation is enabled. Data is transferred to Google servers in the United States under Standard Contractual Clauses approved by the European Commission.\n\nYou can manage or withdraw your consent at any time via the cookie banner or by clearing your browser data.',
+      },
+      {
+        title: '4. Who we share your data with',
+        content: 'We do not sell or share your personal data with third parties for commercial purposes. Your data may be shared with:\n\n• Google LLC (Google Analytics) — transfer to the US under Standard Contractual Clauses.\n• WhatsApp/Meta — only when you use the direct contact button; data is then processed by Meta under their privacy policy.\n\nNo other international data transfers take place.',
+      },
+      {
+        title: '5. How long we keep your data',
+        content: '• Contact form data: 12 months after the last interaction, unless a longer retention period is required by law.\n• Analytics data: 14 months (Google Analytics GA4 default).\n• Cookie preferences: 12 months (stored locally in your browser).',
+      },
+      {
+        title: '6. Your rights',
+        content: 'Under the UK GDPR and EU GDPR, you have the following rights:\n\n• Right of access — to know what data we hold about you.\n• Right to rectification — to correct inaccurate data.\n• Right to erasure ("right to be forgotten").\n• Right to restriction of processing.\n• Right to data portability.\n• Right to object to processing.\n• Right to withdraw consent at any time, without affecting the lawfulness of processing before withdrawal.\n\nTo exercise any of these rights, contact us at appschedy@gmail.com. You also have the right to lodge a complaint with the Information Commissioner\'s Office (ICO) at www.ico.org.uk (UK) or your local supervisory authority (EU).',
+      },
+      {
+        title: '7. Security',
+        content: 'We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, loss, or destruction. All communication between your browser and our site is encrypted via HTTPS.',
+      },
+      {
+        title: '8. Changes to this policy',
+        content: 'We may update this policy from time to time. The "last updated" date at the top of this page indicates when it was last revised. For material changes, we will notify users via a notice on the site.',
+      },
+      {
+        title: '9. Contact',
+        content: 'For any questions about this policy or our data processing: appschedy@gmail.com',
+      },
+    ],
+  },
+
+  'es': {
+    title: 'Política de Privacidad',
+    updated: 'Última actualización: 1 de enero de 2025',
+    intro: 'Scuta Digital ("nosotros") está comprometida con la protección de tus datos personales. Esta política explica qué datos recopilamos, cómo los usamos, la base legal para hacerlo y tus derechos conforme al Reglamento General de Protección de Datos (RGPD — Reglamento UE 2016/679) y la normativa aplicable.',
+    sections: [
+      {
+        title: '1. Responsable del tratamiento',
+        content: 'Scuta Digital, con sede en Portugal. Contacto: appschedy@gmail.com.',
+      },
+      {
+        title: '2. Datos que recopilamos y por qué',
+        items: [
+          { label: 'Formulario de contacto', text: 'Nombre, correo electrónico, tipo de negocio y mensaje. Base legal: medidas precontractuales a petición del interesado (Art. 6.1.b RGPD). Finalidad: responder a tu solicitud de presupuesto.' },
+          { label: 'Google Analytics', text: 'IP anonimizada, tipo de navegador, sistema operativo, páginas visitadas, duración de la visita, fuente de tráfico. Base legal: consentimiento (Art. 6.1.a RGPD) — solo se recopilan tras tu consentimiento explícito en el banner de cookies. Finalidad: análisis del rendimiento del sitio.' },
+          { label: 'Cookies técnicas', text: 'Preferencias de cookies e idioma. Base legal: interés legítimo (Art. 6.1.f RGPD). Finalidad: funcionamiento básico del sitio.' },
+        ],
+      },
+      {
+        title: '3. Cookies y tecnologías de seguimiento',
+        content: 'Utilizamos los siguientes tipos de cookies:\n\n• Cookies esenciales — necesarias para el funcionamiento del sitio. No requieren consentimiento.\n• Cookies de análisis (Google Analytics) — solo se activan con tu consentimiento explícito. La anonimización de IP está activada. Los datos se transfieren a servidores de Google en EE.UU. bajo Cláusulas Contractuales Estándar.\n\nPuedes gestionar o revocar tu consentimiento en cualquier momento desde el banner de cookies.',
+      },
+      {
+        title: '4. Con quién compartimos tus datos',
+        content: 'No vendemos ni cedemos tus datos personales a terceros con fines comerciales. Tus datos pueden compartirse con:\n\n• Google LLC (Google Analytics) — transferencia a EE.UU. bajo Cláusulas Contractuales Estándar.\n• WhatsApp/Meta — solo cuando usas el botón de contacto directo.\n\nNo se realizan otras transferencias internacionales de datos.',
+      },
+      {
+        title: '5. Durante cuánto tiempo conservamos tus datos',
+        content: '• Datos del formulario de contacto: 12 meses tras el último contacto.\n• Datos de analytics: 14 meses (configuración estándar de Google Analytics GA4).\n• Preferencias de cookies: 12 meses (almacenamiento local en tu navegador).',
+      },
+      {
+        title: '6. Tus derechos',
+        content: 'Conforme al RGPD, tienes los siguientes derechos:\n\n• Derecho de acceso.\n• Derecho de rectificación.\n• Derecho de supresión ("derecho al olvido").\n• Derecho a la limitación del tratamiento.\n• Derecho a la portabilidad.\n• Derecho de oposición.\n• Derecho a retirar el consentimiento en cualquier momento.\n\nPara ejercer tus derechos, contáctanos en appschedy@gmail.com. También puedes reclamar ante la Agencia Española de Protección de Datos (AEPD) en www.aepd.es o ante tu autoridad supervisora local.',
+      },
+      {
+        title: '7. Seguridad',
+        content: 'Aplicamos medidas técnicas y organizativas adecuadas para proteger tus datos personales frente al acceso no autorizado, pérdida o destrucción. La comunicación está cifrada mediante HTTPS.',
+      },
+      {
+        title: '8. Cambios en esta política',
+        content: 'Podemos actualizar esta política periódicamente. La fecha de "última actualización" indica cuándo fue revisada por última vez.',
+      },
+      {
+        title: '9. Contacto',
+        content: 'Para cualquier consulta sobre esta política: appschedy@gmail.com',
+      },
+    ],
+  },
+};
+
+// ---------------------------------------------------------------------------
+// TIPOS
+// ---------------------------------------------------------------------------
+type Section = {
+  title: string;
+  content?: string;
+  items?: { label: string; text: string }[];
+};
+
+// ---------------------------------------------------------------------------
+// COMPONENTE
+// ---------------------------------------------------------------------------
+export default function PrivacyPolicy({
+  lang,
+  setLang,
+}: {
+  lang: Language;
+  setLang: (l: Language) => void;
+}) {
+  const c = CONTENT[lang] ?? CONTENT['pt-pt'];
 
   return (
     <div className="min-h-screen bg-scuta-primary">
       <Navbar lang={lang} setLang={setLang} />
-      
-      <main className="pt-32 pb-20 px-6">
+
+      <main className="pt-32 pb-24 px-6">
         <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl md:text-6xl font-black text-scuta-silk mb-4 tracking-tighter">
-              {t.title}
-            </h1>
-            <p className="text-scuta-silk/50 mb-12 font-mono text-sm">
-              {t.lastUpdated}
-            </p>
+            {/* Voltar */}
+            <a
+              href="/"
+              className="inline-flex items-center gap-2 text-slate-500 hover:text-scuta-silk text-xs font-bold uppercase tracking-widest mb-10 transition-colors group"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              Voltar ao site
+            </a>
 
-            <div className="space-y-12">
-              {t.sections.map((section, index) => (
+            {/* Cabeçalho */}
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-scuta-highlight/10 border border-scuta-highlight/20 flex items-center justify-center shrink-0">
+                <ShieldCheck size={24} className="text-scuta-highlight" />
+              </div>
+              <h1 className="text-4xl md:text-6xl font-black text-scuta-silk tracking-tighter">
+                {c.title}
+              </h1>
+            </div>
+            <p className="text-slate-500 font-mono text-xs mb-4 ml-16">{c.updated}</p>
+
+            {/* Badges de conformidade */}
+            <div className="flex flex-wrap gap-2 mb-12 ml-16">
+              {['RGPD / EU GDPR', 'LGPD', 'UK GDPR'].map((badge) => (
+                <span
+                  key={badge}
+                  className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-scuta-highlight/10 text-scuta-highlight border border-scuta-highlight/20"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
+
+            {/* Introdução */}
+            <div className="p-6 rounded-3xl bg-scuta-surface/50 border border-white/5 mb-12">
+              <p className="text-slate-300 leading-relaxed font-medium">{c.intro}</p>
+            </div>
+
+            {/* Secções */}
+            <div className="space-y-10">
+              {c.sections.map((section: Section, index: number) => (
                 <section key={index} className="space-y-4">
-                  <h2 className="text-2xl font-bold text-scuta-highlight">
+                  <h2 className="text-xl font-black text-scuta-highlight tracking-tight">
                     {section.title}
                   </h2>
-                  <p className="text-scuta-silk/70 leading-relaxed text-lg">
-                    {section.content}
-                  </p>
+
+                  {/* Conteúdo simples */}
+                  {section.content && (
+                    <div className="text-slate-400 leading-relaxed text-base font-medium whitespace-pre-line">
+                      {section.content}
+                    </div>
+                  )}
+
+                  {/* Lista de itens com label em destaque */}
+                  {section.items && (
+                    <div className="space-y-4">
+                      {section.items.map((item, i) => (
+                        <div
+                          key={i}
+                          className="p-5 rounded-2xl bg-scuta-surface/50 border border-white/5"
+                        >
+                          <p className="text-scuta-silk font-black text-sm mb-2">
+                            {item.label}
+                          </p>
+                          <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                            {item.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </section>
               ))}
+            </div>
+
+            {/* Rodapé da página */}
+            <div className="mt-16 pt-8 border-t border-white/5 text-center">
+              <p className="text-slate-600 text-xs font-bold uppercase tracking-widest">
+                Scuta Digital · appschedy@gmail.com
+              </p>
             </div>
           </motion.div>
         </div>
@@ -2935,7 +4382,6 @@ export default function PrivacyPolicy({ lang, setLang }: { lang: Language; setLa
     </div>
   );
 }
-
 
 ================================================================================
 Arquivo: src/pages/SampleSitePage.tsx
