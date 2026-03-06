@@ -36,64 +36,38 @@ Arquivo: index.html
 <!doctype html>
 <html lang="pt-PT">
   <head>
-    <!-- Google tag (gtag.js) - Carregamento Prioritário -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DZ576TG188"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-DZ576TG188');
-    </script>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- SEO Básico e Autoridade -->
-    <title>Scuta Digital | Sites de Alta Performance em Portugal</title>
-    <meta name="description" content="Transformamos o seu negócio numa referência digital. Sites profissionais focados em conversão, SEO local e resultados reais para o mercado português." />
-    <meta name="keywords" content="criação de sites portugal, web design luxo, agência digital lisboa, aparecer no google, landing pages conversão" />
-    <meta name="robots" content="index, follow" />
+    <!-- SEO Principal (PT-PT como padrão canónico) -->
+    <title>Scuta Digital | Sites que trazem clientes para o seu negócio</title>
+    <meta name="description" content="Criamos sites para pequenos negócios em Portugal. Apareça no Google, receba mais contactos e pare de perder clientes para a concorrência. Orçamento sem compromisso." />
     <link rel="canonical" href="https://scutadigital.pt/" />
-    
-    <!-- Geo Tags para Portugal -->
-    <meta name="geo.region" content="PT" />
-    <meta name="geo.placename" content="Portugal" />
 
-    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="pt_PT" />
-    <meta property="og:site_name" content="Scuta Digital" />
-    <meta property="og:title" content="Scuta Digital | Pare de depender apenas do passa-palavra" />
-    <meta property="og:description" content="Criamos a sua infraestrutura de vendas online. Sites que trabalham 24h por dia para trazer novos clientes." />
-    <meta property="og:url" content="https://scutadigital.pt/" />
-    <meta property="og:image" content="/og-image.jpg" /> <!-- Certifique-se de ter esta imagem no public -->
+    <!-- hreflang para multimercado -->
+    <link rel="alternate" hreflang="pt-PT" href="https://scutadigital.pt/" />
+    <link rel="alternate" hreflang="pt-BR" href="https://scutadigital.pt/?lang=pt-br" />
+    <link rel="alternate" hreflang="en" href="https://scutadigital.pt/?lang=en" />
+    <link rel="alternate" hreflang="es" href="https://scutadigital.pt/?lang=es" />
+    <link rel="alternate" hreflang="x-default" href="https://scutadigital.pt/" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Scuta Digital | Presença Digital de Elite" />
-    <meta name="twitter:description" content="Venda mais e domine o Google com um site otimizado para o mercado nacional." />
+    <!-- Open Graph principal -->
+    <meta property="og:title" content="Scuta Digital | O seu negócio no Google. Mais clientes. Sem complicação." />
+    <meta property="og:description" content="Criamos sites profissionais para pequenos negócios em Portugal. Apareça quando pesquisam por si. Orçamento grátis." />
 
     <!-- Dados Estruturados (JSON-LD) - FAQPage -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "inLanguage": "pt-PT",
-      "mainEntity":[
+      "inLanguage": ["pt-PT", "pt-BR", "en", "es"],
+      "mainEntity": [
         {
           "@type": "Question",
           "name": "Preciso de saber de informática para ter um site?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Não. A Scuta Digital trata de toda a engenharia técnica. O seu foco permanece na gestão do seu negócio."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "O meu site vai funcionar no telemóvel?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sim. Todos os nossos projetos são Mobile-First, garantindo uma experiência fluida em qualquer dispositivo."
+            "text": "Não. A Scuta Digital trata de toda a parte técnica. O seu único trabalho é receber os novos clientes que o site vai trazer."
           }
         },
         {
@@ -101,7 +75,7 @@ Arquivo: index.html
           "name": "Quanto tempo demora até o site estar pronto?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "O nosso rito de entrega padrão é de 14 a 21 dias, dependendo da complexidade do ecossistema digital."
+            "text": "Normalmente entre 1 a 2 semanas, dependendo do seu negócio. Mantemos sempre o cliente informado durante o processo."
           }
         },
         {
@@ -109,35 +83,27 @@ Arquivo: index.html
           "name": "O meu negócio vai aparecer no Google?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sim. Implementamos técnicas avançadas de SEO (Search Engine Optimization) para garantir visibilidade nas pesquisas relevantes da sua região."
+            "text": "Sim. Configuramos o site com as informações certas para que o Google o mostre a quem procura os seus serviços na sua zona."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quanto custa ter um site profissional?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende do que o seu negócio precisa. Temos pacotes para negócios de todos os tamanhos. Peça um orçamento — é gratuito e sem compromisso."
           }
         }
       ]
     }
     </script>
   </head>
-  
-  <!-- Body ajustado para evitar flash branco (Midnight Obsidian Theme) -->
   <body class="antialiased text-slate-50 bg-scuta-primary">
-    
-    <!-- Netlify Form Handling -->
-    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-      <input type="text" name="nome" />
-      <input type="email" name="email" />
-      <select name="tipo_negocio">
-        <option>Negócio local (Loja, Salão, Restaurante...)</option>
-        <option>Serviços profissionais (Advogado, Contabilista...)</option>
-        <option>Venda Online / E-commerce</option>
-        <option>Outro tipo de projeto</option>
-      </select>
-      <textarea name="mensagem"></textarea>
-      <input name="bot-field" />
-    </form>
-
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+
 
 ================================================================================
 Arquivo: metadata.json
@@ -238,22 +204,23 @@ View your app in AI Studio: https://ai.studio/apps/df557344-1873-4280-840d-55629
 Arquivo: src/App.tsx
 ================================================================================
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import WhyWeb from './components/WhyWeb';
 import Solutions from './components/Solutions';
 import Samples from './components/Samples';
+import Process from './components/Process';
+import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import SampleSitePage from './pages/SampleSitePage';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import { Language } from './lib/constants';
 
-/**
- * ScrollToTop: Garantia de navegação fluida em SPA.
- */
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -262,63 +229,58 @@ function ScrollToTop() {
   return null;
 }
 
-/**
- * HomePage: Composição do Design System da Agência.
- * Nota: A alternância de cores bg-scuta-primary/surface é gerida 
- * individualmente em cada componente para um ritmo visual dinâmico.
- */
-function HomePage() {
+function HomePage({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
   return (
     <>
-      <Navbar />
-      <Hero />
-      <WhyWeb />
-      <Solutions />
-      <Samples /> 
-      <FAQ />
-      <Contact />
-      <Footer />
+      <Navbar lang={lang} setLang={setLang} />
+      <Hero lang={lang} />
+      <Solutions lang={lang} />
+      <Process lang={lang} />
+      <Testimonials lang={lang} />
+      <Samples lang={lang} />
+      <FAQ lang={lang} />
+      <Contact lang={lang} />
+      <Footer lang={lang} />
       <WhatsAppButton />
     </>
   );
 }
 
 export default function App() {
+  const [lang, setLang] = useState<Language>("pt-pt");
+
   return (
-    /* Fundo alterado de bg-white para bg-scuta-primary para evitar flash de cor durante o carregamento */
     <div className="min-h-screen bg-scuta-primary font-sans text-scuta-silk selection:bg-scuta-highlight selection:text-scuta-primary">
       <ScrollToTop />
-
       <main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/exemplos/:slug" element={<SampleSitePage />} />
+          <Route path="/" element={<HomePage lang={lang} setLang={setLang} />} />
+          <Route path="/exemplos/:slug" element={<SampleSitePage lang={lang} setLang={setLang} />} />
+          <Route path="/privacidade" element={<PrivacyPolicy lang={lang} setLang={setLang} />} />
+          <Route path="/termos" element={<TermsOfService lang={lang} setLang={setLang} />} />
         </Routes>
       </main>
     </div>
   );
 }
 
+
 ================================================================================
 Arquivo: src/components/Contact.tsx
 ================================================================================
 
 import { motion } from 'motion/react';
-import { Mail, MapPin, MessageSquare, Send, Sparkles, ShieldCheck } from 'lucide-react';
-import { CONTACT_INFO, UI_STRINGS } from '../lib/constants';
+import { Mail, MessageSquare, Send, Sparkles, ShieldCheck } from 'lucide-react';
+import { CONTACT_INFO, UI_STRINGS, Language } from '../lib/constants';
 
-export default function Contact() {
-  const t = UI_STRINGS.pt.contact;
+export default function Contact({ lang }: { lang: Language }) {
+  const t = UI_STRINGS[lang].contact;
 
   return (
-    <section id="contact" className="relative py-16 px-6 noise bg-scuta-primary overflow-hidden">
-      {/* Mesh Gradient de Fundo para fecho de página */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full bg-scuta-accent/5 blur-[120px] rounded-full pointer-events-none" />
-
+    <section id="contact" className="relative py-24 px-6 bg-scuta-primary overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
-          {/* COLUNA ESQUERDA: Texto e Autoridade */}
           <div>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -326,17 +288,15 @@ export default function Contact() {
               viewport={{ once: true }}
             >
               <div className="inline-flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-6">
-                <Sparkles size={14} /> Inicie a sua expansão
+                <Sparkles size={14} /> {t.badge}
               </div>
-              <h2 className="text-5xl md:text-7xl font-black text-scuta-silk leading-[0.9] tracking-tighter mb-8">
-                Pronto para <br />
-                <span className="text-scuta-gradient">Vencer Online?</span>
+              <h2 className="text-5xl md:text-7xl font-black text-scuta-silk leading-[0.9] tracking-tighter mb-8 text-left">
+                {t.title}
               </h2>
-              <p className="text-xl text-slate-400 mb-12 leading-relaxed font-medium max-w-md">
+              <p className="text-xl text-slate-400 mb-12 leading-relaxed font-medium max-w-md text-left">
                 {t.subtitle}
               </p>
 
-              {/* Cartões de Contacto Estilo Bento-Mini */}
               <div className="space-y-6">
                 <a 
                   href={`https://wa.me/${CONTACT_INFO.phoneRaw}`}
@@ -344,7 +304,7 @@ export default function Contact() {
                   rel="noreferrer"
                   className="group flex items-center gap-6 p-4 rounded-3xl bg-white/5 border border-white/5 hover:border-scuta-highlight/50 transition-all duration-500"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-scuta-highlight flex items-center justify-center text-scuta-primary shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                  <div className="w-12 h-12 rounded-2xl bg-scuta-highlight flex items-center justify-center text-scuta-primary shadow-xl">
                     <MessageSquare size={24} />
                   </div>
                   <div className="text-left">
@@ -357,7 +317,7 @@ export default function Contact() {
                   href={`mailto:${CONTACT_INFO.email}`}
                   className="group flex items-center gap-6 p-4 rounded-3xl bg-white/5 border border-white/5 hover:border-scuta-accent/50 transition-all duration-500"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-scuta-accent flex items-center justify-center text-scuta-silk shadow-[0_0_15px_rgba(124,58,237,0.3)]">
+                  <div className="w-12 h-12 rounded-2xl bg-scuta-accent flex items-center justify-center text-scuta-silk shadow-xl">
                     <Mail size={24} />
                   </div>
                   <div className="text-left">
@@ -369,57 +329,42 @@ export default function Contact() {
             </motion.div>
           </div>
 
-          {/* COLUNA DIREITA: O Formulário de Comando */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="bento-card border-white/10 relative"
+            className="bg-scuta-surface/90 backdrop-blur-3xl border border-white/10 rounded-4xl p-8 relative"
           >
-            <div className="absolute -top-4 -right-4 w-20 h-20 bg-scuta-highlight/20 blur-2xl rounded-full" />
-            
             <h3 className="text-2xl font-black text-scuta-silk mb-8 tracking-tight flex items-center gap-3 text-left">
-              Solicitar Orçamento <div className="h-px bg-white/10 grow ml-2" />
+              {t.form.title} <div className="h-px bg-white/10 grow ml-2" />
             </h3>
 
-            <form 
-              name="contact" 
-              method="POST" 
-              action="/" 
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-              className="space-y-5"
-            >
-              <input type="hidden" name="form-name" value="contact" />
-              
+            <form className="space-y-5">
               <div className="grid md:grid-cols-2 gap-5">
                 <div className="space-y-2 text-left">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">O seu nome</label>
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{t.form.name}</label>
                   <input 
                     type="text" 
-                    name="nome"
                     required
                     placeholder="João Silva"
-                    className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all placeholder:text-slate-700"
+                    className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all"
                   />
                 </div>
                 <div className="space-y-2 text-left">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">E-mail de contacto</label>
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{t.form.email}</label>
                   <input 
                     type="email" 
-                    name="email"
                     required
                     placeholder="joao@empresa.pt"
-                    className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all placeholder:text-slate-700"
+                    className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all"
                   />
                 </div>
               </div>
 
               <div className="space-y-2 text-left">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Tipo de negócio</label>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{t.form.subject}</label>
                 <select 
-                  name="tipo_negocio"
-                  className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-slate-400 outline-none focus:border-scuta-accent transition-all appearance-none cursor-pointer font-bold"
+                  className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-slate-400 outline-none focus:border-scuta-accent transition-all"
                 >
                   <option>Negócio local (Loja, Salão, Restaurante...)</option>
                   <option>Serviços profissionais (Advogado, Contabilista...)</option>
@@ -429,13 +374,12 @@ export default function Contact() {
               </div>
 
               <div className="space-y-2 text-left">
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Mensagem breve</label>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{t.form.message}</label>
                 <textarea 
-                  name="mensagem"
                   rows={3}
                   required
                   placeholder="O que o seu negócio precisa hoje?"
-                  className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all resize-none placeholder:text-slate-700"
+                  className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all resize-none"
                 />
               </div>
 
@@ -443,7 +387,7 @@ export default function Contact() {
                 type="submit"
                 className="w-full py-5 bg-scuta-silk text-scuta-primary font-black text-sm uppercase tracking-[0.2em] rounded-2xl hover:bg-scuta-highlight transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95"
               >
-                Enviar Solicitação <Send size={16} />
+                {t.form.send} <Send size={16} />
               </button>
               
               <div className="flex items-center justify-center gap-2 text-[9px] font-bold text-slate-600 uppercase tracking-widest mt-4">
@@ -458,6 +402,7 @@ export default function Contact() {
   );
 }
 
+
 ================================================================================
 Arquivo: src/components/FAQ.tsx
 ================================================================================
@@ -465,19 +410,16 @@ Arquivo: src/components/FAQ.tsx
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, HelpCircle, Sparkles, MessageCircle } from 'lucide-react';
-import { FAQ_ITEMS } from '../lib/constants';
+import { FAQ_ITEMS, UI_STRINGS, Language } from '../lib/constants';
 
-export default function FAQ() {
+export default function FAQ({ lang }: { lang: Language }) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(0);
+  const t = UI_STRINGS[lang];
+  const faqs = FAQ_ITEMS[lang];
 
   return (
-    <section id="faq" className="relative py-20 px-6 noise bg-scuta-primary overflow-hidden">
-      {/* Brilho decorativo lateral */}
-      <div className="absolute top-1/2 -right-64 w-125 h-125 bg-scuta-accent/10 blur-[120px] rounded-full pointer-events-none" />
-
+    <section id="faq" className="relative py-20 px-6 bg-scuta-primary overflow-hidden">
       <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Cabeçalho WOW */}
         <div className="text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -485,20 +427,23 @@ export default function FAQ() {
             viewport={{ once: true }}
           >
             <div className="inline-flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-4">
-              <Sparkles size={14} /> Transparência Total
+              <Sparkles size={14} /> {t.faq.sectionBadge}
             </div>
             <h2 className="text-4xl md:text-6xl font-black text-scuta-silk leading-tight tracking-tighter mb-6">
-              Dúvidas <span className="text-scuta-gradient">Frequentes.</span>
+              {t.faq.title.split('\n').map((line, i) => (
+                <span key={i} className={line === t.faq.titleHighlight ? "text-scuta-gradient block" : "block"}>
+                  {line}
+                </span>
+              ))}
             </h2>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed">
-              Esclarecemos os pontos técnicos para que se possa focar no que importa: o crescimento do seu negócio em Portugal.
+              {t.faq.subtitle}
             </p>
           </motion.div>
         </div>
 
-        {/* Lista de Acordéons em Vidro Negro */}
         <div className="space-y-4">
-          {FAQ_ITEMS.map((faq, index) => (
+          {faqs.map((faq, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, y: 10 }}
@@ -507,8 +452,8 @@ export default function FAQ() {
               transition={{ delay: index * 0.1 }}
               className={`group border transition-all duration-500 rounded-4xl overflow-hidden ${
                 openIndex === index 
-                ? 'glass-dark border-scuta-accent/30 shadow-[0_0_40px_rgba(124,58,237,0.1)]' 
-                : 'bg-white/5 border-white/5 hover:border-white/10 hover:bg-white/[0.07]'
+                ? 'bg-scuta-surface/80 backdrop-blur-2xl border-scuta-accent/30 shadow-2xl' 
+                : 'bg-white/5 border-white/5 hover:border-white/10'
               }`}
             >
               <button
@@ -553,18 +498,17 @@ export default function FAQ() {
           ))}
         </div>
 
-        {/* Call to Action Final da Secção */}
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           className="mt-16 text-center"
         >
           <div className="inline-flex items-center gap-3 p-2 pr-6 bg-scuta-surface/50 border border-white/5 rounded-full backdrop-blur-sm">
-            <div className="w-10 h-10 rounded-full bg-scuta-highlight flex items-center justify-center text-scuta-primary shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+            <div className="w-10 h-10 rounded-full bg-scuta-highlight flex items-center justify-center text-scuta-primary shadow-xl">
               <MessageCircle size={20} />
             </div>
             <p className="text-xs font-black uppercase tracking-widest text-slate-400">
-              Dúvida não listada? <a href="#contact" className="text-scuta-highlight hover:underline ml-1">Fale connosco</a>
+              <a href="#contact" className="text-scuta-highlight hover:underline ml-1">{t.faq.ctaText}</a>
             </p>
           </div>
         </motion.div>
@@ -573,26 +517,22 @@ export default function FAQ() {
   );
 }
 
+
 ================================================================================
 Arquivo: src/components/Footer.tsx
 ================================================================================
 
-import { BRAND_INFO, CONTACT_INFO, SOCIAL_LINKS } from '../lib/constants';
-import { Instagram, Linkedin, ExternalLink, ShieldCheck } from 'lucide-react';
+import { BRAND_INFO, SOCIAL_LINKS, UI_STRINGS, Language } from '../lib/constants';
+import { Instagram, Linkedin, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-export default function Footer() {
+export default function Footer({ lang }: { lang: Language }) {
+  const t = UI_STRINGS[lang].footer;
+
   return (
-    <footer className="relative py-24 px-6 bg-scuta-primary noise border-t border-white/5 overflow-hidden">
-      {/* Gradiente de ancoragem no topo para transição suave do Midnight Obsidian */}
-      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
-      
-      {/* Brilho sutil de fundo para profundidade */}
-      <div className="absolute top-0 right-0 size-80 bg-scuta-accent/5 blur-[100px] rounded-full pointer-events-none" />
-
+    <footer className="relative py-24 px-6 bg-scuta-primary border-t border-white/5 overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 mb-24">
-          
-          {/* COLUNA 1: Branding */}
           <div className="md:col-span-5 text-left">
             <div className="flex items-center gap-4 mb-8">
               <div className="size-12 bg-scuta-silk rounded-2xl flex items-center justify-center shadow-2xl">
@@ -603,87 +543,61 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-sm mb-10">
-              Transformamos negócios em referências digitais através de design de alta performance e estratégia focada em conversão.
+              {t.tagline}
             </p>
-            
             <div className="flex gap-4">
-              {[SOCIAL_LINKS.instagram, SOCIAL_LINKS.linkedin].map((link, i) => (
-                <a 
-                  key={i} 
-                  href={link} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="size-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:bg-scuta-accent hover:text-white hover:border-scuta-accent transition-all duration-300"
-                >
-                  {i === 0 ? <Instagram size={20} /> : <Linkedin size={20} />}
-                </a>
-              ))}
+              <a href={SOCIAL_LINKS.instagram} className="size-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:bg-scuta-accent hover:text-white transition-all">
+                <Instagram size={20} />
+              </a>
+              <a href={SOCIAL_LINKS.linkedin} className="size-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:bg-scuta-accent hover:text-white transition-all">
+                <Linkedin size={20} />
+              </a>
             </div>
           </div>
 
-          {/* COLUNA 2: Links */}
           <div className="md:col-span-3 text-left">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-scuta-highlight mb-10">Navegação</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-scuta-highlight mb-10">{t.sections.company.title}</h4>
             <ul className="space-y-6">
-              {['Portfólio', 'O que fazemos', 'Processo', 'Dúvidas'].map((item, i) => (
+              {t.sections.company.links.map((link, i) => (
                 <li key={i}>
-                  <a href="#" className="text-sm font-bold text-slate-400 hover:text-scuta-silk transition-colors flex items-center gap-3 group">
-                    <div className="size-1.5 bg-scuta-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                    {item}
+                  <a href="#" className="text-sm font-bold text-slate-400 hover:text-scuta-silk transition-colors">
+                    {link}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* COLUNA 3: Legal Portugal */}
           <div className="md:col-span-4 text-left">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-scuta-highlight mb-10">Legal & Transparência</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-scuta-highlight mb-10">{t.sections.services.title}</h4>
             <div className="space-y-6">
-              <a 
-                href="https://www.livroreclamacoes.pt" 
-                target="_blank" 
-                rel="noreferrer"
-                className="flex items-center gap-6 p-6 rounded-3xl bg-white/5 border border-white/5 hover:border-white/10 transition-all group"
-              >
+              <div className="flex items-center gap-6 p-6 rounded-3xl bg-white/5 border border-white/5">
                 <div className="size-14 bg-scuta-silk/10 rounded-2xl flex items-center justify-center text-scuta-silk shrink-0">
                   <ShieldCheck size={24} />
                 </div>
                 <div className="text-left">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-scuta-silk">Livro de Reclamações</p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Livro de Reclamações</p>
                   <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Acesso ao formato eletrónico</p>
                 </div>
-                <ExternalLink size={16} className="ml-auto text-slate-600" />
-              </a>
-              
-              <div className="text-left px-2">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-relaxed">
-                  Scuta Digital Unipessoal Lda. <br />
-                  NIF: 123 456 789 — Portugal <br />
-                  Entidade de Resolução de Litígios (RAL)
-                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* BARRA FINAL */}
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">
-            © {new Date().getFullYear()} {BRAND_INFO.name}. Desenhado para Performance Absoluta.
+            © {new Date().getFullYear()} {BRAND_INFO.name}. {t.rights}
           </p>
-          <div className="flex gap-10">
-            {['Privacidade', 'Termos', 'Cookies'].map((item) => (
-              <a key={item} href="#" className="text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-scuta-highlight transition-colors">
-                {item}
-              </a>
-            ))}
+          <div className="flex gap-8">
+            <Link to="/privacidade" className="text-slate-600 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">{t.legal.privacy}</Link>
+            <Link to="/termos" className="text-slate-600 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">{t.legal.terms}</Link>
           </div>
         </div>
       </div>
     </footer>
   );
 }
+
 
 ================================================================================
 Arquivo: src/components/Hero.tsx
@@ -692,48 +606,36 @@ Arquivo: src/components/Hero.tsx
 import { motion } from 'motion/react';
 import { 
   ArrowRight, 
-  CheckCircle2, 
-  TrendingUp, 
-  Sparkles, 
   ShieldCheck, 
   Clock, 
-  Smartphone 
+  Smartphone,
+  TrendingUp
 } from 'lucide-react';
-import { UI_STRINGS } from '../lib/constants';
+import { UI_STRINGS, Language } from '../lib/constants';
 
-export default function Hero() {
-  const t = UI_STRINGS.pt.hero;
+export default function Hero({ lang }: { lang: Language }) {
+  const t = UI_STRINGS[lang].hero;
 
   return (
-    <section className="relative pt-24 pb-12 px-6 overflow-hidden noise bg-scuta-primary">
-      {/* --- EFEITOS DE FUNDO (Cores mais densas para garantir contraste) --- */}
-      <div className="absolute top-0 left-1/4 w-150 h-150 bg-scuta-accent/30 blur-[140px] rounded-full animate-glow pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-125 h-125 bg-scuta-highlight/20 blur-[120px] rounded-full animate-glow delay-1000 pointer-events-none" />
-
+    <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-scuta-primary">
+      <div className="absolute top-0 left-1/4 w-150 h-150 bg-scuta-accent/20 blur-[140px] rounded-full pointer-events-none" />
+      
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
-        
-        {/* --- LADO ESQUERDO: TEXTO --- */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Badge: Escurecido para destaque */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 border border-white/10 text-scuta-silk text-[10px] font-black uppercase tracking-[0.2em] mb-10 shadow-2xl backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-scuta-silk text-[10px] font-black uppercase tracking-[0.2em] mb-10 backdrop-blur-md">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-scuta-highlight opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-scuta-highlight"></span>
             </span>
-            Especialistas em Portugal
+            {t.badge}
           </div>
 
-          {/* Título: Aumentado e com gradiente agressivo */}
-          <h1 className="text-6xl md:text-[84px] font-black tracking-tighter text-white mb-8 leading-[0.85]">
-            {t.title.split('.').map((part, i) => (
-              <span key={i} className={i === 0 ? "block" : "text-scuta-gradient block mt-2"}>
-                {part}{i === 0 ? "." : ""}
-              </span>
-            ))}
+          <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.85]">
+            {t.title}
           </h1>
           
           <p className="text-xl text-slate-400 mb-12 max-w-lg leading-relaxed font-medium">
@@ -743,7 +645,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-6">
             <a 
               href="#contact" 
-              className="px-10 py-5 bg-scuta-silk text-scuta-primary rounded-2xl font-black text-lg hover:scale-105 hover:bg-scuta-highlight transition-all flex items-center justify-center gap-3 group active:scale-95 shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+              className="px-10 py-5 bg-scuta-silk text-scuta-primary rounded-2xl font-black text-lg hover:bg-scuta-highlight transition-all flex items-center justify-center gap-3 group active:scale-95 shadow-2xl"
             >
               {t.cta} <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </a>
@@ -757,43 +659,39 @@ export default function Hero() {
           
           <div className="mt-12 flex flex-wrap gap-8">
             {[
-              { text: 'Sem custos surpresa', icon: ShieldCheck },
-              { text: 'Site pronto em dias', icon: Clock },
-              { text: 'Lê-se bem no telemóvel', icon: Smartphone }
+              { text: t.trust.noSurprise, icon: ShieldCheck },
+              { text: t.trust.fast, icon: Clock },
+              { text: t.trust.mobile, icon: Smartphone }
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-3 text-[10px] text-slate-500 font-black uppercase tracking-widest">
-                <CheckCircle2 className="w-4 h-4 text-scuta-highlight shrink-0" />
+                <item.icon className="w-4 h-4 text-scuta-highlight shrink-0" />
                 {item.text}
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* --- LADO DIREITO: IMAGEM --- */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
           className="relative lg:ml-6"
         >
-          <div className="absolute -inset-1 bg-linear-to-r from-scuta-accent to-scuta-highlight opacity-30 blur-2xl rounded-[3rem]" />
-          
           <div className="relative aspect-4/3 rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group">
             <img 
               src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop" 
               alt="Estratégia Scuta" 
               className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000"
+              referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-scuta-primary via-transparent to-transparent opacity-60" />
           </div>
 
-          {/* Badge Flutuante Bento */}
           <motion.div 
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -bottom-6 -right-6 glass-dark p-6 rounded-3xl border border-scuta-highlight/30 hidden md:flex items-center gap-4 max-w-60 shadow-2xl"
+            className="absolute -bottom-6 -right-6 bg-scuta-surface/90 backdrop-blur-xl p-6 rounded-3xl border border-scuta-highlight/30 hidden md:flex items-center gap-4 max-w-60 shadow-2xl"
           >
-            <div className="w-12 h-12 bg-scuta-highlight rounded-xl flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+            <div className="w-12 h-12 bg-scuta-highlight rounded-xl flex items-center justify-center shrink-0">
               <TrendingUp size={24} className="text-scuta-primary" />
             </div>
             <div className="text-left">
@@ -807,19 +705,21 @@ export default function Hero() {
   );
 }
 
+
 ================================================================================
 Arquivo: src/components/Navbar.tsx
 ================================================================================
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
-import { UI_STRINGS, BRAND_INFO } from '../lib/constants';
+import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
+import { UI_STRINGS, BRAND_INFO, Language } from '../lib/constants';
 
-export default function Navbar() {
+export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const t = UI_STRINGS.pt.navbar;
+  const [showLangMenu, setShowLangMenu] = useState(false);
+  const t = UI_STRINGS[lang];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -828,18 +728,26 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: t.why, href: '#why' },
-    { name: t.solutions, href: '#solutions' },
-    { name: t.samples, href: '#samples' },
-    { name: t.faq, href: '#faq' },
+    { name: t.navbar.why, href: '#why' },
+    { name: t.navbar.solutions, href: '#solutions' },
+    { name: t.navbar.samples, href: '#samples' },
+    { name: t.navbar.faq, href: '#faq' },
   ];
 
+  const languages: { code: Language; label: string; flag: string }[] = [
+    { code: "pt-pt", label: "Portugal", flag: "🇵🇹" },
+    { code: "pt-br", label: "Brasil",   flag: "🇧🇷" },
+    { code: "en",    label: "English",  flag: "🇬🇧" },
+    { code: "es",    label: "Español",  flag: "🇪🇸" },
+  ];
+
+  const currentLang = languages.find(l => l.code === lang) || languages[0];
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-100 transition-all duration-500 ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       scrolled ? 'py-4' : 'py-8'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
-        {/* Container Glass com maior transparência para absorver o fundo das secções */}
         <div className={`backdrop-blur-xl border transition-all duration-500 rounded-full px-8 py-4 flex items-center justify-between ${
           scrolled 
             ? 'bg-scuta-primary/80 border-white/10 shadow-2xl' 
@@ -874,11 +782,50 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-6">
+            {/* Language Selector */}
+            <div className="relative">
+              <button 
+                onClick={() => setShowLangMenu(!showLangMenu)}
+                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-scuta-silk transition-all"
+              >
+                <span>{currentLang.flag}</span>
+                <span className="hidden lg:inline">{currentLang.label}</span>
+                <ChevronDown size={12} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <AnimatePresence>
+                {showLangMenu && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full right-0 mt-4 bg-scuta-surface border border-white/10 rounded-2xl p-2 shadow-2xl min-w-35"
+                  >
+                    {languages.map((l) => (
+                      <button
+                        key={l.code}
+                        onClick={() => {
+                          setLang(l.code);
+                          setShowLangMenu(false);
+                        }}
+                        className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                          lang === l.code ? 'bg-scuta-highlight text-scuta-primary' : 'text-slate-400 hover:bg-white/5 hover:text-scuta-silk'
+                        }`}
+                      >
+                        <span>{l.flag}</span>
+                        <span>{l.label}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <a 
               href="#contact" 
               className="px-6 py-3 bg-scuta-silk text-scuta-primary rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-scuta-highlight hover:text-scuta-primary transition-all flex items-center gap-2 shadow-2xl active:scale-95"
             >
-              {t.contact} <ArrowRight size={14} />
+              {t.navbar.contact} <ArrowRight size={14} />
             </a>
           </div>
 
@@ -895,9 +842,9 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             className="md:hidden absolute top-full left-6 right-6 mt-4 bg-scuta-surface border border-white/10 rounded-[2.5rem] p-8 overflow-hidden shadow-2xl"
           >
             <div className="flex flex-col gap-8 text-left">
@@ -912,12 +859,31 @@ export default function Navbar() {
                   <ArrowRight size={20} className="text-scuta-highlight opacity-0 group-hover:opacity-100 transition-all" />
                 </a>
               ))}
+              
+              <div className="grid grid-cols-2 gap-4">
+                {languages.map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => {
+                      setLang(l.code);
+                      setIsOpen(false);
+                    }}
+                    className={`flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${
+                      lang === l.code ? 'bg-scuta-highlight border-scuta-highlight text-scuta-primary' : 'bg-white/5 border-white/10 text-slate-400'
+                    }`}
+                  >
+                    <span>{l.flag}</span>
+                    <span>{l.label}</span>
+                  </button>
+                ))}
+              </div>
+
               <a 
                 href="#contact" 
                 onClick={() => setIsOpen(false)} 
                 className="w-full py-5 bg-scuta-accent text-white rounded-2xl text-center font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 shadow-xl active:scale-95"
               >
-                {t.contact} <Sparkles size={16} />
+                {t.navbar.contact}
               </a>
             </div>
           </motion.div>
@@ -927,6 +893,78 @@ export default function Navbar() {
   );
 }
 
+
+================================================================================
+Arquivo: src/components/Process.tsx
+================================================================================
+
+import { motion } from 'motion/react';
+import { Search, PenTool, Layout, Rocket, Sparkles } from 'lucide-react';
+import { UI_STRINGS, Language } from '../lib/constants';
+
+const ICONS = {
+  Search,
+  PenTool,
+  Layout,
+  Rocket
+};
+
+export default function Process({ lang }: { lang: Language }) {
+  const t = UI_STRINGS[lang].process;
+
+  return (
+    <section id="process" className="relative py-24 px-6 bg-scuta-primary overflow-hidden">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="inline-flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-4">
+              <Sparkles size={14} /> {t.badge}
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-scuta-silk leading-tight tracking-tighter mb-6">
+              {t.title}
+            </h2>
+          </motion.div>
+        </div>
+
+        <div className="grid md:grid-cols-4 gap-8">
+          {t.steps.map((step, index) => {
+            const Icon = ICONS[step.icon as keyof typeof ICONS] || Search;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="relative p-8 rounded-4xl bg-scuta-surface/50 border border-white/5 hover:border-white/10 transition-all group"
+              >
+                <div className={`size-16 rounded-2xl bg-linear-to-br from-scuta-highlight/20 to-scuta-highlight/5 flex items-center justify-center mb-8 border border-white/10 group-hover:scale-110 transition-transform duration-500`}>
+                  <Icon size={28} className="text-white" />
+                </div>
+                <h3 className="text-xl font-black text-white mb-4 tracking-tight text-left">{step.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed font-medium text-left">
+                  {step.description}
+                </p>
+                
+                {index < t.steps.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-4 translate-x-1/2 -translate-y-1/2 z-20">
+                    <div className="w-8 h-px bg-linear-to-r from-white/20 to-transparent" />
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 ================================================================================
 Arquivo: src/components/Samples.tsx
 ================================================================================
@@ -935,16 +973,16 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { CheckCircle, AlertCircle, TrendingUp, ArrowRight, MousePointer2, Sparkles } from 'lucide-react';
 import { SAMPLE_SITES } from '../data/sampleSites';
+import { UI_STRINGS, Language } from '../lib/constants';
 
-export default function Samples() {
+export default function Samples({ lang }: { lang: Language }) {
+  const t = UI_STRINGS[lang].samples;
+
   return (
-    <section id="samples" className="relative py-32 px-6 overflow-hidden noise bg-scuta-primary">
-      {/* Brilho de fundo para profundidade */}
+    <section id="samples" className="relative py-32 px-6 overflow-hidden bg-scuta-primary">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-scuta-accent/5 blur-[180px] pointer-events-none opacity-50" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* --- CABEÇALHO --- */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -953,11 +991,10 @@ export default function Samples() {
             className="max-w-2xl text-left"
           >
             <div className="flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-4">
-              <Sparkles size={14} className="animate-pulse" /> Portfólio Estratégico
+              <Sparkles size={14} className="animate-pulse" /> {t.badge}
             </div>
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-none">
-              Experiências que <br />
-              <span className="text-scuta-gradient">Convertem Cliques.</span>
+              {t.title}
             </h2>
           </motion.div>
 
@@ -967,12 +1004,11 @@ export default function Samples() {
             viewport={{ once: true }}
             className="text-slate-300 max-w-sm text-left font-medium leading-relaxed md:mb-2 opacity-80"
           >
-            Cada projeto é um ecossistema único, desenhado para resolver as dores específicas do mercado português.
+            {t.subtitle}
           </motion.p>
         </div>
 
-        {/* --- BENTO GRID DE PROJETOS --- */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SAMPLE_SITES.map((site, index) => (
             <motion.div
               key={site.slug}
@@ -985,147 +1021,76 @@ export default function Samples() {
                 to={`/exemplos/${site.slug}`}
                 className="group relative block h-full bento-card border border-white/10 overflow-hidden bg-scuta-surface/90"
               >
-                {/* Efeito de Brilho Dinâmico com proteção contra undefined */}
-                <div 
-                  className="absolute -top-24 -right-24 w-48 h-48 blur-[80px] opacity-0 group-hover:opacity-30 transition-opacity duration-700 rounded-full"
-                  style={{ backgroundColor: site.theme?.primary || '#7c3aed' }}
-                />
-
-                {/* Badge do Setor */}
                 <div className="flex justify-between items-start mb-12">
-                  <span 
-                    className="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-white shadow-2xl"
-                  >
+                  <span className="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-white/5 border border-white/10 text-white">
                     {site.sector}
                   </span>
-                  <div 
-                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-black/40 border border-white/10 text-white group-hover:bg-white group-hover:text-black transition-all shadow-2xl"
-                  >
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-black/40 border border-white/10 text-white group-hover:bg-white group-hover:text-black transition-all">
                     <MousePointer2 size={18} />
                   </div>
                 </div>
 
-                {/* Conteúdo: FOCO TOTAL EM CONTRASTE */}
                 <div className="mb-10 text-left">
                   <div className="flex items-center gap-2 text-scuta-highlight mb-4 text-[10px] font-black uppercase tracking-[0.2em]">
-                    <AlertCircle size={14} strokeWidth={3} /> Caso de Estudo
+                    <AlertCircle size={14} strokeWidth={3} /> {t.caseStudy}
                   </div>
-                  
-                  {/* Título Branco Puro */}
-                  <h3 className="text-3xl md:text-4xl font-black text-white mb-5 tracking-tighter leading-none group-hover:text-scuta-gradient transition-all duration-300">
+                  <h3 className="text-3xl font-black text-white mb-5 tracking-tighter leading-none group-hover:text-scuta-gradient transition-all duration-300">
                     {site.companyName}
                   </h3>
-                  
-                  {/* Descrição */}
-                  <p className="text-base text-slate-200 font-medium leading-relaxed line-clamp-3 opacity-90 group-hover:opacity-100 transition-opacity">
+                  <p className="text-base text-slate-200 font-medium leading-relaxed line-clamp-3 opacity-90">
                     {site.pain}
                   </p>
                 </div>
 
-                {/* Barra de Status com proteção contra undefined */}
                 <div className="flex items-center gap-3 py-3 px-4 rounded-2xl bg-white/5 border border-white/5 mb-10 text-left">
-                  <div 
-                    className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0 shadow-lg"
-                    style={{ backgroundColor: site.theme?.primary || '#7c3aed', color: 'white' }}
-                  >
+                  <div className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0 bg-scuta-highlight text-white">
                     <CheckCircle size={14} strokeWidth={3} />
                   </div>
                   <p className="text-[10px] font-black text-white/90 uppercase tracking-widest">
-                    Performance Ativada
+                    {t.performance}
                   </p>
                 </div>
 
-                {/* Botão de Ação com proteção contra undefined */}
-                <div 
-                  className="p-5 rounded-2xl flex items-center justify-between transition-all duration-500 shadow-[0_15px_30px_-10px_rgba(0,0,0,0.5)] group-hover:scale-[1.02] group-hover:shadow-scuta-highlight/20"
-                  style={{ backgroundColor: site.theme?.primary || '#7c3aed' }}
-                >
+                <div className="p-5 rounded-2xl flex items-center justify-between bg-scuta-accent transition-all duration-500 group-hover:scale-[1.02]">
                   <div className="flex items-center gap-3">
                     <TrendingUp size={20} className="text-white" strokeWidth={3} />
-                    <span className="text-xs font-black uppercase tracking-widest text-white">Analisar Estratégia</span>
+                    <span className="text-xs font-black uppercase tracking-widest text-white">{t.analyze}</span>
                   </div>
                   <ArrowRight size={20} className="text-white transform group-hover:translate-x-1 transition-transform" />
                 </div>
-
-                {/* Borda de Iluminação no Hover */}
-                <div 
-                  className="absolute inset-0 rounded-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border-2 border-transparent"
-                  style={{ borderColor: `${site.theme?.primary || '#7c3aed'}60` }}
-                />
               </Link>
             </motion.div>
           ))}
         </div>
-
-        {/* --- FOOTER SECÇÃO --- */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-24 pt-12 border-t border-white/5 flex flex-col items-center gap-6"
-        >
-          <p className="text-slate-500 font-black text-[10px] uppercase tracking-[0.5em] text-center">
-            Standard de Qualidade Scuta Digital
-          </p>
-        </motion.div>
       </div>
     </section>
   );
 }
+
 
 ================================================================================
 Arquivo: src/components/Solutions.tsx
 ================================================================================
 
 import { motion } from 'motion/react';
-import { 
-  Smartphone, 
-  Search, 
-  PenTool, 
-  ShieldCheck, 
-  ArrowRight, 
-  CheckCircle2, 
-  Zap,
-  Layers
-} from 'lucide-react';
+import { Smartphone, Search, PenTool, ShieldCheck, ArrowRight, CheckCircle2, Zap, Layers } from 'lucide-react';
+import { UI_STRINGS, Language } from '../lib/constants';
 
-export default function Solutions() {
-  const solutions = [
-    {
-      icon: Smartphone,
-      title: "Mobile-First de Elite",
-      description: "80% dos seus clientes estão no telemóvel. Criamos interfaces que carregam instantaneamente e convertem cliques em chamadas.",
-      delay: 0.1
-    },
-    {
-      icon: Search,
-      title: "Domínio Orgânico (SEO)",
-      description: "Não basta existir. Configuramos a sua presença para que o Google o coloque à frente da concorrência local no momento da decisão.",
-      delay: 0.2
-    },
-    {
-      icon: PenTool,
-      title: "Copywriting Comercial",
-      description: "Textos escritos por especialistas em vendas. Transformamos a história da sua empresa num argumento de venda irresistível.",
-      delay: 0.3
-    },
-    {
-      icon: ShieldCheck,
-      title: "Gestão 'Zero Preocupação'",
-      description: "Segurança, backups e atualizações críticas. Tratamos de toda a infraestrutura técnica para que se foque apenas em faturar.",
-      delay: 0.4
-    }
-  ];
+const ICONS = {
+  Smartphone,
+  Search,
+  PenTool,
+  ShieldCheck
+};
+
+export default function Solutions({ lang }: { lang: Language }) {
+  const t = UI_STRINGS[lang].solutions;
 
   return (
-    <section id="solutions" className="relative py-24 md:py-32 px-6 bg-[#030712] overflow-hidden">
-      {/* Noise e Textura de Fundo */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
-      
+    <section id="solutions" className="relative py-24 md:py-32 px-6 bg-scuta-primary overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
-          {/* LADO ESQUERDO: A Narrativa de Valor */}
           <div className="lg:col-span-5 lg:sticky lg:top-32">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -1134,27 +1099,19 @@ export default function Solutions() {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-black uppercase tracking-[0.3em] mb-6">
                 <Zap size={12} className="fill-current" />
-                Engenharia de Conversão
+                {t.badge}
               </div>
               
               <h2 className="text-5xl md:text-7xl font-black text-white leading-[0.85] tracking-tighter mb-8">
-                A infraestrutura <br />
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-violet-400 to-emerald-400">
-                  dos 1% do mercado.
-                </span>
+                {t.title}
               </h2>
               
               <p className="text-lg text-slate-400 mb-10 leading-relaxed font-medium max-w-md">
-                Eliminamos a barreira tecnológica entre a sua empresa e o sucesso digital. Entregamos uma presença de luxo, pronta a dominar o seu setor.
+                {t.subtitle}
               </p>
               
               <ul className="space-y-5 mb-12">
-                {[
-                  "Design que transmite autoridade imediata",
-                  "Arquitetura focada em agendamentos/vendas",
-                  "Alojamento de ultra-baixa latência em Portugal",
-                  "Suporte prioritário via WhatsApp dedicado"
-                ].map((item, i) => (
+                {t.features.map((item, i) => (
                   <li key={i} className="flex items-center gap-4 text-slate-200 font-bold text-sm group">
                     <div className="size-6 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 border border-emerald-500/20 group-hover:bg-emerald-500 transition-colors duration-500">
                       <CheckCircle2 size={14} className="text-emerald-400 group-hover:text-black" />
@@ -1168,50 +1125,49 @@ export default function Solutions() {
                 href="#contact" 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-4 px-10 py-5 bg-white text-black rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-[0_20px_40px_rgba(255,255,255,0.05)]"
+                className="inline-flex items-center gap-4 px-10 py-5 bg-white text-black rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-2xl"
               >
-                Solicitar Consultoria <ArrowRight size={18} />
+                {t.cta} <ArrowRight size={18} />
               </motion.a>
             </motion.div>
           </div>
 
-          {/* LADO DIREITO: Bento Grid de Soluções */}
           <div className="lg:col-span-7">
             <div className="grid sm:grid-cols-2 gap-6">
-              {solutions.map((solution, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: solution.delay, duration: 0.6 }}
-                  whileHover={{ y: -8 }}
-                  className={`relative p-10 rounded-4xl bg-[#0a1229]/60 backdrop-blur-3xl border border-white/5 flex flex-col group overflow-hidden ${
-                    index % 2 !== 0 ? 'sm:mt-12' : ''
-                  }`}
-                >
-                  {/* Efeito de brilho interno no hover */}
-                  <div className="absolute inset-0 bg-linear-to-br from-violet-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  
-                  <div className="size-14 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-violet-500/50 group-hover:bg-violet-500/10 transition-all duration-500 relative z-10">
-                    <solution.icon className="size-7 text-white group-hover:text-violet-400 transition-colors" />
-                  </div>
-                  
-                  <h4 className="text-2xl font-black text-white mb-4 tracking-tighter relative z-10">
-                    {solution.title}
-                  </h4>
-                  
-                  <p className="text-slate-400 leading-relaxed font-medium text-sm relative z-10">
-                    {solution.description}
-                  </p>
+              {t.items.map((solution, index) => {
+                const Icon = ICONS[solution.icon as keyof typeof ICONS] || Smartphone;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                    whileHover={{ y: -8 }}
+                    className={`relative p-10 rounded-4xl bg-scuta-surface backdrop-blur-3xl border border-white/5 flex flex-col group overflow-hidden ${
+                      index % 2 !== 0 ? 'sm:mt-12' : ''
+                    }`}
+                  >
+                    <div className="size-14 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-violet-500/50 group-hover:bg-violet-500/10 transition-all duration-500 relative z-10">
+                      <Icon className="size-7 text-white group-hover:text-violet-400 transition-colors" />
+                    </div>
+                    
+                    <h4 className="text-2xl font-black text-white mb-4 tracking-tighter relative z-10">
+                      {solution.title}
+                    </h4>
+                    
+                    <p className="text-slate-400 leading-relaxed font-medium text-sm relative z-10">
+                      {solution.description}
+                    </p>
 
-                  <div className="mt-8 pt-6 border-t border-white/5 relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <span className="text-[10px] font-black text-violet-400 uppercase tracking-widest flex items-center gap-2">
-                      Padrão Scuta Digital <Layers size={12} />
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
+                    <div className="mt-8 pt-6 border-t border-white/5 relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <span className="text-[10px] font-black text-violet-400 uppercase tracking-widest flex items-center gap-2">
+                        Padrão Scuta Digital <Layers size={12} />
+                      </span>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
 
@@ -1220,6 +1176,67 @@ export default function Solutions() {
     </section>
   );
 }
+
+
+================================================================================
+Arquivo: src/components/Testimonials.tsx
+================================================================================
+
+import { motion } from 'motion/react';
+import { Star, Quote } from 'lucide-react';
+import { UI_STRINGS, Language } from '../lib/constants';
+
+export default function Testimonials({ lang }: { lang: Language }) {
+  const t = UI_STRINGS[lang].testimonials;
+
+  return (
+    <section id="testimonials" className="relative py-24 px-6 bg-scuta-surface overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-6xl font-black text-scuta-silk tracking-tighter mb-6">
+            {t.title}
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {t.items.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="p-10 rounded-[2.5rem] bg-scuta-primary/50 border border-white/5 relative group hover:bg-scuta-primary transition-all"
+            >
+              <Quote className="absolute top-8 right-8 text-white/5 size-16 group-hover:text-scuta-highlight/10 transition-colors" />
+              
+              <div className="flex gap-1 mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={14} className="fill-scuta-highlight text-scuta-highlight" />
+                ))}
+              </div>
+
+              <p className="text-lg text-slate-300 font-medium leading-relaxed mb-10 italic text-left">
+                "{item.content}"
+              </p>
+
+              <div className="flex items-center gap-4">
+                <img src={item.avatar} alt={item.author} className="size-12 rounded-full border-2 border-white/10" referrerPolicy="no-referrer" />
+                <div className="text-left">
+                  <h4 className="text-white font-black text-sm uppercase tracking-widest">{item.author}</h4>
+                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">{item.role}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 ================================================================================
 Arquivo: src/components/WhatsAppButton.tsx
@@ -1669,12 +1686,115 @@ Arquivo: src/lib/constants.ts
  * Centralização de dados críticos focada em conversão e clareza para o cliente.
  */
 
-export type Language = "pt"; // Focado no mercado de Portugal
+export type Language = "pt-pt" | "pt-br" | "en" | "es";
+
+interface LanguageStrings {
+  navbar: {
+    why: string;
+    solutions: string;
+    samples: string;
+    faq: string;
+    contact: string;
+  };
+  hero: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    cta: string;
+    secondaryCta: string;
+    trust: {
+      noSurprise: string;
+      fast: string;
+      mobile: string;
+    };
+  };
+  why: {
+    sectionBadge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    reasons: { title: string; description: string }[];
+    stats: string[];
+  };
+  solutions: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    features: string[];
+    items: { icon: string; title: string; description: string }[];
+    cta: string;
+  };
+  samples: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    caseStudy: string;
+    performance: string;
+    analyze: string;
+    cardCta: string;
+    cardBadge: string;
+  };
+  process: {
+    badge: string;
+    title: string;
+    steps: { icon: string; title: string; description: string }[];
+  };
+  testimonials: {
+    badge: string;
+    title: string;
+    items: { author: string; role: string; content: string; avatar: string }[];
+  };
+  faq: {
+    sectionBadge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    ctaText: string;
+  };
+  contact: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    whatsapp: string;
+    email: string;
+    form: {
+      title: string;
+      name: string;
+      email: string;
+      subject: string;
+      message: string;
+      send: string;
+    };
+    trustNote: string;
+  };
+  footer: {
+    tagline: string;
+    rights: string;
+    sections: {
+      company: { title: string; links: string[] };
+      services: { title: string; links: string[] };
+    };
+    legal: { privacy: string; terms: string };
+  };
+  legalPages: {
+    privacy: {
+      title: string;
+      lastUpdated: string;
+      sections: { title: string; content: string }[];
+    };
+    terms: {
+      title: string;
+      lastUpdated: string;
+      sections: { title: string; content: string }[];
+    };
+  };
+}
 
 export const BRAND_INFO = {
   name: "Scuta Digital",
   tagline: "Criamos o seu site. Você recebe os clientes.",
-  url: "https://scuta-digital.netlify.app/", 
+  url: "https://scutadigital.pt/", 
 };
 
 export const CONTACT_INFO = {
@@ -1690,106 +1810,948 @@ export const SOCIAL_LINKS = {
   linkedin: "https://linkedin.com/company/scutadigital",
 };
 
-export const SEO_DEFAULTS = {
-  title: "Scuta Digital | Sites que trazem Clientes e Vendas em Portugal",
-  description: "Criação de sites profissionais em Portugal. Apareça no Google, facilite agendamentos e venda mais com um site feito para o seu negócio.",
-};
-
-export const UI_STRINGS = {
-  pt: {
+export const UI_STRINGS: Record<Language, LanguageStrings> = {
+  "pt-pt": {
     navbar: {
-      why: "Porquê ter um site?",
+      why: "Por que ter um site?",
       solutions: "O que fazemos",
-      samples: "Exemplos",
+      samples: "Exemplos reais",
       faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
     },
     hero: {
-      title: "Pare de depender apenas do passa-palavra.",
-      subtitle: "Criamos sites profissionais que funcionam como o seu melhor funcionário: apresentam o seu negócio, tiram dúvidas e trazem contactos 24h por dia.",
-      cta: "Quero atrair mais clientes",
-      secondaryCta: "Ver exemplos",
-    },
-    why: {
-      title: "Porquê investir num site hoje?",
-      reason1: {
-        title: "Apareça no Google",
-        desc: "Se alguém procura pelo seu serviço no Google e não o encontra, está a perder dinheiro para a concorrência."
-      },
-      reason2: {
-        title: "Poupe tempo no WhatsApp",
-        desc: "O site tira as dúvidas repetidas por si, para que só receba mensagens de quem realmente quer comprar."
-      },
-      reason3: {
-        title: "Confiança imediata",
-        desc: "Um negócio com site oficial passa muito mais segurança do que um que usa apenas redes sociais."
+      badge: "Negócios em Portugal já confiam em nós",
+      title: "Pare de perder clientes\npara quem aparece no Google.",
+      titleHighlight: "para quem aparece no Google.",
+      subtitle: "Criamos o site do seu negócio para que apareça quando os clientes procuram o que vende — e para que fiquem com vontade de ligar.",
+      cta: "Quero mais clientes",
+      secondaryCta: "Ver exemplos reais",
+      trust: {
+        noSurprise: "Sem custos surpresa",
+        fast: "Pronto em 1 a 2 semanas",
+        mobile: "Funciona bem em qualquer telemóvel",
       }
     },
+    why: {
+      sectionBadge: "Por que é que precisa de um site hoje?",
+      title: "O seu cliente procura no Google.\nEle encontra o seu concorrente.",
+      titleHighlight: "encontra o seu concorrente.",
+      subtitle: "Se não aparecer online quando alguém precisa do que oferece, esse cliente vai a outro lado — e provavelmente não volta.",
+      reasons: [
+        {
+          title: "Apareça quando procuram por si",
+          description: "Quando alguém pesquisa 'cabeleireiro perto de mim' ou 'canalizador urgente Lisboa', o seu nome tem de estar lá. Caso contrário, está a oferecer o cliente à concorrência.",
+        },
+        {
+          title: "Pare de responder às mesmas perguntas",
+          description: "O site responde por si: preços, horários, localização, formas de contacto. Menos mensagens inúteis no WhatsApp, mais tempo para o que realmente importa.",
+        },
+        {
+          title: "Transmita confiança antes da primeira chamada",
+          description: "Um negócio sem site online parece um negócio que não leva a sério os clientes. Um site bem feito passa confiança imediata — mesmo antes de qualquer contacto.",
+        },
+      ],
+      stats: [
+        "Mais contactos qualificados",
+        "Visível nas pesquisas da sua zona",
+      ],
+    },
     solutions: {
-      title: "Tudo o que precisa para crescer online",
-      item1: "Sites que funcionam bem no telemóvel e computador.",
-      item2: "Textos escritos para convencer o seu cliente a ligar.",
-      item3: "Configuração para ser encontrado na sua zona (Google).",
-      item4: "Suporte e manutenção: nós tratamos de tudo por si.",
+      badge: "O que está incluído",
+      title: "Tratamos de tudo.\nVocê foca-se no negócio.",
+      subtitle: "Da primeira reunião à entrega final, não precisa de saber nada de tecnologia. Explicamos tudo de forma simples e ficamos disponíveis depois.",
+      features: [
+        "Design Exclusivo & Moderno",
+        "Otimização para Google (SEO)",
+        "Textos de Alta Conversão",
+        "Suporte Técnico Permanente"
+      ],
+      items: [
+        {
+          icon: "Smartphone",
+          title: "Funciona bem em qualquer telemóvel",
+          description: "Mais de 80% dos seus clientes vão abrir o site no telemóvel. Garantimos que a experiência é rápida, fácil e agradável em qualquer ecrã.",
+        },
+        {
+          icon: "Search",
+          title: "Aparece no Google quando procuram por si",
+          description: "Configuramos o site para que o Google perceba onde está, o que vende e para quem. Quando alguém procura na sua zona, você aparece.",
+        },
+        {
+          icon: "PenTool",
+          title: "Textos que convencem o cliente a contactar",
+          description: "Escrevemos os textos do site por si — com palavras que o seu cliente usa, que respondem às suas dúvidas e que o motivam a ligar ou marcar.",
+        },
+        {
+          icon: "ShieldCheck",
+          title: "Nós tratamos de tudo, sempre",
+          description: "Segurança, velocidade, atualizações. Nunca vai receber um email a dizer que tem de resolver algum problema técnico. Isso é connosco.",
+        },
+      ],
+      cta: "Solicitar proposta",
+    },
+    samples: {
+      badge: "Portfólio Estratégico",
+      title: "Experiências que Convertem Cliques.",
+      subtitle: "Cada projeto é um ecossistema único, desenhado para resolver as dores específicas do mercado português.",
+      caseStudy: "Caso de Estudo",
+      performance: "Performance Ativada",
+      analyze: "Analisar Estratégia",
+      cardCta: "Ver como foi feito",
+      cardBadge: "Resultado real",
+    },
+    process: {
+      badge: "O Nosso Método",
+      title: "Como transformamos a sua presença digital.",
+      steps: [
+        {
+          icon: "Search",
+          title: "01. Descoberta",
+          description: "Analisamos o seu negócio, concorrência e público-alvo para definir a melhor estratégia de conversão."
+        },
+        {
+          icon: "PenTool",
+          title: "02. Estratégia & Copy",
+          description: "Escrevemos os textos e planeamos a estrutura focada em transformar visitantes em clientes reais."
+        },
+        {
+          icon: "Layout",
+          title: "03. Design & Dev",
+          description: "Criamos uma interface de alta performance, otimizada para telemóveis e com carregamento ultra-rápido."
+        },
+        {
+          icon: "Rocket",
+          title: "04. Lançamento",
+          description: "Colocamos o seu site online, configuramos o SEO e garantimos que tudo funciona perfeitamente."
+        }
+      ]
+    },
+    testimonials: {
+      badge: "O que dizem os nossos clientes",
+      title: "Resultados que falam por si.",
+      items: [
+        {
+          author: "Ricardo Oliveira",
+          role: "CEO, TechFlow Portugal",
+          content: "A Scuta Digital não criou apenas um site, criou uma máquina de vendas. O nosso tráfego orgânico subiu 40% em apenas 3 meses.",
+          avatar: "https://i.ibb.co/0yYpvhJZ/pexels-olly-3777570.webp"
+        },
+        {
+          author: "Helena Santos",
+          role: "Fundadora, Bloom Interiors",
+          content: "O design editorial que desenvolveram para o nosso portfólio elevou a nossa marca para um patamar de luxo que não conseguíamos atingir sozinhos.",
+          avatar: "https://i.ibb.co/Mk525cHL/pexels-edmond-dantes-4342352.webp"
+        },
+        {
+          author: "Tiago Mendes",
+          role: "Diretor Clínico, Vitalis",
+          content: "A automação de marcações no site poupou-nos horas de trabalho administrativo. O investimento pagou-se no primeiro mês.",
+          avatar: "https://i.ibb.co/cSZFvrJb/pexels-linkedin-2182970.webp"
+        }
+      ]
+    },
+    faq: {
+      sectionBadge: "Perguntas que nos fazem sempre",
+      title: "Tem dúvidas?\nTemos respostas.",
+      titleHighlight: "Temos respostas.",
+      subtitle: "Respondemos às perguntas mais comuns de forma simples. Se a sua não estiver aqui, fale connosco.",
+      ctaText: "A sua dúvida não está aqui? Fale connosco →",
     },
     contact: {
-      title: "Pronto para o próximo passo?",
-      subtitle: "Diga-nos o que faz e nós explicamos como um site pode aumentar as suas vendas.",
-      button: "Enviar mensagem via WhatsApp",
-    }
-  }
+      badge: "Inicie a sua expansão",
+      title: "Pronto para Vencer Online?",
+      subtitle: "Não precisa de saber nada de sites. Conta-nos o seu negócio e nós dizemos o que faz sentido fazer — sem compromisso.",
+      whatsapp: "Falar pelo WhatsApp agora",
+      email: "Enviar mensagem por email",
+      form: {
+        title: "Solicitar Orçamento",
+        name: "O seu nome",
+        email: "E-mail de contacto",
+        subject: "Tipo de negócio",
+        message: "Mensagem breve",
+        send: "Enviar Solicitação",
+      },
+      trustNote: "Respondemos em menos de 24 horas · Os seus dados estão seguros",
+    },
+    footer: {
+      tagline: "Criamos o seu site. Você recebe os clientes.",
+      rights: "Desenhado para Performance Absoluta.",
+      sections: {
+        company: {
+          title: "Navegação",
+          links: ["Portfólio", "O que fazemos", "Processo", "Dúvidas"]
+        },
+        services: {
+          title: "Legal & Transparência",
+          links: ["Livro de Reclamações", "Arbitragem de Consumo"]
+        }
+      },
+      legal: {
+        privacy: "Política de Privacidade",
+        terms: "Termos de Serviço"
+      }
+    },
+    legalPages: {
+      privacy: {
+        title: "Política de Privacidade",
+        lastUpdated: "Última atualização: 20 de Maio de 2024",
+        sections: [
+          {
+            title: "1. Introdução",
+            content: "A Scuta Digital valoriza a sua privacidade. Esta política explica como recolhemos, usamos e protegemos os seus dados pessoais quando utiliza o nosso site."
+          },
+          {
+            title: "2. Dados Recolhidos",
+            content: "Recolhemos apenas os dados necessários para o contacto (nome, email, tipo de negócio) através do nosso formulário de contacto."
+          },
+          {
+            title: "3. Finalidade",
+            content: "Os dados são utilizados exclusivamente para responder aos seus pedidos de orçamento e melhorar a nossa prestação de serviços."
+          }
+        ]
+      },
+      terms: {
+        title: "Termos de Serviço",
+        lastUpdated: "Última atualização: 20 de Maio de 2024",
+        sections: [
+          {
+            title: "1. Aceitação",
+            content: "Ao aceder a este site, concorda em cumprir estes termos de serviço e todas as leis aplicáveis."
+          },
+          {
+            title: "2. Propriedade Intelectual",
+            content: "Todo o conteúdo deste site, incluindo design, textos e imagens, é propriedade da Scuta Digital ou dos seus licenciadores."
+          }
+        ]
+      }
+    },
+  },
+  "pt-br": {
+    navbar: {
+      why: "Por que ter um site?",
+      solutions: "O que fazemos",
+      samples: "Exemplos reais",
+      faq: "Dúvidas frequentes",
+      contact: "Pedir orçamento",
+    },
+    hero: {
+      badge: "Negócios brasileiros já crescem com a gente",
+      title: "Seu negócio merece ser\nencontrado na internet.",
+      titleHighlight: "encontrado na internet.",
+      subtitle: "A gente cria o site da sua empresa para aparecer quando seus clientes pesquisam no Google — e para convencer eles a entrar em contato.",
+      cta: "Quero atrair mais clientes",
+      secondaryCta: "Ver exemplos reais",
+      trust: {
+        noSurprise: "Sem surpresas no orçamento",
+        fast: "Pronto em 1 a 2 semanas",
+        mobile: "Funciona em qualquer celular",
+      }
+    },
+    why: {
+      sectionBadge: "Por que investir num site agora?",
+      title: "Seus clientes estão pesquisando.\nEles estão achando o concorrente.",
+      titleHighlight: "Eles estão achando o concorrente.",
+      subtitle: "Toda vez que alguém pesquisa pelo seu serviço e não te encontra, esse cliente vai embora — geralmente pra sempre.",
+      reasons: [
+        {
+          title: "Apareça quando pesquisam por você",
+          description: "Quando alguém digita 'salão de beleza perto de mim' ou 'encanador urgente', o seu nome precisa estar lá. Do contrário, você está entregando o cliente pro seu concorrente de bandeja.",
+        },
+        {
+          title: "Pare de responder as mesmas perguntas no WhatsApp",
+          description: "O site responde por você: preço, horário, localização, formas de pagamento. Você para de perder tempo com mensagens repetitivas e passa a receber só quem realmente quer comprar.",
+        },
+        {
+          title: "Passe credibilidade antes de qualquer contato",
+          description: "Empresa sem site parece empresa que não cresceu ainda. Um site bem feito passa seriedade e confiança — antes mesmo de a pessoa te ligar.",
+        },
+      ],
+      stats: [
+        "Mais contatos qualificados",
+        "Visível nas buscas da sua região",
+      ],
+    },
+    solutions: {
+      badge: "O que está incluído",
+      title: "A gente cuida de tudo.\nVocê só recebe os clientes.",
+      subtitle: "Você não precisa entender nada de tecnologia. A gente explica tudo de um jeito simples e fica do lado mesmo depois da entrega.",
+      features: [
+        "Design Exclusivo & Moderno",
+        "Otimização para Google (SEO)",
+        "Textos de Alta Conversão",
+        "Suporte Técnico Permanente"
+      ],
+      items: [
+        {
+          icon: "Smartphone",
+          title: "Funciona direitinho em qualquer celular",
+          description: "Mais de 80% dos seus clientes vão abrir o site no celular. A gente garante que tudo carrega rápido e é fácil de navegar em qualquer tela.",
+        },
+        {
+          icon: "Search",
+          title: "Aparece no Google quando pesquisam por você",
+          description: "Configuramos o site pra que o Google saiba onde você está, o que você vende e pra quem. Resultado: você aparece pra quem está procurando na sua região.",
+        },
+        {
+          icon: "PenTool",
+          title: "Textos que fazem o cliente querer te contratar",
+          description: "A gente escreve os textos do site pra você — com a linguagem do seu cliente, respondendo as dúvidas dele e convencendo ele a entrar em contato.",
+        },
+        {
+          icon: "ShieldCheck",
+          title: "Suporte permanente, sem complicação",
+          description: "Segurança, velocidade, atualizações. Você não vai precisar se preocupar com nenhuma questão técnica. Isso é com a gente, pra sempre.",
+        },
+      ],
+      cta: "Solicitar proposta",
+    },
+    samples: {
+      badge: "Portfólio Estratégico",
+      title: "Experiências que Convertem Cliques.",
+      subtitle: "Cada projeto é um ecossistema único, desenhado para resolver as dores específicas do mercado brasileiro.",
+      caseStudy: "Caso de Estudo",
+      performance: "Performance Ativada",
+      analyze: "Analisar Estratégia",
+      cardCta: "Ver como foi feito",
+      cardBadge: "Resultado real",
+    },
+    process: {
+      badge: "Nosso Método",
+      title: "Como transformamos sua presença digital.",
+      steps: [
+        {
+          icon: "Search",
+          title: "01. Descoberta",
+          description: "Analisamos seu negócio, concorrência e público-alvo para definir a melhor estratégia de conversão."
+        },
+        {
+          icon: "PenTool",
+          title: "02. Estratégia & Copy",
+          description: "Escrevemos os textos e planejamos a estrutura focada em transformar visitantes em clientes reais."
+        },
+        {
+          icon: "Layout",
+          title: "03. Design & Dev",
+          description: "Criamos uma interface de alta performance, otimizada para celulares e com carregamento ultra-rápido."
+        },
+        {
+          icon: "Rocket",
+          title: "04. Lançamento",
+          description: "Colocamos seu site online, configuramos o SEO e garantimos que tudo funciona perfeitamente."
+        }
+      ]
+    },
+    testimonials: {
+      badge: "O que dizem nossos clientes",
+      title: "Resultados que falam por si.",
+      items: [
+        {
+          author: "Ricardo Oliveira",
+          role: "CEO, TechFlow",
+          content: "A Scuta Digital não criou apenas um site, criou uma máquina de vendas. Nosso tráfego orgânico subiu 40% em apenas 3 meses.",
+          avatar: "https://i.pravatar.cc/150?u=ricardo"
+        },
+        {
+          author: "Helena Santos",
+          role: "Fundadora, Bloom Interiors",
+          content: "O design editorial que desenvolveram para nosso portfólio elevou nossa marca para um patamar de luxo que não conseguíamos atingir sozinhos.",
+          avatar: "https://i.pravatar.cc/150?u=helena"
+        },
+        {
+          author: "Tiago Mendes",
+          role: "Diretor Clínico, Vitalis",
+          content: "A automação de marcações no site nos poupou horas de trabalho administrativo. O investimento se pagou no primeiro mês.",
+          avatar: "https://i.pravatar.cc/150?u=tiago"
+        }
+      ]
+    },
+    faq: {
+      sectionBadge: "Perguntas que a gente recebe sempre",
+      title: "Tem dúvida?\nTem resposta.",
+      titleHighlight: "Tem resposta.",
+      subtitle: "Respondemos as perguntas mais comuns de forma bem direta. Se a sua não estiver aqui, é só chamar.",
+      ctaText: "Sua dúvida não está aqui? Fala com a gente →",
+    },
+    contact: {
+      badge: "Inicie sua expansão",
+      title: "Pronto para Vencer Online?",
+      subtitle: "Não precisa saber nada de sites. Me conta o seu negócio e a gente te diz o que faz sentido — sem compromisso nenhum.",
+      whatsapp: "Falar pelo WhatsApp agora",
+      email: "Enviar mensagem por email",
+      form: {
+        title: "Solicitar Orçamento",
+        name: "Seu nome",
+        email: "E-mail de contato",
+        subject: "Tipo de negócio",
+        message: "Mensagem breve",
+        send: "Enviar Solicitação",
+      },
+      trustNote: "Respondemos em menos de 24 horas · Seus dados estão seguros",
+    },
+    footer: {
+      tagline: "A gente cria o site. Você recebe os clientes.",
+      rights: "Desenhado para Performance Absoluta.",
+      sections: {
+        company: {
+          title: "Navegação",
+          links: ["Portfólio", "O que fazemos", "Processo", "Dúvidas"]
+        },
+        services: {
+          title: "Legal & Transparência",
+          links: ["Política de Privacidade", "Termos de Uso"]
+        }
+      },
+      legal: {
+        privacy: "Privacidade",
+        terms: "Termos"
+      }
+    },
+    legalPages: {
+      privacy: {
+        title: "Política de Privacidade",
+        lastUpdated: "Última atualização: 20 de Maio de 2024",
+        sections: [
+          {
+            title: "1. Introdução",
+            content: "A Scuta Digital valoriza sua privacidade. Esta política explica como coletamos, usamos e protegemos seus dados pessoais quando você utiliza nosso site."
+          },
+          {
+            title: "2. Dados Coletados",
+            content: "Coletamos apenas os dados necessários para o contato (nome, email, tipo de negócio) através do nosso formulário de contato."
+          }
+        ]
+      },
+      terms: {
+        title: "Termos de Uso",
+        lastUpdated: "Última atualização: 20 de Maio de 2024",
+        sections: [
+          {
+            title: "1. Aceitação",
+            content: "Ao acessar este site, você concorda em cumprir estes termos de uso e todas as leis aplicáveis."
+          }
+        ]
+      }
+    },
+  },
+  "en": {
+    navbar: {
+      why: "Why do I need a website?",
+      solutions: "What we do",
+      samples: "Real examples",
+      faq: "Common questions",
+      contact: "Get a quote",
+    },
+    hero: {
+      badge: "Trusted by businesses across Portugal & Europe",
+      title: "Your business deserves to be\nfound online.",
+      titleHighlight: "found online.",
+      subtitle: "We build websites that show up when your customers search — and make them want to call you instead of your competitor.",
+      cta: "I want more customers",
+      secondaryCta: "See real examples",
+      trust: {
+        noSurprise: "No hidden fees",
+        fast: "Ready in 1–2 weeks",
+        mobile: "Works perfectly on mobile",
+      }
+    },
+    why: {
+      sectionBadge: "Why does your business need a website now?",
+      title: "Your customers are searching.\nThey're finding someone else.",
+      titleHighlight: "They're finding someone else.",
+      subtitle: "Every time someone searches for what you do and doesn't find you, that's a customer you'll never know you lost.",
+      reasons: [
+        {
+          title: "Show up when people search for you",
+          description: "When someone types 'hairdresser near me' or 'emergency plumber', your name needs to be there. If it isn't, you're sending that customer straight to your competition.",
+        },
+        {
+          title: "Stop answering the same questions all day",
+          description: "Your website works for you 24/7 — answering questions about prices, hours, location, and services. You only hear from people who are ready to book.",
+        },
+        {
+          title: "Build trust before the first call",
+          description: "A business without a website looks like a business that's not serious. A professional website makes people confident before they've even spoken to you.",
+        },
+      ],
+      stats: [
+        "More qualified enquiries",
+        "Visible in local searches",
+      ],
+    },
+    solutions: {
+      badge: "What's included",
+      title: "We handle everything.\nYou focus on your business.",
+      subtitle: "You don't need to know anything about websites. We explain everything in plain language and stay by your side after launch.",
+      features: [
+        "Exclusive & Modern Design",
+        "Google Optimization (SEO)",
+        "High-Conversion Copywriting",
+        "Permanent Technical Support"
+      ],
+      items: [
+        {
+          icon: "Smartphone",
+          title: "Works great on every phone",
+          description: "Over 80% of your customers will open your website on their phone. We make sure it loads fast and is easy to use on any screen.",
+        },
+        {
+          icon: "Search",
+          title: "Appears on Google when people search nearby",
+          description: "We set up your website so Google knows exactly where you are, what you offer, and who you serve. When someone searches in your area, you show up.",
+        },
+        {
+          icon: "PenTool",
+          title: "Words that make customers want to contact you",
+          description: "We write all the copy for you — using the language your customers use, answering their questions, and giving them a reason to pick up the phone.",
+        },
+        {
+          icon: "ShieldCheck",
+          title: "We take care of everything, always",
+          description: "Security, speed, updates. You'll never receive an email asking you to fix something technical. That's our job — permanently.",
+        },
+      ],
+      cta: "Request a proposal",
+    },
+    samples: {
+      badge: "Strategic Portfolio",
+      title: "Experiences that Convert Clicks.",
+      subtitle: "Each project is a unique ecosystem, designed to solve specific market challenges.",
+      caseStudy: "Case Study",
+      performance: "Performance Activated",
+      analyze: "Analyze Strategy",
+      cardCta: "See how it was done",
+      cardBadge: "Real result",
+    },
+    process: {
+      badge: "Our Method",
+      title: "How we transform your digital presence.",
+      steps: [
+        {
+          icon: "Search",
+          title: "01. Discovery",
+          description: "We analyze your business, competition, and target audience to define the best conversion strategy."
+        },
+        {
+          icon: "PenTool",
+          title: "02. Strategy & Copy",
+          description: "We write the copy and plan the structure focused on turning visitors into real customers."
+        },
+        {
+          icon: "Layout",
+          title: "03. Design & Dev",
+          description: "We create a high-performance interface, optimized for mobile with ultra-fast loading."
+        },
+        {
+          icon: "Rocket",
+          title: "04. Launch",
+          description: "We put your site online, configure SEO, and ensure everything works perfectly."
+        }
+      ]
+    },
+    testimonials: {
+      badge: "What our clients say",
+      title: "Results that speak for themselves.",
+      items: [
+        {
+          author: "Ricardo Oliveira",
+          role: "CEO, TechFlow",
+          content: "Scuta Digital didn't just create a website, they created a sales machine. Our organic traffic went up 40% in just 3 months.",
+          avatar: "https://i.pravatar.cc/150?u=ricardo"
+        },
+        {
+          author: "Helena Santos",
+          role: "Founder, Bloom Interiors",
+          content: "The editorial design they developed for our portfolio elevated our brand to a luxury level we couldn't reach alone.",
+          avatar: "https://i.pravatar.cc/150?u=helena"
+        },
+        {
+          author: "Tiago Mendes",
+          role: "Clinical Director, Vitalis",
+          content: "The booking automation on the site saved us hours of administrative work. The investment paid for itself in the first month.",
+          avatar: "https://i.pravatar.cc/150?u=tiago"
+        }
+      ]
+    },
+    faq: {
+      sectionBadge: "Questions we always get",
+      title: "You have questions.\nWe have answers.",
+      titleHighlight: "We have answers.",
+      subtitle: "We answer the most common questions clearly and simply. If yours isn't here, just get in touch.",
+      ctaText: "Can't find your answer? Talk to us →",
+    },
+    contact: {
+      badge: "Start your expansion",
+      title: "Ready to Win Online?",
+      subtitle: "You don't need to know anything about websites. Tell us about your business and we'll tell you exactly what makes sense — no commitment required.",
+      whatsapp: "Chat on WhatsApp now",
+      email: "Send us an email",
+      form: {
+        title: "Request a Quote",
+        name: "Your name",
+        email: "Contact email",
+        subject: "Business type",
+        message: "Brief message",
+        send: "Send Request",
+      },
+      trustNote: "We reply within 24 hours · Your data is safe with us",
+    },
+    footer: {
+      tagline: "We build your website. You get the customers.",
+      rights: "Designed for Absolute Performance.",
+      sections: {
+        company: {
+          title: "Navigation",
+          links: ["Portfolio", "What we do", "Process", "FAQ"]
+        },
+        services: {
+          title: "Legal & Transparency",
+          links: ["Privacy Policy", "Terms of Use"]
+        }
+      },
+      legal: {
+        privacy: "Privacy",
+        terms: "Terms"
+      }
+    },
+    legalPages: {
+      privacy: {
+        title: "Privacy Policy",
+        lastUpdated: "Last updated: May 20, 2024",
+        sections: [
+          {
+            title: "1. Introduction",
+            content: "Scuta Digital values your privacy. This policy explains how we collect, use, and protect your personal data when you use our website."
+          },
+          {
+            title: "2. Data Collected",
+            content: "We only collect data necessary for contact (name, email, business type) through our contact form."
+          }
+        ]
+      },
+      terms: {
+        title: "Terms of Service",
+        lastUpdated: "Last updated: May 20, 2024",
+        sections: [
+          {
+            title: "1. Acceptance",
+            content: "By accessing this website, you agree to comply with these terms of service and all applicable laws."
+          }
+        ]
+      }
+    },
+  },
+  "es": {
+    navbar: {
+      why: "¿Por qué necesito una web?",
+      solutions: "Qué hacemos",
+      samples: "Ejemplos reales",
+      faq: "Preguntas frecuentes",
+      contact: "Pedir presupuesto",
+    },
+    hero: {
+      badge: "Negocios en España y Portugal ya confían en nosotros",
+      title: "Tu negocio merece aparecer\ncuando te buscan online.",
+      titleHighlight: "cuando te buscan online.",
+      subtitle: "Creamos la web de tu negocio para que salga en Google cuando tus clientes buscan lo que ofreces — y para que quieran llamarte a ti, no a tu competencia.",
+      cta: "Quiero más clientes",
+      secondaryCta: "Ver ejemplos reales",
+      trust: {
+        noSurprise: "Sin costes ocultos",
+        fast: "Lista en 1 a 2 semanas",
+        mobile: "Perfecta en cualquier móvil",
+      }
+    },
+    why: {
+      sectionBadge: "¿Por qué necesitas una web ahora mismo?",
+      title: "Tus clientes están buscando.\nEstán encontrando a tu competencia.",
+      titleHighlight: "Están encontrando a tu competencia.",
+      subtitle: "Cada vez que alguien busca lo que ofreces y no te encuentra, ese cliente se va a otro sitio — y probablemente no vuelve.",
+      reasons: [
+        {
+          title: "Aparece cuando te buscan",
+          description: "Cuando alguien escribe 'peluquería cerca de mí' o 'fontanero urgente en Madrid', tu nombre tiene que estar ahí. Si no estás, le estás regalando ese cliente a tu competidor.",
+        },
+        {
+          title: "Deja de responder las mismas preguntas todo el día",
+          description: "Tu web trabaja por ti las 24 horas: precios, horarios, ubicación, formas de contacto. Tú solo recibes mensajes de personas que ya quieren contratarte.",
+        },
+        {
+          title: "Genera confianza antes del primer contacto",
+          description: "Un negocio sin web parece un negocio que no se toma en serio a sus clientes. Una web profesional transmite seguridad desde el primer segundo.",
+        },
+      ],
+      stats: [
+        "Más contactos cualificados",
+        "Visible en las búsquedas de tu zona",
+      ],
+    },
+    solutions: {
+      badge: "Qué está incluido",
+      title: "Nosotros nos encargamos de todo.\nTú te centras en tu negocio.",
+      subtitle: "No necesitas saber nada de tecnología. Te lo explicamos todo en un lenguaje normal y seguimos a tu lado después de la entrega.",
+      features: [
+        "Diseño Exclusivo y Moderno",
+        "Optimización para Google (SEO)",
+        "Textos de Alta Conversión",
+        "Soporte Técnico Permanente"
+      ],
+      items: [
+        {
+          icon: "Smartphone",
+          title: "Funciona perfectamente en cualquier móvil",
+          description: "Más del 80% de tus clientes van a abrir tu web desde el móvil. Nos aseguramos de que cargue rápido y sea fácil de usar en cualquier pantalla.",
+        },
+        {
+          icon: "Search",
+          title: "Aparece en Google cuando te buscan cerca",
+          description: "Configuramos tu web para que Google entienda dónde estás, qué vendes y para quién. Cuando alguien busca en tu zona, tú apareces.",
+        },
+        {
+          icon: "PenTool",
+          title: "Textos que hacen que el cliente quiera llamarte",
+          description: "Escribimos todos los textos de tu web — con las palabras que usa tu cliente, respondiendo sus dudas y dándole una razón clara para contactarte.",
+        },
+        {
+          icon: "ShieldCheck",
+          title: "Nos ocupamos de todo, para siempre",
+          description: "Seguridad, velocidad, actualizaciones. Nunca recibirás un mensaje pidiéndote que resuelvas algo técnico. Eso es cosa nuestra, siempre.",
+        },
+      ],
+      cta: "Solicitar propuesta",
+    },
+    samples: {
+      badge: "Portfolio Estratégico",
+      title: "Experiencias que Convierten Clics.",
+      subtitle: "Cada proyecto es un ecosistema único, diseñado para resolver los desafíos específicos del mercado.",
+      caseStudy: "Caso de Estudio",
+      performance: "Performance Activada",
+      analyze: "Analizar Estrategia",
+      cardCta: "Ver cómo se hizo",
+      cardBadge: "Resultado real",
+    },
+    process: {
+      badge: "Nuestro Método",
+      title: "Cómo transformamos tu presencia digital.",
+      steps: [
+        {
+          icon: "Search",
+          title: "01. Descubrimiento",
+          description: "Analizamos tu negocio, competencia y público objetivo para definir la mejor estrategia de conversión."
+        },
+        {
+          icon: "PenTool",
+          title: "02. Estrategia & Copy",
+          description: "Escribimos los textos y planificamos la estructura enfocada en transformar visitantes en clientes reales."
+        },
+        {
+          icon: "Layout",
+          title: "03. Diseño & Dev",
+          description: "Creamos una interfaz de alto rendimiento, optimizada para móviles y con carga ultra rápida."
+        },
+        {
+          icon: "Rocket",
+          title: "04. Lanzamiento",
+          description: "Ponemos tu sitio online, configuramos el SEO y garantizamos que todo funcione perfectamente."
+        }
+      ]
+    },
+    testimonials: {
+      badge: "Lo que dicen nuestros clientes",
+      title: "Resultados que hablan por sí mismos.",
+      items: [
+        {
+          author: "Ricardo Oliveira",
+          role: "CEO, TechFlow",
+          content: "Scuta Digital no solo creó un sitio web, creó uma máquina de ventas. Nuestro tráfico orgánico subió un 40% en solo 3 meses.",
+          avatar: "https://i.pravatar.cc/150?u=ricardo"
+        },
+        {
+          author: "Helena Santos",
+          role: "Fundadora, Bloom Interiors",
+          content: "El diseño editorial que desarrollaron para nuestro portafolio elevó nuestra marca a un nivel de lujo que no podíamos alcanzar solos.",
+          avatar: "https://i.pravatar.cc/150?u=helena"
+        },
+        {
+          author: "Tiago Mendes",
+          role: "Director Clínico, Vitalis",
+          content: "La automatización de reservas en el sitio nos ahorró horas de trabajo administrativo. La inversión se pagó sola en el primer mes.",
+          avatar: "https://i.pravatar.cc/150?u=tiago"
+        }
+      ]
+    },
+    faq: {
+      sectionBadge: "Preguntas que nos hacen siempre",
+      title: "Tienes dudas.\nTenemos respuestas.",
+      titleHighlight: "Tenemos respuestas.",
+      subtitle: "Respondemos las preguntas más comunes de forma directa y sin tecnicismos. Si la tuya no está, escríbenos.",
+      ctaText: "¿No encuentras tu respuesta? Habla con nosotros →",
+    },
+    contact: {
+      badge: "Inicie su expansión",
+      title: "¿Listo para Vencer Online?",
+      subtitle: "No necesitas saber nada de webs. Cuéntanos tu negocio y te decimos exactamente qué tiene sentido hacer — sin ningún compromiso.",
+      whatsapp: "Hablar por WhatsApp ahora",
+      email: "Enviar mensaje por email",
+      form: {
+        title: "Solicitar Presupuesto",
+        name: "Tu nombre",
+        email: "Email de contacto",
+        subject: "Tipo de negocio",
+        message: "Mensaje breve",
+        send: "Enviar Solicitud",
+      },
+      trustNote: "Respondemos en menos de 24 horas · Tus datos están seguros",
+    },
+    footer: {
+      tagline: "Creamos tu web. Tú recibes los clientes.",
+      rights: "Diseñado para Performance Absoluta.",
+      sections: {
+        company: {
+          title: "Navegación",
+          links: ["Portafolio", "Qué hacemos", "Proceso", "Dudas"]
+        },
+        services: {
+          title: "Legal y Transparencia",
+          links: ["Política de Privacidad", "Términos de Uso"]
+        }
+      },
+      legal: {
+        privacy: "Privacidad",
+        terms: "Términos"
+      }
+    },
+    legalPages: {
+      privacy: {
+        title: "Política de Privacidad",
+        lastUpdated: "Última actualización: 20 de mayo de 2024",
+        sections: [
+          {
+            title: "1. Introducción",
+            content: "Scuta Digital valora su privacidad. Esta política explica cómo recopilamos, usamos y protegemos sus datos personales cuando utiliza nuestro sitio web."
+          }
+        ]
+      },
+      terms: {
+        title: "Términos de Uso",
+        lastUpdated: "Última actualización: 20 de mayo de 2024",
+        sections: [
+          {
+            title: "1. Aceptación",
+            content: "Al acceder a este sitio web, usted acepta cumplir con estos términos de uso y todas las leyes aplicables."
+          }
+        ]
+      }
+    },
+  },
 };
 
-/**
- * SEÇÃO OBRIGATÓRIA: SITES DE AMOSTRA
- * Foco em dores reais de negócios portugueses.
- */
-export const SAMPLE_CASES = [
-  {
-    id: "sample-1",
-    business: "Restaurante Local",
-    pain: "As mesas estavam vazias e o telefone não tocava.",
-    solution: "Site com menu online, fotos profissionais e botão de reserva rápida.",
-    result: "O restaurante passou a receber reservas automáticas todas as noites via WhatsApp."
-  },
-  {
-    id: "sample-2",
-    business: "Clínica de Estética",
-    pain: "Perdiam horas a explicar preços e tratamentos no Instagram.",
-    solution: "Página com explicação detalhada de cada serviço e dúvidas frequentes.",
-    result: "Menos mensagens inúteis e mais clientes que já chegam prontas para pagar."
-  },
-  {
-    id: "sample-3",
-    business: "Serviço de Urgência (Picheleiro/Canalizador)",
-    pain: "Ninguém os encontrava nas pesquisas rápidas por 'emergência'.",
-    solution: "Site focado em aparecer no topo do Google quando alguém pesquisa na zona.",
-    result: "Passaram a ser a primeira opção da cidade em situações de urgência."
-  }
-];
+export const FAQ_ITEMS: Record<Language, { question: string; answer: string }[]> = {
+  "pt-pt": [
+    {
+      question: "Preciso de saber de informática para ter um site?",
+      answer: "Não. Nós tratamos de toda a parte técnica. O seu único trabalho é receber os novos clientes que o site vai trazer.",
+    },
+    {
+      question: "O site vai funcionar no telemóvel dos meus clientes?",
+      answer: "Sim, e isso é uma das nossas prioridades. Hoje em dia a maioria das pesquisas é feita no telemóvel, por isso o site é construído para funcionar na perfeição em qualquer ecrã.",
+    },
+    {
+      question: "Quanto tempo demora até o site estar pronto?",
+      answer: "Normalmente entre 1 a 2 semanas. Depende da quantidade de conteúdo que o seu negócio precisa, mas nunca o deixamos à espera sem saber o que está a acontecer.",
+    },
+    {
+      question: "O meu negócio vai aparecer no Google?",
+      answer: "Sim. Configuramos o site com as informações certas para que o Google o mostre a quem procura os seus serviços na sua zona. Não garantimos o primeiro lugar de um dia para o outro, mas damos-lhe todas as ferramentas para isso.",
+    },
+    {
+      question: "Quanto custa?",
+      answer: "Depende do que o seu negócio precisa. Mas trabalhamos com negócios de todos os tamanhos e temos pacotes pensados para não pesar no bolso. Peça um orçamento — é rápido e sem compromisso.",
+    },
+    {
+      question: "E depois do site estar pronto, ficam disponíveis?",
+      answer: "Sempre. Não entregamos o site e desaparecemos. Ficamos disponíveis para ajudas, ajustes e suporte — porque um site é algo que vai crescendo com o seu negócio.",
+    },
+  ],
+  "pt-br": [
+    {
+      question: "Preciso saber de tecnologia pra ter um site?",
+      answer: "Não. A gente cuida de tudo que é técnico. Você só precisa nos contar o seu negócio — e depois aproveitar os clientes que o site vai trazer.",
+    },
+    {
+      question: "O site vai funcionar no celular dos meus clientes?",
+      answer: "Sim, e isso é prioridade pra gente. Mais de 80% das pesquisas são feitas pelo celular, então o site é feito pra funcionar direitinho em qualquer tela.",
+    },
+    {
+      question: "Quanto tempo demora pra ficar pronto?",
+      answer: "Geralmente de 1 a 2 semanas. A gente te mantém informado durante todo o processo — nada de sumiço ou espera sem resposta.",
+    },
+    {
+      question: "Meu negócio vai aparecer no Google?",
+      answer: "Sim. A gente configura o site do jeito certo pra que o Google mostre você pra quem está procurando o que você oferece na sua região.",
+    },
+    {
+      question: "Quanto custa?",
+      answer: "Depende do que o seu negócio precisa. Mas trabalhamos com empresas de todos os tamanhos e temos opções que cabem no bolso. Pede um orçamento — é rápido e sem compromisso.",
+    },
+    {
+      question: "E depois que o site ficar pronto, vocês somem?",
+      answer: "De jeito nenhum. A gente fica disponível pra ajustes, suporte e melhorias. Um site bom é um site que vai crescendo junto com o seu negócio.",
+    },
+  ],
+  "en": [
+    {
+      question: "Do I need to know anything about technology?",
+      answer: "Not at all. We handle everything technical. Your only job is to tell us about your business — and then enjoy the new customers your website brings in.",
+    },
+    {
+      question: "Will the website work on my customers' phones?",
+      answer: "Yes, and it's one of our top priorities. Most searches happen on mobile, so every website we build is designed to work perfectly on any screen.",
+    },
+    {
+      question: "How long does it take to be ready?",
+      answer: "Usually 1 to 2 weeks, depending on how much content your business needs. We keep you informed throughout — no waiting in silence.",
+    },
+    {
+      question: "Will my business show up on Google?",
+      answer: "Yes. We set up your website so Google understands where you are, what you offer, and who your customers are. We can't promise overnight rankings, but we give you every advantage.",
+    },
+    {
+      question: "How much does it cost?",
+      answer: "It depends on what your business needs. We work with businesses of all sizes and have packages that won't break the bank. Ask for a quote — it's quick and free.",
+    },
+    {
+      question: "What happens after the website is live?",
+      answer: "We stay with you. We don't just deliver and disappear. We're available for updates, improvements, and support — because a good website grows with your business.",
+    },
+  ],
+  "es": [
+    {
+      question: "¿Necesito saber de tecnología para tener una web?",
+      answer: "Para nada. Nosotros nos encargamos de todo lo técnico. Tú solo tienes que contarnos tu negocio — y después disfrutar de los nuevos clientes que llegan.",
+    },
+    {
+      question: "¿La web funcionará bien en el móvil de mis clientes?",
+      answer: "Sí, y es una de nuestras principales prioridades. La mayoría de las búsquedas se hacen desde el móvil, así que cada web que creamos está pensada para funcionar perfectamente en cualquier pantalla.",
+    },
+    {
+      question: "¿Cuánto tiempo tarda en estar lista?",
+      answer: "Normalmente entre 1 y 2 semanas. Te mantenemos informado durante todo el proceso — sin desaparecer ni dejarte esperando.",
+    },
+    {
+      question: "¿Mi negocio va a aparecer en Google?",
+      answer: "Sí. Configuramos tu web para que Google entienda dónde estás, qué ofreces y a quién. No prometemos el primer puesto de la noche a la mañana, pero te damos todas las ventajas.",
+    },
+    {
+      question: "¿Cuánto cuesta?",
+      answer: "Depende de lo que necesite tu negocio. Trabajamos con empresas de todos los tamaños y tenemos opciones que no asustan. Pide presupuesto — es rápido y sin compromiso.",
+    },
+    {
+      question: "¿Y después de entregar la web, desaparecéis?",
+      answer: "Para nada. Nos quedamos disponibles para ajustes, mejoras y soporte. Una buena web es una web que crece con tu negocio.",
+    },
+  ],
+};
 
-/**
- * FAQ ALINHADA AO JSON-LD
- * Linguagem extremamente simples para o público geral.
- */
-export const FAQ_ITEMS = [
-  {
-    question: "Preciso de saber de informática para ter um site?",
-    answer: "Não. Nós tratamos de toda a parte técnica. O seu único trabalho será receber os contactos dos novos clientes."
-  },
-  {
-    question: "O meu site vai funcionar no telemóvel?",
-    answer: "Sim. Hoje em dia quase todos os clientes usam o telemóvel. O seu site será rápido e fácil de ler em qualquer ecrã."
-  },
-  {
-    question: "Quanto tempo demora até o site estar pronto?",
-    answer: "Normalmente, entre 1 a 2 semanas, dependendo do que o seu negócio precisa."
-  },
-  {
-    question: "O meu negócio vai aparecer no Google?",
-    answer: "Sim. Configuramos o site com as informações certas para que o Google o mostre a quem procura pelos seus serviços na sua região."
-  }
-];
 
 ================================================================================
 Arquivo: src/lib/theme.ts
@@ -1924,100 +2886,92 @@ createRoot(document.getElementById('root')!).render(
 );
 
 ================================================================================
+Arquivo: src/pages/PrivacyPolicy.tsx
+================================================================================
+
+import { motion } from 'motion/react';
+import { Language, UI_STRINGS } from '../lib/constants';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+
+export default function PrivacyPolicy({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
+  const t = UI_STRINGS[lang].legalPages.privacy;
+
+  return (
+    <div className="min-h-screen bg-scuta-primary">
+      <Navbar lang={lang} setLang={setLang} />
+      
+      <main className="pt-32 pb-20 px-6">
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-4xl md:text-6xl font-black text-scuta-silk mb-4 tracking-tighter">
+              {t.title}
+            </h1>
+            <p className="text-scuta-silk/50 mb-12 font-mono text-sm">
+              {t.lastUpdated}
+            </p>
+
+            <div className="space-y-12">
+              {t.sections.map((section, index) => (
+                <section key={index} className="space-y-4">
+                  <h2 className="text-2xl font-bold text-scuta-highlight">
+                    {section.title}
+                  </h2>
+                  <p className="text-scuta-silk/70 leading-relaxed text-lg">
+                    {section.content}
+                  </p>
+                </section>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </main>
+
+      <Footer lang={lang} />
+    </div>
+  );
+}
+
+
+================================================================================
 Arquivo: src/pages/SampleSitePage.tsx
 ================================================================================
 
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { 
-  ArrowLeft, ArrowRight, AlertCircle, TrendingUp, 
-  Smartphone, MousePointer2, Zap, ShieldCheck,
-  Leaf, Truck, Wallet, Activity, Video, FileText, Clock, CheckCircle, Award
-} from 'lucide-react';
+import { ArrowLeft, MousePointer2 } from 'lucide-react';
 import { SAMPLE_SITES } from '../data/sampleSites';
+import { Language, UI_STRINGS } from '../lib/constants';
+import Navbar from '../components/Navbar';
 
-// IMPORTAÇÃO DOS SITES BESPOKE (EXPERIÊNCIAS ÚNICAS)
+// IMPORTAÇÃO DOS SITES BESPOKE
 import VitalisSample from '../samples/VitalisSample';
-import RenovaSample from '../samples/RenovaSample';
-import EduSparkSample from '../samples/EduSparkSample';
-import PadelSample from '../samples/PadelSample';
 import PrismaMathSample from '../samples/PrismaMathSample';
-import LuminaSample from '../samples/LuminaSample';
 
-/**
- * MAPEAMENTO DE ÍCONES (Fallback para projetos em rascunho)
- */
-const IconMap: Record<string, any> = {
-  leaf: Leaf, 
-  truck: Truck, 
-  wallet: Wallet,
-  user: Activity, 
-  video: Video, 
-  file: FileText,
-  clock: Clock, 
-  check: CheckCircle, 
-  award: Award,
-  shield: ShieldCheck
-};
-
-export default function SampleSitePage() {
+export default function SampleSitePage({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
   const { slug } = useParams<{ slug: string }>();
   const site = SAMPLE_SITES.find((s) => s.slug === slug);
+  const t = UI_STRINGS[lang].samples;
 
-  // Segurança: Se o link não existir no banco de dados, redireciona para a home
   if (!site) return <Navigate to="/" replace />;
 
-  // SEO Dinâmico: Atualiza o título da aba
-  document.title = `${site.companyName} | Demonstração Scuta Digital`;
-
-  /**
-   * CÉREBRO DE RENDERIZAÇÃO BESPOKE
-   * Decide qual experiência visual carregar com base no "slug" (identificador) do cliente.
-   */
   const renderBespokeContent = () => {
     switch (slug) {
-      case 'lumina-home':
-        return <LuminaSample />;
       case 'prisma-matematica':
         return <PrismaMathSample />;
       case 'clinica-vida-mais':
         return <VitalisSample />;
-      case 'renova-home':
-      case 'assistencia-24h':
-        return <RenovaSample />;
-      case 'edu-spark':
-      case 'loja-bairro':
-        return <EduSparkSample />;
-      case 'padel-pro-hub':
-        return <PadelSample />;
       default:
-        // Template Dinâmico de Fallback (Para novos projetos em rascunho)
         return (
           <div className="pt-0 text-left">
             <section 
               className="relative py-28 md:py-48 px-6 overflow-hidden"
               style={{ backgroundColor: site.theme.secondary }}
             >
-              <div className="absolute inset-0 opacity-10 pointer-events-none">
-                {site.bgStyle === "dots" && (
-                  <div 
-                    className="h-full w-full" 
-                    style={{ 
-                      backgroundImage: `radial-gradient(${site.theme.primary} 1px, transparent 1px)`, 
-                      backgroundSize: '30px 30px' 
-                    }} 
-                  />
-                )}
-                {site.bgStyle === "mesh" && (
-                  <div 
-                    className="h-full w-full" 
-                    style={{ 
-                      background: `linear-gradient(135deg, ${site.theme.primary}55 0%, transparent 100%)` 
-                    }} 
-                  />
-                )}
-              </div>
-
               <div className="max-w-6xl mx-auto relative z-10 text-left">
                 <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                   <span 
@@ -2026,48 +2980,19 @@ export default function SampleSitePage() {
                   >
                     {site.sector}
                   </span>
-                  <h1 className="text-5xl md:text-8xl font-black text-zinc-900 mb-10 tracking-tighter leading-[0.9] text-left text-zinc-900">
+                  <h1 className="text-5xl md:text-8xl font-black text-zinc-900 mb-10 tracking-tighter leading-[0.9]">
                     {site.heroTitle}
                   </h1>
-                  <p className="text-xl md:text-2xl text-zinc-600 mb-14 max-w-3xl leading-relaxed font-medium text-left">
+                  <p className="text-xl md:text-2xl text-zinc-600 mb-14 max-w-3xl leading-relaxed font-medium">
                     {site.heroSubtitle}
                   </p>
-                  <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-12 py-6 rounded-3xl font-black text-xl shadow-2xl flex items-center gap-3 mx-auto transition-all"
+                  <button 
+                    className="px-12 py-6 rounded-3xl font-black text-xl shadow-2xl flex items-center gap-3 transition-all"
                     style={{ backgroundColor: site.theme.primary, color: 'white' }}
                   >
                     {site.ctaText} <MousePointer2 size={24} />
-                  </motion.button>
+                  </button>
                 </motion.div>
-              </div>
-            </section>
-
-            <section className="py-24 px-6 bg-white border-y border-zinc-100">
-              <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 text-zinc-900">
-                {site.features.map((feature, i) => {
-                  const Icon = IconMap[feature.iconName] || Zap;
-                  return (
-                    <motion.div 
-                      key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1 }}
-                      className="group p-10 rounded-[2.5rem] bg-zinc-50 border border-zinc-100 hover:border-zinc-200 transition-all duration-500 hover:shadow-2xl text-left"
-                    >
-                      <div 
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center mb-8 rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-sm"
-                        style={{ backgroundColor: site.theme.primary, color: 'white' }}
-                      >
-                        <Icon size={30} />
-                      </div>
-                      <h3 className="text-2xl font-black mb-4 text-zinc-900 leading-tight">{feature.title}</h3>
-                      <p className="text-zinc-600 leading-relaxed font-medium">{feature.desc}</p>
-                    </motion.div>
-                  );
-                })}
               </div>
             </section>
           </div>
@@ -2076,85 +3001,78 @@ export default function SampleSitePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-white">
+      <Navbar lang={lang} setLang={setLang} />
       
-      {/* 1. BARRA DE CONTROLO FIXA */}
-      <nav className="bg-black text-white px-6 sticky top-0 z-[100] border-b border-white/5 shadow-2xl flex justify-between items-center h-12">
-        <Link to="/" className="flex items-center gap-2 text-zinc-500 hover:text-white transition-all font-bold text-[10px] uppercase tracking-widest leading-none">
-          <ArrowLeft size={14} /> Sair do Exemplo
-        </Link>
-        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 animate-pulse hidden sm:block leading-none text-center">
-          Demonstração de Alta Performance
+      <nav className="bg-black text-white px-6 sticky top-24 z-40 flex justify-between items-center h-12 border-y border-white/10">
+        <a href="/" className="flex items-center gap-2 text-zinc-500 hover:text-white transition-all font-bold text-[10px] uppercase tracking-widest">
+          <ArrowLeft size={14} /> {lang === 'en' ? 'Exit Example' : lang === 'es' ? 'Salir del Ejemplo' : 'Sair do Exemplo'}
+        </a>
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-500 hidden md:inline">
+          {lang === 'en' ? 'High Performance Demo' : lang === 'es' ? 'Demostración de Alto Rendimiento' : 'Demonstração de Alta Performance'}
         </span>
-        <div className="flex items-center gap-3 leading-none">
-           <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest leading-none text-right">{site.companyName}</span>
-        </div>
+        <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{site.companyName}</span>
       </nav>
 
-      {/* 2. CONTEÚDO DO EXEMPLO */}
       <div className="relative">
         {renderBespokeContent()}
       </div>
-
-      {/* 3. INTELLIGENCE REPORT */}
-      <section className="py-32 px-6 bg-zinc-950 text-white relative overflow-hidden border-t border-white/5 text-left">
-        <div 
-          className="absolute top-0 right-0 w-150 h-150 blur-[150px] opacity-10 pointer-events-none rounded-full" 
-          style={{ backgroundColor: site.theme.primary }} 
-        />
-
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8 border-b border-white/10 pb-12 text-left">
-            <div className="max-w-2xl text-left">
-              <span className="text-emerald-400 font-black uppercase tracking-[0.3em] text-[10px] mb-4 block underline underline-offset-8 italic text-left">Estratégia Scuta Digital</span>
-              <h2 className="text-4xl md:text-7xl font-bold tracking-tighter leading-none text-left">
-                Como este design <br />
-                <span className="text-zinc-500 font-normal italic uppercase text-left">conquista o mercado.</span>
-              </h2>
-            </div>
-            <div className="bg-white/5 backdrop-blur-md p-6 rounded-3xl border border-white/10 hidden md:block text-left shadow-2xl">
-              <ShieldCheck className="text-emerald-400 mb-2" size={32} />
-              <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Conversão Validada</p>
-            </div>
-          </div>
-
-          <div className="grid gap-6">
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="p-10 rounded-[3rem] bg-white/5 border border-white/10 flex flex-col md:flex-row gap-8 items-center text-left transition-colors hover:bg-white/10">
-              <div className="w-16 h-16 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
-                <AlertCircle className="text-amber-500" size={32} />
-              </div>
-              <div>
-                <h4 className="text-amber-500 font-black uppercase text-[10px] tracking-[0.2em] mb-2 text-left leading-none">O Desafio do Negócio</h4>
-                <p className="text-2xl font-medium text-zinc-200 leading-tight italic text-left tracking-tight">"{site.pain}"</p>
-              </div>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="p-10 rounded-[3rem] bg-emerald-500/10 border border-emerald-500/30 flex flex-col md:flex-row gap-8 items-center shadow-2xl text-left transition-colors hover:bg-emerald-500/15">
-              <div className="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center shrink-0 shadow-[0_0_30px_rgba(16,185,129,0.5)]">
-                <TrendingUp className="text-black" size={32} />
-              </div>
-              <div>
-                <h4 className="text-emerald-400 font-black uppercase text-[10px] tracking-[0.2em] mb-2 text-left leading-none">A Solução Scuta Digital</h4>
-                <p className="text-3xl font-black text-white leading-none tracking-tighter text-left">{site.expectedResult}</p>
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="mt-24 text-center">
-            <Link to="/" className="inline-flex items-center gap-4 bg-white text-black px-12 py-6 rounded-3xl font-black text-2xl hover:scale-105 transition-all shadow-2xl active:scale-95 group">
-              QUERO UM SITE ASSIM <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <footer className="py-12 bg-zinc-50 border-t border-zinc-200 text-center flex flex-col items-center gap-4">
-        <div className="flex gap-4 opacity-20"><Smartphone size={20}/><ShieldCheck size={20}/></div>
-        <p className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-400">Scuta Digital · High Performance Experiences</p>
-      </footer>
     </div>
   );
 }
+
+
+================================================================================
+Arquivo: src/pages/TermsOfService.tsx
+================================================================================
+
+import { motion } from 'motion/react';
+import { Language, UI_STRINGS } from '../lib/constants';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+
+export default function TermsOfService({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
+  const t = UI_STRINGS[lang].legalPages.terms;
+
+  return (
+    <div className="min-h-screen bg-scuta-primary">
+      <Navbar lang={lang} setLang={setLang} />
+      
+      <main className="pt-32 pb-20 px-6">
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-4xl md:text-6xl font-black text-scuta-silk mb-4 tracking-tighter">
+              {t.title}
+            </h1>
+            <p className="text-scuta-silk/50 mb-12 font-mono text-sm">
+              {t.lastUpdated}
+            </p>
+
+            <div className="space-y-12">
+              {t.sections.map((section, index) => (
+                <section key={index} className="space-y-4">
+                  <h2 className="text-2xl font-bold text-scuta-highlight">
+                    {section.title}
+                  </h2>
+                  <p className="text-scuta-silk/70 leading-relaxed text-lg">
+                    {section.content}
+                  </p>
+                </section>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </main>
+
+      <Footer lang={lang} />
+    </div>
+  );
+}
+
 
 ================================================================================
 Arquivo: src/samples/EduSparkSample.tsx

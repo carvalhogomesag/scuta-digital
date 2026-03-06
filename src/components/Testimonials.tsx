@@ -8,7 +8,7 @@ export default function Testimonials({ lang }: { lang: Language }) {
   return (
     <section id="testimonials" className="relative py-24 px-6 bg-scuta-surface overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
-      
+
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-6xl font-black text-scuta-silk tracking-tighter mb-6">
@@ -27,10 +27,10 @@ export default function Testimonials({ lang }: { lang: Language }) {
               className="p-10 rounded-[2.5rem] bg-scuta-primary/50 border border-white/5 relative group hover:bg-scuta-primary transition-all"
             >
               <Quote className="absolute top-8 right-8 text-white/5 size-16 group-hover:text-scuta-highlight/10 transition-colors" />
-              
+
               <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={14} className="fill-scuta-highlight text-scuta-highlight" />
+                {[...Array(5)].map((_, j) => (
+                  <Star key={j} size={14} className="fill-scuta-highlight text-scuta-highlight" />
                 ))}
               </div>
 
@@ -39,10 +39,35 @@ export default function Testimonials({ lang }: { lang: Language }) {
               </p>
 
               <div className="flex items-center gap-4">
-                <img src={item.avatar} alt={item.author} className="size-12 rounded-full border-2 border-white/10" referrerPolicy="no-referrer" />
+                {/* Avatar com fallback para inicial do nome */}
+                <div className="relative size-12 shrink-0">
+                  <img
+                    src={item.avatar}
+                    alt={item.author}
+                    className="size-12 rounded-full border-2 border-white/10 object-cover"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      img.style.display = 'none';
+                      const parent = img.parentElement;
+                      if (parent && !parent.querySelector('.avatar-fallback')) {
+                        const div = document.createElement('div');
+                        div.className =
+                          'avatar-fallback size-12 rounded-full border-2 border-white/10 bg-scuta-accent flex items-center justify-center text-white font-black text-lg absolute inset-0';
+                        div.textContent = item.author.charAt(0).toUpperCase();
+                        parent.appendChild(div);
+                      }
+                    }}
+                  />
+                </div>
+
                 <div className="text-left">
-                  <h4 className="text-white font-black text-sm uppercase tracking-widest">{item.author}</h4>
-                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">{item.role}</p>
+                  <h4 className="text-white font-black text-sm uppercase tracking-widest">
+                    {item.author}
+                  </h4>
+                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
+                    {item.role}
+                  </p>
                 </div>
               </div>
             </motion.div>

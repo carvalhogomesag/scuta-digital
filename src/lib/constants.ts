@@ -10,6 +10,7 @@ interface LanguageStrings {
     why: string;
     solutions: string;
     samples: string;
+    pricing: string;
     faq: string;
     contact: string;
   };
@@ -111,7 +112,7 @@ interface LanguageStrings {
 export const BRAND_INFO = {
   name: "Scuta Digital",
   tagline: "Criamos o seu site. Você recebe os clientes.",
-  url: "https://scutadigital.pt/", 
+  url: "https://scutadigital.pt/",
 };
 
 export const CONTACT_INFO = {
@@ -133,6 +134,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
       why: "Por que ter um site?",
       solutions: "O que fazemos",
       samples: "Exemplos reais",
+      pricing: "Preços",
       faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
     },
@@ -348,6 +350,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
       why: "Por que ter um site?",
       solutions: "O que fazemos",
       samples: "Exemplos reais",
+      pricing: "Preços",
       faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
     },
@@ -555,6 +558,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
       why: "Why do I need a website?",
       solutions: "What we do",
       samples: "Real examples",
+      pricing: "Pricing",
       faq: "Common questions",
       contact: "Get a quote",
     },
@@ -762,6 +766,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
       why: "¿Por qué necesito una web?",
       solutions: "Qué hacemos",
       samples: "Ejemplos reales",
+      pricing: "Precios",
       faq: "Preguntas frecuentes",
       contact: "Pedir presupuesto",
     },

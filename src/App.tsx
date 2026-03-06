@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import WhyWeb from './components/WhyWeb';
 import Solutions from './components/Solutions';
 import Samples from './components/Samples';
 import Process from './components/Process';
 import Testimonials from './components/Testimonials';
+import Pricing from './components/Pricing';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -28,10 +30,12 @@ function HomePage({ lang, setLang }: { lang: Language; setLang: (l: Language) =>
     <>
       <Navbar lang={lang} setLang={setLang} />
       <Hero lang={lang} />
+      <WhyWeb lang={lang} />
       <Solutions lang={lang} />
-      <Process lang={lang} />
       <Testimonials lang={lang} />
       <Samples lang={lang} />
+      <Pricing lang={lang} />
+      <Process lang={lang} />
       <FAQ lang={lang} />
       <Contact lang={lang} />
       <Footer lang={lang} />
