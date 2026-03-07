@@ -273,333 +273,371 @@ Arquivo: src/components/Contact.tsx
 ================================================================================
 
 /**
- * PrivacyPolicy.tsx — Scuta Digital
- * Política de Privacidade completa
- * Conformidade: RGPD (UE/Portugal) · LGPD (Brasil) · UK GDPR
+ * Contact.tsx — Scuta Digital
+ * Formulário com consentimento explícito RGPD/LGPD/UK GDPR
  */
 
+import { useState, useRef } from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck, ArrowLeft } from 'lucide-react';
-import { Language } from '../lib/constants';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import {
+  Mail,
+  MessageSquare,
+  Send,
+  Sparkles,
+  ShieldCheck,
+  CheckCircle2,
+  RotateCcw,
+  AlertCircle,
+} from 'lucide-react';
+import { CONTACT_INFO, UI_STRINGS, Language } from '../lib/constants';
 
-// ---------------------------------------------------------------------------
-// CONTEÚDO LEGAL POR IDIOMA
-// ---------------------------------------------------------------------------
+type FormState = 'idle' | 'sending' | 'success' | 'error_consent';
 
-const CONTENT = {
+// Textos do checkbox por idioma
+const CONSENT_STRINGS: Record<Language, { label: string; linkText: string; suffix: string; error: string }> = {
   'pt-pt': {
-    title: 'Política de Privacidade',
-    updated: 'Última atualização: 1 de Janeiro de 2025',
-    intro: 'A Scuta Digital ("nós", "nosso") está comprometida com a proteção dos seus dados pessoais. Esta política explica quais os dados que recolhemos, como os usamos, com base em que fundamento legal, e quais os seus direitos ao abrigo do Regulamento Geral sobre a Proteção de Dados (RGPD — Regulamento UE 2016/679) e da legislação aplicável.',
-    sections: [
-      {
-        title: '1. Quem é o responsável pelo tratamento',
-        content: 'Scuta Digital, com sede em Portugal. Contacto do responsável pelo tratamento: appschedy@gmail.com. Para questões relativas à proteção de dados, pode contactar-nos através deste endereço de email.',
-      },
-      {
-        title: '2. Que dados recolhemos e porquê',
-        items: [
-          { label: 'Formulário de contacto', text: 'Nome, endereço de email, tipo de negócio e mensagem. Base legal: execução de medidas pré-contratuais a pedido do titular (Art. 6.º, n.º 1, al. b) do RGPD). Finalidade: responder ao seu pedido de orçamento.' },
-          { label: 'Google Analytics', text: 'Endereço IP anonimizado, tipo de browser, sistema operativo, páginas visitadas, duração da visita, fonte de tráfego. Base legal: consentimento (Art. 6.º, n.º 1, al. a) do RGPD) — só recolhemos estes dados após o seu consentimento explícito no banner de cookies. Finalidade: análise do desempenho do site para fins de melhoria do serviço.' },
-          { label: 'Cookies técnicos', text: 'Preferências de cookies e idioma. Base legal: interesse legítimo (Art. 6.º, n.º 1, al. f) do RGPD). Finalidade: funcionamento básico do site.' },
-        ],
-      },
-      {
-        title: '3. Cookies e tecnologias de rastreio',
-        content: 'Utilizamos os seguintes tipos de cookies:\n\n• Cookies essenciais — necessários para o funcionamento do site. Não requerem consentimento.\n• Cookies de análise (Google Analytics) — só são ativados com o seu consentimento explícito. O Google Analytics é configurado com anonimização de IP ativa. Os dados são transferidos para servidores do Google nos Estados Unidos com base nas Cláusulas Contratuais Padrão da Comissão Europeia.\n\nPode gerir ou revogar o seu consentimento a qualquer momento através do banner de cookies ou limpando os dados do browser.',
-      },
-      {
-        title: '4. Com quem partilhamos os seus dados',
-        content: 'Não vendemos nem cedemos os seus dados pessoais a terceiros para fins comerciais. Os seus dados podem ser partilhados com:\n\n• Google LLC (Google Analytics) — transferência para os EUA com base em Cláusulas Contratuais Padrão.\n• WhatsApp/Meta — apenas quando utiliza o botão de contacto direto, os dados que partilha são processados pela Meta nos termos da sua política de privacidade.\n\nNão realizamos qualquer outra transferência internacional de dados.',
-      },
-      {
-        title: '5. Por quanto tempo guardamos os seus dados',
-        content: '• Dados do formulário de contacto: 12 meses após o último contacto, salvo obrigação legal de conservação mais longa.\n• Dados de analytics: 14 meses (configuração padrão do Google Analytics GA4).\n• Preferências de cookies: 12 meses (armazenamento local no seu browser).',
-      },
-      {
-        title: '6. Os seus direitos',
-        content: 'Ao abrigo do RGPD, tem os seguintes direitos:\n\n• Direito de acesso — saber que dados temos sobre si.\n• Direito de retificação — corrigir dados incorretos.\n• Direito de apagamento ("direito a ser esquecido").\n• Direito de limitação do tratamento.\n• Direito de portabilidade dos dados.\n• Direito de oposição ao tratamento.\n• Direito de retirar o consentimento a qualquer momento, sem afetar a licitude do tratamento anterior.\n\nPara exercer qualquer um destes direitos, contacte-nos em appschedy@gmail.com. Tem também o direito de apresentar reclamação à Comissão Nacional de Proteção de Dados (CNPD) em www.cnpd.pt.',
-      },
-      {
-        title: '7. Segurança',
-        content: 'Adotamos medidas técnicas e organizativas adequadas para proteger os seus dados pessoais contra acesso não autorizado, perda ou destruição. A comunicação entre o seu browser e o nosso site é encriptada via HTTPS.',
-      },
-      {
-        title: '8. Alterações a esta política',
-        content: 'Podemos atualizar esta política periodicamente. A data de "última atualização" no topo desta página indica quando foi revista pela última vez. Em caso de alterações significativas, notificaremos os utilizadores através de aviso no site.',
-      },
-      {
-        title: '9. Contacto',
-        content: 'Para qualquer questão sobre esta política ou sobre o tratamento dos seus dados pessoais, contacte-nos em: appschedy@gmail.com',
-      },
-    ],
+    label: 'Li e aceito a ',
+    linkText: 'Política de Privacidade',
+    suffix: ' e autorizo o tratamento dos meus dados para resposta ao pedido de contacto.',
+    error: 'Precisa de aceitar a Política de Privacidade para continuar.',
   },
-
   'pt-br': {
-    title: 'Política de Privacidade',
-    updated: 'Última atualização: 1 de Janeiro de 2025',
-    intro: 'A Scuta Digital ("nós", "nosso") está comprometida com a proteção dos seus dados pessoais. Esta política explica quais dados coletamos, como os usamos, com base em qual fundamento legal, e quais são os seus direitos nos termos da Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018) e do RGPD europeu.',
-    sections: [
-      {
-        title: '1. Controlador dos dados',
-        content: 'Scuta Digital, com sede em Portugal. Contato do encarregado de dados (DPO): appschedy@gmail.com.',
-      },
-      {
-        title: '2. Dados que coletamos e por quê',
-        items: [
-          { label: 'Formulário de contato', text: 'Nome, e-mail, tipo de negócio e mensagem. Base legal (LGPD): execução de contrato ou procedimentos preliminares (Art. 7º, V). Finalidade: responder ao seu pedido de orçamento.' },
-          { label: 'Google Analytics', text: 'IP anonimizado, tipo de navegador, sistema operacional, páginas visitadas, duração da visita, fonte de tráfego. Base legal (LGPD): consentimento (Art. 7º, I) — só coletamos após seu consentimento explícito no banner de cookies. Finalidade: análise de desempenho do site.' },
-          { label: 'Cookies técnicos', text: 'Preferências de cookies e idioma. Base legal: legítimo interesse (Art. 7º, IX da LGPD). Finalidade: funcionamento básico do site.' },
-        ],
-      },
-      {
-        title: '3. Cookies e tecnologias de rastreamento',
-        content: 'Utilizamos os seguintes tipos de cookies:\n\n• Cookies essenciais — necessários para o funcionamento do site. Não requerem consentimento.\n• Cookies de análise (Google Analytics) — só são ativados com o seu consentimento explícito. O Google Analytics é configurado com anonimização de IP ativa.\n\nVocê pode gerenciar ou revogar seu consentimento a qualquer momento pelo banner de cookies ou limpando os dados do navegador.',
-      },
-      {
-        title: '4. Com quem compartilhamos seus dados',
-        content: 'Não vendemos nem cedemos seus dados pessoais a terceiros para fins comerciais. Seus dados podem ser compartilhados com:\n\n• Google LLC (Google Analytics) — transferência internacional com base em Cláusulas Contratuais Padrão.\n• WhatsApp/Meta — apenas quando você usa o botão de contato direto.\n\nNenhuma outra transferência internacional de dados é realizada.',
-      },
-      {
-        title: '5. Por quanto tempo guardamos seus dados',
-        content: '• Dados do formulário de contato: 12 meses após o último contato.\n• Dados de analytics: 14 meses (configuração padrão do Google Analytics GA4).\n• Preferências de cookies: 12 meses (armazenamento local no seu navegador).',
-      },
-      {
-        title: '6. Seus direitos (LGPD)',
-        content: 'Nos termos da LGPD, você tem os seguintes direitos:\n\n• Confirmação da existência de tratamento.\n• Acesso aos dados.\n• Correção de dados incompletos, inexatos ou desatualizados.\n• Anonimização, bloqueio ou eliminação de dados desnecessários.\n• Portabilidade dos dados.\n• Eliminação dos dados tratados com consentimento.\n• Informação sobre compartilhamento.\n• Revogação do consentimento a qualquer momento.\n• Peticionar à Autoridade Nacional de Proteção de Dados (ANPD) em www.gov.br/anpd.\n\nPara exercer qualquer direito, contate-nos em: appschedy@gmail.com',
-      },
-      {
-        title: '7. Segurança',
-        content: 'Adotamos medidas técnicas e organizacionais adequadas para proteger seus dados pessoais contra acesso não autorizado, perda ou destruição. A comunicação é encriptada via HTTPS.',
-      },
-      {
-        title: '8. Alterações nesta política',
-        content: 'Podemos atualizar esta política periodicamente. A data de "última atualização" indica quando foi revisada pela última vez.',
-      },
-      {
-        title: '9. Contato',
-        content: 'Para qualquer dúvida sobre esta política: appschedy@gmail.com',
-      },
-    ],
+    label: 'Li e aceito a ',
+    linkText: 'Política de Privacidade',
+    suffix: ' e autorizo o tratamento dos meus dados para resposta ao pedido de contato.',
+    error: 'Você precisa aceitar a Política de Privacidade para continuar.',
   },
-
   'en': {
-    title: 'Privacy Policy',
-    updated: 'Last updated: 1 January 2025',
-    intro: 'Scuta Digital ("we", "our") is committed to protecting your personal data. This policy explains what data we collect, how we use it, the legal basis for doing so, and your rights under the UK General Data Protection Regulation (UK GDPR), the EU General Data Protection Regulation (GDPR — Regulation EU 2016/679), and applicable data protection law.',
-    sections: [
-      {
-        title: '1. Data Controller',
-        content: 'Scuta Digital, based in Portugal. Data protection contact: appschedy@gmail.com.',
-      },
-      {
-        title: '2. Data we collect and why',
-        items: [
-          { label: 'Contact form', text: 'Name, email address, business type, and message. Legal basis: pre-contractual measures at the request of the data subject (Art. 6(1)(b) GDPR). Purpose: to respond to your enquiry.' },
-          { label: 'Google Analytics', text: 'Anonymised IP address, browser type, operating system, pages visited, session duration, traffic source. Legal basis: consent (Art. 6(1)(a) GDPR) — collected only after your explicit consent via the cookie banner. Purpose: site performance analysis to improve our service.' },
-          { label: 'Technical cookies', text: 'Cookie preferences and language settings. Legal basis: legitimate interests (Art. 6(1)(f) GDPR). Purpose: basic site functionality.' },
-        ],
-      },
-      {
-        title: '3. Cookies and tracking technologies',
-        content: 'We use the following types of cookies:\n\n• Essential cookies — required for the site to function. No consent required.\n• Analytics cookies (Google Analytics) — only activated with your explicit consent. IP anonymisation is enabled. Data is transferred to Google servers in the United States under Standard Contractual Clauses approved by the European Commission.\n\nYou can manage or withdraw your consent at any time via the cookie banner or by clearing your browser data.',
-      },
-      {
-        title: '4. Who we share your data with',
-        content: 'We do not sell or share your personal data with third parties for commercial purposes. Your data may be shared with:\n\n• Google LLC (Google Analytics) — transfer to the US under Standard Contractual Clauses.\n• WhatsApp/Meta — only when you use the direct contact button; data is then processed by Meta under their privacy policy.\n\nNo other international data transfers take place.',
-      },
-      {
-        title: '5. How long we keep your data',
-        content: '• Contact form data: 12 months after the last interaction, unless a longer retention period is required by law.\n• Analytics data: 14 months (Google Analytics GA4 default).\n• Cookie preferences: 12 months (stored locally in your browser).',
-      },
-      {
-        title: '6. Your rights',
-        content: 'Under the UK GDPR and EU GDPR, you have the following rights:\n\n• Right of access — to know what data we hold about you.\n• Right to rectification — to correct inaccurate data.\n• Right to erasure ("right to be forgotten").\n• Right to restriction of processing.\n• Right to data portability.\n• Right to object to processing.\n• Right to withdraw consent at any time, without affecting the lawfulness of processing before withdrawal.\n\nTo exercise any of these rights, contact us at appschedy@gmail.com. You also have the right to lodge a complaint with the Information Commissioner\'s Office (ICO) at www.ico.org.uk (UK) or your local supervisory authority (EU).',
-      },
-      {
-        title: '7. Security',
-        content: 'We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, loss, or destruction. All communication between your browser and our site is encrypted via HTTPS.',
-      },
-      {
-        title: '8. Changes to this policy',
-        content: 'We may update this policy from time to time. The "last updated" date at the top of this page indicates when it was last revised. For material changes, we will notify users via a notice on the site.',
-      },
-      {
-        title: '9. Contact',
-        content: 'For any questions about this policy or our data processing: appschedy@gmail.com',
-      },
-    ],
+    label: 'I have read and accept the ',
+    linkText: 'Privacy Policy',
+    suffix: ' and consent to my data being processed to respond to my enquiry.',
+    error: 'You must accept the Privacy Policy to continue.',
   },
-
   'es': {
-    title: 'Política de Privacidad',
-    updated: 'Última actualización: 1 de enero de 2025',
-    intro: 'Scuta Digital ("nosotros") está comprometida con la protección de tus datos personales. Esta política explica qué datos recopilamos, cómo los usamos, la base legal para hacerlo y tus derechos conforme al Reglamento General de Protección de Datos (RGPD — Reglamento UE 2016/679) y la normativa aplicable.',
-    sections: [
-      {
-        title: '1. Responsable del tratamiento',
-        content: 'Scuta Digital, con sede en Portugal. Contacto: appschedy@gmail.com.',
-      },
-      {
-        title: '2. Datos que recopilamos y por qué',
-        items: [
-          { label: 'Formulario de contacto', text: 'Nombre, correo electrónico, tipo de negocio y mensaje. Base legal: medidas precontractuales a petición del interesado (Art. 6.1.b RGPD). Finalidad: responder a tu solicitud de presupuesto.' },
-          { label: 'Google Analytics', text: 'IP anonimizada, tipo de navegador, sistema operativo, páginas visitadas, duración de la visita, fuente de tráfico. Base legal: consentimiento (Art. 6.1.a RGPD) — solo se recopilan tras tu consentimiento explícito en el banner de cookies. Finalidad: análisis del rendimiento del sitio.' },
-          { label: 'Cookies técnicas', text: 'Preferencias de cookies e idioma. Base legal: interés legítimo (Art. 6.1.f RGPD). Finalidad: funcionamiento básico del sitio.' },
-        ],
-      },
-      {
-        title: '3. Cookies y tecnologías de seguimiento',
-        content: 'Utilizamos los siguientes tipos de cookies:\n\n• Cookies esenciales — necesarias para el funcionamiento del sitio. No requieren consentimiento.\n• Cookies de análisis (Google Analytics) — solo se activan con tu consentimiento explícito. La anonimización de IP está activada. Los datos se transfieren a servidores de Google en EE.UU. bajo Cláusulas Contractuales Estándar.\n\nPuedes gestionar o revocar tu consentimiento en cualquier momento desde el banner de cookies.',
-      },
-      {
-        title: '4. Con quién compartimos tus datos',
-        content: 'No vendemos ni cedemos tus datos personales a terceros con fines comerciales. Tus datos pueden compartirse con:\n\n• Google LLC (Google Analytics) — transferencia a EE.UU. bajo Cláusulas Contractuales Estándar.\n• WhatsApp/Meta — solo cuando usas el botón de contacto directo.\n\nNo se realizan otras transferencias internacionales de datos.',
-      },
-      {
-        title: '5. Durante cuánto tiempo conservamos tus datos',
-        content: '• Datos del formulario de contacto: 12 meses tras el último contacto.\n• Datos de analytics: 14 meses (configuración estándar de Google Analytics GA4).\n• Preferencias de cookies: 12 meses (almacenamiento local en tu navegador).',
-      },
-      {
-        title: '6. Tus derechos',
-        content: 'Conforme al RGPD, tienes los siguientes derechos:\n\n• Derecho de acceso.\n• Derecho de rectificación.\n• Derecho de supresión ("derecho al olvido").\n• Derecho a la limitación del tratamiento.\n• Derecho a la portabilidad.\n• Derecho de oposición.\n• Derecho a retirar el consentimiento en cualquier momento.\n\nPara ejercer tus derechos, contáctanos en appschedy@gmail.com. También puedes reclamar ante la Agencia Española de Protección de Datos (AEPD) en www.aepd.es o ante tu autoridad supervisora local.',
-      },
-      {
-        title: '7. Seguridad',
-        content: 'Aplicamos medidas técnicas y organizativas adecuadas para proteger tus datos personales frente al acceso no autorizado, pérdida o destrucción. La comunicación está cifrada mediante HTTPS.',
-      },
-      {
-        title: '8. Cambios en esta política',
-        content: 'Podemos actualizar esta política periódicamente. La fecha de "última actualización" indica cuándo fue revisada por última vez.',
-      },
-      {
-        title: '9. Contacto',
-        content: 'Para cualquier consulta sobre esta política: appschedy@gmail.com',
-      },
-    ],
+    label: 'He leído y acepto la ',
+    linkText: 'Política de Privacidad',
+    suffix: ' y autorizo el tratamiento de mis datos para responder a mi solicitud.',
+    error: 'Debes aceptar la Política de Privacidad para continuar.',
   },
 };
 
-// ---------------------------------------------------------------------------
-// TIPOS
-// ---------------------------------------------------------------------------
-type Section = {
-  title: string;
-  content?: string;
-  items?: { label: string; text: string }[];
-};
+export default function Contact({ lang }: { lang: Language }) {
+  const t = UI_STRINGS[lang].contact;
+  const consent = CONSENT_STRINGS[lang] ?? CONSENT_STRINGS['pt-pt'];
 
-// ---------------------------------------------------------------------------
-// COMPONENTE
-// ---------------------------------------------------------------------------
-export default function PrivacyPolicy({
-  lang,
-  setLang,
-}: {
-  lang: Language;
-  setLang: (l: Language) => void;
-}) {
-  const c = CONTENT[lang] ?? CONTENT['pt-pt'];
+  const [formState, setFormState] = useState<FormState>('idle');
+  const [consentChecked, setConsentChecked] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    // Bloqueia envio sem consentimento — obrigatório RGPD/LGPD
+    if (!consentChecked) {
+      setFormState('error_consent');
+      return;
+    }
+
+    const form = formRef.current;
+    if (!form) return;
+
+    const data     = new FormData(form);
+    const nome     = data.get('name')    as string;
+    const email    = data.get('email')   as string;
+    const tipo     = data.get('subject') as string;
+    const mensagem = data.get('message') as string;
+
+    setFormState('sending');
+
+    // Inclui registo de consentimento na mensagem para auditoria
+    const texto = `Olá! Vim pelo site da Scuta Digital. 🙂
+
+*Nome:* ${nome}
+*Email:* ${email}
+*Tipo de negócio:* ${tipo}
+*Mensagem:* ${mensagem}
+
+✅ _Consentimento RGPD/LGPD registado em ${new Date().toLocaleString()}_`;
+
+    const url = `https://wa.me/${CONTACT_INFO.phoneRaw}?text=${encodeURIComponent(texto)}`;
+
+    setTimeout(() => {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      setFormState('success');
+    }, 800);
+  }
+
+  function handleReset() {
+    setFormState('idle');
+    setConsentChecked(false);
+    formRef.current?.reset();
+  }
+
+  function handleConsentChange(checked: boolean) {
+    setConsentChecked(checked);
+    // Limpa erro assim que o utilizador faz check
+    if (checked && formState === 'error_consent') {
+      setFormState('idle');
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-scuta-primary">
-      <Navbar lang={lang} setLang={setLang} />
+    <section id="contact" className="relative py-24 px-6 bg-scuta-primary overflow-hidden">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-      <main className="pt-32 pb-24 px-6">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {/* Voltar */}
-            <a
-              href="/"
-              className="inline-flex items-center gap-2 text-slate-500 hover:text-scuta-silk text-xs font-bold uppercase tracking-widest mb-10 transition-colors group"
+          {/* --- Coluna esquerda --- */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
             >
-              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-              Voltar ao site
-            </a>
-
-            {/* Cabeçalho */}
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-scuta-highlight/10 border border-scuta-highlight/20 flex items-center justify-center shrink-0">
-                <ShieldCheck size={24} className="text-scuta-highlight" />
+              <div className="inline-flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-6">
+                <Sparkles size={14} /> {t.badge}
               </div>
-              <h1 className="text-4xl md:text-6xl font-black text-scuta-silk tracking-tighter">
-                {c.title}
-              </h1>
-            </div>
-            <p className="text-slate-500 font-mono text-xs mb-4 ml-16">{c.updated}</p>
-
-            {/* Badges de conformidade */}
-            <div className="flex flex-wrap gap-2 mb-12 ml-16">
-              {['RGPD / EU GDPR', 'LGPD', 'UK GDPR'].map((badge) => (
-                <span
-                  key={badge}
-                  className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-scuta-highlight/10 text-scuta-highlight border border-scuta-highlight/20"
-                >
-                  {badge}
-                </span>
-              ))}
-            </div>
-
-            {/* Introdução */}
-            <div className="p-6 rounded-3xl bg-scuta-surface/50 border border-white/5 mb-12">
-              <p className="text-slate-300 leading-relaxed font-medium">{c.intro}</p>
-            </div>
-
-            {/* Secções */}
-            <div className="space-y-10">
-              {c.sections.map((section: Section, index: number) => (
-                <section key={index} className="space-y-4">
-                  <h2 className="text-xl font-black text-scuta-highlight tracking-tight">
-                    {section.title}
-                  </h2>
-
-                  {/* Conteúdo simples */}
-                  {section.content && (
-                    <div className="text-slate-400 leading-relaxed text-base font-medium whitespace-pre-line">
-                      {section.content}
-                    </div>
-                  )}
-
-                  {/* Lista de itens com label em destaque */}
-                  {section.items && (
-                    <div className="space-y-4">
-                      {section.items.map((item, i) => (
-                        <div
-                          key={i}
-                          className="p-5 rounded-2xl bg-scuta-surface/50 border border-white/5"
-                        >
-                          <p className="text-scuta-silk font-black text-sm mb-2">
-                            {item.label}
-                          </p>
-                          <p className="text-slate-400 text-sm leading-relaxed font-medium">
-                            {item.text}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </section>
-              ))}
-            </div>
-
-            {/* Rodapé da página */}
-            <div className="mt-16 pt-8 border-t border-white/5 text-center">
-              <p className="text-slate-600 text-xs font-bold uppercase tracking-widest">
-                Scuta Digital · appschedy@gmail.com
+              <h2 className="text-5xl md:text-7xl font-black text-scuta-silk leading-[0.9] tracking-tighter mb-8 text-left">
+                {t.title}
+              </h2>
+              <p className="text-xl text-slate-400 mb-12 leading-relaxed font-medium max-w-md text-left">
+                {t.subtitle}
               </p>
-            </div>
+
+              <div className="space-y-6">
+                <a
+                  href={`https://wa.me/${CONTACT_INFO.phoneRaw}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center gap-6 p-4 rounded-3xl bg-white/5 border border-white/5 hover:border-scuta-highlight/50 transition-all duration-500"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-scuta-highlight flex items-center justify-center text-scuta-primary shadow-xl shrink-0">
+                    <MessageSquare size={24} />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">WhatsApp Rápido</p>
+                    <p className="text-lg font-bold text-scuta-silk">{CONTACT_INFO.phone}</p>
+                  </div>
+                </a>
+
+                <a
+                  href={`mailto:${CONTACT_INFO.email}`}
+                  className="group flex items-center gap-6 p-4 rounded-3xl bg-white/5 border border-white/5 hover:border-scuta-accent/50 transition-all duration-500"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-scuta-accent flex items-center justify-center text-scuta-silk shadow-xl shrink-0">
+                    <Mail size={24} />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Email Corporativo</p>
+                    <p className="text-lg font-bold text-scuta-silk">{CONTACT_INFO.email}</p>
+                  </div>
+                </a>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* --- Coluna direita: formulário --- */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="bg-scuta-surface/90 backdrop-blur-3xl border border-white/10 rounded-4xl p-8 relative min-h-[540px] flex flex-col justify-center"
+          >
+
+            {/* Estado: sucesso */}
+            {formState === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                className="flex flex-col items-center justify-center text-center gap-6 py-8"
+              >
+                <CheckCircle2 size={64} className="text-emerald-400" strokeWidth={1.5} />
+                <div>
+                  <h3 className="text-2xl font-black text-scuta-silk tracking-tight mb-2">
+                    Mensagem enviada!
+                  </h3>
+                  <p className="text-slate-400 font-medium leading-relaxed max-w-xs mx-auto">
+                    Abrimos o WhatsApp com os seus dados. Respondemos em menos de 24 horas.
+                  </p>
+                </div>
+                <button
+                  onClick={handleReset}
+                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-slate-400 hover:text-scuta-silk hover:bg-white/10 transition-all text-sm font-bold"
+                >
+                  <RotateCcw size={16} />
+                  Enviar outra mensagem
+                </button>
+              </motion.div>
+            )}
+
+            {/* Estado: idle / sending / error_consent */}
+            {formState !== 'success' && (
+              <>
+                <h3 className="text-2xl font-black text-scuta-silk mb-8 tracking-tight flex items-center gap-3 text-left">
+                  {t.form.title}
+                  <div className="h-px bg-white/10 grow ml-2" />
+                </h3>
+
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+
+                  {/* Nome + Email */}
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <div className="space-y-2 text-left">
+                      <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                        {t.form.name}
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        placeholder="João Silva"
+                        className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all"
+                      />
+                    </div>
+                    <div className="space-y-2 text-left">
+                      <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                        {t.form.email}
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        placeholder="joao@empresa.pt"
+                        className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Tipo de negócio */}
+                  <div className="space-y-2 text-left">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                      {t.form.subject}
+                    </label>
+                    <select
+                      name="subject"
+                      className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-slate-400 outline-none focus:border-scuta-accent transition-all"
+                    >
+                      <option>Negócio local (Loja, Salão, Restaurante...)</option>
+                      <option>Serviços profissionais (Advogado, Contabilista...)</option>
+                      <option>Venda Online / E-commerce</option>
+                      <option>Outro tipo de projeto</option>
+                    </select>
+                  </div>
+
+                  {/* Mensagem */}
+                  <div className="space-y-2 text-left">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                      {t.form.message}
+                    </label>
+                    <textarea
+                      rows={3}
+                      name="message"
+                      required
+                      placeholder="O que o seu negócio precisa hoje?"
+                      className="w-full bg-scuta-primary/50 border border-white/5 rounded-2xl p-4 text-scuta-silk outline-none focus:border-scuta-accent transition-all resize-none"
+                    />
+                  </div>
+
+                  {/* --- Checkbox de consentimento RGPD/LGPD --- */}
+                  <div className={`p-4 rounded-2xl border transition-all duration-300 ${
+                    formState === 'error_consent'
+                      ? 'border-red-500/50 bg-red-500/5'
+                      : 'border-white/5 bg-white/[0.02]'
+                  }`}>
+                    <label className="flex items-start gap-3 cursor-pointer group">
+
+                      {/* Checkbox visual customizada */}
+                      <div
+                        role="checkbox"
+                        aria-checked={consentChecked}
+                        tabIndex={0}
+                        onClick={() => handleConsentChange(!consentChecked)}
+                        onKeyDown={(e) => e.key === ' ' && handleConsentChange(!consentChecked)}
+                        className={`mt-0.5 w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-scuta-highlight/50 ${
+                          consentChecked
+                            ? 'bg-scuta-highlight border-scuta-highlight'
+                            : formState === 'error_consent'
+                            ? 'border-red-400 bg-transparent'
+                            : 'border-white/20 bg-transparent group-hover:border-white/40'
+                        }`}
+                      >
+                        {consentChecked && (
+                          <svg width="11" height="9" viewBox="0 0 11 9" fill="none" aria-hidden="true">
+                            <path
+                              d="M1 4L4 7L10 1"
+                              stroke="#030712"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        )}
+                      </div>
+
+                      {/* Texto com link para política */}
+                      <span className="text-xs font-medium text-slate-400 leading-relaxed select-none">
+                        {consent.label}
+                        <a
+                          href="/privacidade"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-scuta-highlight hover:underline font-bold"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {consent.linkText}
+                        </a>
+                        {consent.suffix}
+                      </span>
+                    </label>
+
+                    {/* Erro de validação */}
+                    {formState === 'error_consent' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-2 mt-3 ml-8"
+                      >
+                        <AlertCircle size={13} className="text-red-400 shrink-0" />
+                        <p className="text-red-400 text-xs font-bold">{consent.error}</p>
+                      </motion.div>
+                    )}
+                  </div>
+
+                  {/* Botão de envio */}
+                  <button
+                    type="submit"
+                    disabled={formState === 'sending'}
+                    className="w-full py-5 bg-scuta-silk text-scuta-primary font-black text-sm uppercase tracking-[0.2em] rounded-2xl hover:bg-scuta-highlight transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed disabled:scale-100"
+                  >
+                    {formState === 'sending' ? (
+                      <>
+                        <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                        </svg>
+                        A enviar...
+                      </>
+                    ) : (
+                      <>
+                        {t.form.send} <Send size={16} />
+                      </>
+                    )}
+                  </button>
+
+                  {/* Nota de segurança */}
+                  <div className="flex items-center justify-center gap-2 text-[9px] font-bold text-slate-600 uppercase tracking-widest mt-2">
+                    <ShieldCheck size={12} className="text-scuta-highlight" />
+                    {t.trustNote}
+                  </div>
+
+                </form>
+              </>
+            )}
+
           </motion.div>
         </div>
-      </main>
-
-      <Footer lang={lang} />
-    </div>
+      </div>
+    </section>
   );
 }
 
@@ -876,7 +914,12 @@ export default function FAQ({ lang }: { lang: Language }) {
   const faqs = FAQ_ITEMS[lang];
 
   return (
-    <section id="faq" className="relative py-20 px-6 bg-scuta-primary overflow-hidden">
+    // ALTERAÇÃO: bg-scuta-primary → bg-white
+    <section id="faq" className="relative py-20 px-6 bg-white overflow-hidden">
+
+      {/* Detalhe decorativo subtil — substitui o fundo liso */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-slate-50 rounded-full translate-y-1/2 pointer-events-none" />
+
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="text-center mb-20">
           <motion.div
@@ -884,17 +927,20 @@ export default function FAQ({ lang }: { lang: Language }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 text-scuta-highlight font-black uppercase tracking-[0.3em] text-[10px] mb-4">
+            {/* ALTERAÇÃO: text-scuta-highlight → text-emerald-500 (legível em branco) */}
+            <div className="inline-flex items-center gap-2 text-emerald-500 font-black uppercase tracking-[0.3em] text-[10px] mb-4">
               <Sparkles size={14} /> {t.faq.sectionBadge}
             </div>
-            <h2 className="text-4xl md:text-6xl font-black text-scuta-silk leading-tight tracking-tighter mb-6">
+            {/* ALTERAÇÃO: text-scuta-silk → text-slate-900 */}
+            <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tighter mb-6">
               {t.faq.title.split('\n').map((line, i) => (
                 <span key={i} className={line === t.faq.titleHighlight ? "text-scuta-gradient block" : "block"}>
                   {line}
                 </span>
               ))}
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed">
+            {/* ALTERAÇÃO: text-slate-400 → text-slate-500 (melhor contraste em branco) */}
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
               {t.faq.subtitle}
             </p>
           </motion.div>
@@ -902,16 +948,18 @@ export default function FAQ({ lang }: { lang: Language }) {
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className={`group border transition-all duration-500 rounded-4xl overflow-hidden ${
-                openIndex === index 
-                ? 'bg-scuta-surface/80 backdrop-blur-2xl border-scuta-accent/30 shadow-2xl' 
-                : 'bg-white/5 border-white/5 hover:border-white/10'
+                openIndex === index
+                  // ALTERAÇÃO: bg-scuta-surface/80 → bg-slate-50, border-scuta-accent/30 → border-emerald-200
+                  ? 'bg-slate-50 border-emerald-200 shadow-lg'
+                  // ALTERAÇÃO: bg-white/5 → bg-white, border-white/5 → border-slate-200
+                  : 'bg-white border-slate-200 hover:border-slate-300'
               }`}
             >
               <button
@@ -920,23 +968,27 @@ export default function FAQ({ lang }: { lang: Language }) {
               >
                 <div className="flex items-center gap-5">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors duration-500 ${
-                    openIndex === index ? 'bg-scuta-accent text-white' : 'bg-white/5 text-slate-500'
+                    // ALTERAÇÃO: bg-white/5 text-slate-500 → bg-slate-100 text-slate-400
+                    openIndex === index ? 'bg-scuta-accent text-white' : 'bg-slate-100 text-slate-400'
                   }`}>
                     <HelpCircle size={20} />
                   </div>
                   <span className={`text-lg font-bold tracking-tight transition-colors duration-500 ${
-                    openIndex === index ? 'text-scuta-silk' : 'text-slate-400 group-hover:text-slate-300'
+                    // ALTERAÇÃO: text-slate-400 → text-slate-500, group-hover:text-slate-300 → group-hover:text-slate-700
+                    openIndex === index ? 'text-slate-900' : 'text-slate-500 group-hover:text-slate-700'
                   }`}>
                     {faq.question}
                   </span>
                 </div>
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${
-                  openIndex === index ? 'bg-scuta-silk text-scuta-primary rotate-180' : 'bg-white/5 text-slate-600'
+                  // ALTERAÇÃO: bg-scuta-silk text-scuta-primary → bg-slate-900 text-white; bg-white/5 text-slate-600 → bg-slate-100 text-slate-400
+                  openIndex === index ? 'bg-slate-900 text-white rotate-180' : 'bg-slate-100 text-slate-400'
                 }`}>
                   <ChevronDown size={18} />
                 </div>
               </button>
-              
+
+              {/* AnimatePresence — 100% preservado */}
               <AnimatePresence>
                 {openIndex === index && (
                   <motion.div
@@ -945,9 +997,11 @@ export default function FAQ({ lang }: { lang: Language }) {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                   >
-                    <div className="px-8 pb-10 ml-15 text-slate-400 leading-relaxed text-base font-medium">
-                      <div className="w-10 h-px bg-scuta-accent/30 mb-6" />
-                      {faq.answer}
+                    <div className="px-8 pb-10 ml-15 leading-relaxed text-base font-medium">
+                      {/* ALTERAÇÃO: bg-scuta-accent/30 → bg-emerald-200 */}
+                      <div className="w-10 h-px bg-emerald-200 mb-6" />
+                      {/* ALTERAÇÃO: text-slate-400 → text-slate-600 */}
+                      <p className="text-slate-600">{faq.answer}</p>
                     </div>
                   </motion.div>
                 )}
@@ -956,17 +1010,20 @@ export default function FAQ({ lang }: { lang: Language }) {
           ))}
         </div>
 
-        <motion.div 
+        {/* CTA rodapé — estrutura 100% preservada, cores adaptadas */}
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           className="mt-16 text-center"
         >
-          <div className="inline-flex items-center gap-3 p-2 pr-6 bg-scuta-surface/50 border border-white/5 rounded-full backdrop-blur-sm">
+          {/* ALTERAÇÃO: bg-scuta-surface/50 border-white/5 → bg-slate-50 border-slate-200 */}
+          <div className="inline-flex items-center gap-3 p-2 pr-6 bg-slate-50 border border-slate-200 rounded-full">
+            {/* bg-scuta-highlight text-scuta-primary — mantidos (cor de marca) */}
             <div className="w-10 h-10 rounded-full bg-scuta-highlight flex items-center justify-center text-scuta-primary shadow-xl">
               <MessageCircle size={20} />
             </div>
-            <p className="text-xs font-black uppercase tracking-widest text-slate-400">
-              <a href="#contact" className="text-scuta-highlight hover:underline ml-1">{t.faq.ctaText}</a>
+            <p className="text-xs font-black uppercase tracking-widest text-slate-500">
+              <a href="#contact" className="text-emerald-500 hover:underline ml-1">{t.faq.ctaText}</a>
             </p>
           </div>
         </motion.div>
@@ -974,7 +1031,6 @@ export default function FAQ({ lang }: { lang: Language }) {
     </section>
   );
 }
-
 
 ================================================================================
 Arquivo: src/components/Footer.tsx
@@ -1078,11 +1134,14 @@ export default function Hero({ lang }: { lang: Language }) {
   const titleLines = t.title.split('\n');
 
   return (
-    <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-scuta-primary">
-      {/* Glow de fundo */}
-      <div className="absolute top-0 left-1/4 w-150 h-150 bg-scuta-accent/20 blur-[140px] rounded-full pointer-events-none" />
+    // min-h-screen + flex col → garante que o hero ocupa exactamente o viewport
+    <section className="relative min-h-screen flex items-start pt-24 pb-16 px-6 bg-scuta-primary">
+      {/* Glow de fundo — clip próprio para não afectar overflow da section */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-150 h-150 bg-scuta-accent/20 blur-[140px] rounded-full" />
+      </div>
 
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 items-start relative z-10">
 
         {/* --- Coluna esquerda --- */}
         <div>
@@ -1091,7 +1150,7 @@ export default function Hero({ lang }: { lang: Language }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-scuta-silk text-[10px] font-black uppercase tracking-[0.2em] mb-10 backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-scuta-silk text-[10px] font-black uppercase tracking-[0.2em] mb-6 backdrop-blur-md"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-scuta-highlight opacity-75" />
@@ -1100,10 +1159,10 @@ export default function Hero({ lang }: { lang: Language }) {
             {t.badge}
           </motion.div>
 
-          {/* Título — cada palavra entra com stagger e rotação 3D */}
-          <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.85]">
+          {/* Título — stagger + rotação 3D preservados; tamanho clampado para caber no viewport */}
+          <h1 className="text-[clamp(2.8rem,6vw,5.5rem)] font-black tracking-tighter text-white mb-5 leading-[1]">
             {titleLines.map((line, lineIndex) => (
-              <span key={lineIndex} className="block overflow-hidden">
+              <span key={lineIndex} className="block">
                 {line.split(' ').map((word, wordIndex) => (
                   <motion.span
                     key={wordIndex}
@@ -1129,7 +1188,7 @@ export default function Hero({ lang }: { lang: Language }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.65, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-            className="text-xl text-slate-400 mb-12 max-w-lg leading-relaxed font-medium"
+            className="text-lg text-slate-400 mb-8 max-w-lg leading-relaxed font-medium"
           >
             {t.subtitle}
           </motion.p>
@@ -1139,18 +1198,18 @@ export default function Hero({ lang }: { lang: Language }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.78, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-            className="flex flex-col sm:flex-row gap-6"
+            className="flex flex-col sm:flex-row gap-4"
           >
             <a
               href="#contact"
-              className="px-10 py-5 bg-scuta-silk text-scuta-primary rounded-2xl font-black text-lg hover:bg-scuta-highlight transition-all flex items-center justify-center gap-3 group active:scale-95 shadow-2xl"
+              className="px-8 py-4 bg-scuta-silk text-scuta-primary rounded-2xl font-black text-base hover:bg-scuta-highlight transition-all flex items-center justify-center gap-3 group active:scale-95 shadow-2xl"
             >
               {t.cta}
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#samples"
-              className="px-10 py-5 bg-white/5 text-scuta-silk border border-white/10 rounded-2xl font-black text-lg hover:bg-white/10 transition-all text-center active:scale-95 backdrop-blur-md"
+              className="px-8 py-4 bg-white/5 text-scuta-silk border border-white/10 rounded-2xl font-black text-base hover:bg-white/10 transition-all text-center active:scale-95 backdrop-blur-md"
             >
               {t.secondaryCta}
             </a>
@@ -1161,7 +1220,7 @@ export default function Hero({ lang }: { lang: Language }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.95, duration: 0.6 }}
-            className="mt-12 flex flex-wrap gap-8"
+            className="mt-8 flex flex-wrap gap-6"
           >
             {[
               { text: t.trust.noSurprise, icon: ShieldCheck },
@@ -1212,7 +1271,6 @@ export default function Hero({ lang }: { lang: Language }) {
             </div>
           </motion.div>
         </motion.div>
-
       </div>
     </section>
   );
@@ -1222,7 +1280,7 @@ export default function Hero({ lang }: { lang: Language }) {
 Arquivo: src/components/Navbar.tsx
 ================================================================================
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
 import { UI_STRINGS, BRAND_INFO, Language } from '../lib/constants';
@@ -1231,7 +1289,6 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showLangMenu, setShowLangMenu] = useState(false);
-  const langMenuRef = useRef<HTMLDivElement>(null);
   const t = UI_STRINGS[lang];
 
   useEffect(() => {
@@ -1240,10 +1297,11 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fechar menu de idioma ao clicar fora — usa ref em vez de id
+  // Fechar menu de idioma ao clicar fora
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (langMenuRef.current && !langMenuRef.current.contains(e.target as Node)) {
+      const target = e.target as HTMLElement;
+      if (!target.closest('#lang-menu-wrapper')) {
         setShowLangMenu(false);
       }
     }
@@ -1255,7 +1313,7 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
     { name: t.navbar.why,       href: '#why' },
     { name: t.navbar.solutions, href: '#solutions' },
     { name: t.navbar.samples,   href: '#samples' },
-    { name: t.navbar.pricing ?? 'Preços', href: '#pricing' },
+    { name: t.navbar.pricing,   href: '#pricing' },
     { name: t.navbar.faq,       href: '#faq' },
   ];
 
@@ -1268,15 +1326,8 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
 
   const currentLang = languages.find(l => l.code === lang) || languages[0];
 
-  function handleLangSelect(code: Language) {
-    setLang(code);
-    setShowLangMenu(false);
-    setIsOpen(false);
-  }
-
   return (
-    // z-[1000] — acima do CookieBanner (z-[999]) e do seu overlay (z-[998])
-    <nav className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-500 ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       scrolled ? 'py-4' : 'py-8'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
@@ -1318,39 +1369,33 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
           {/* Direita: idioma + CTA */}
           <div className="hidden md:flex items-center gap-6">
 
-            {/* Selector de idioma — usa ref para detectar cliques fora */}
-            <div className="relative" ref={langMenuRef}>
+            {/* Selector de idioma */}
+            <div className="relative" id="lang-menu-wrapper">
               <button
-                onClick={() => setShowLangMenu(prev => !prev)}
+                onClick={() => setShowLangMenu(!showLangMenu)}
                 className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-scuta-silk transition-all"
-                aria-haspopup="listbox"
-                aria-expanded={showLangMenu}
               >
                 <span>{currentLang.flag}</span>
                 <span className="hidden lg:inline">{currentLang.label}</span>
-                <ChevronDown
-                  size={12}
-                  className={`transition-transform duration-200 ${showLangMenu ? 'rotate-180' : ''}`}
-                />
+                <ChevronDown size={12} className={`transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />
               </button>
 
               <AnimatePresence>
                 {showLangMenu && (
                   <motion.div
-                    role="listbox"
-                    initial={{ opacity: 0, y: 8, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 8, scale: 0.97 }}
-                    transition={{ duration: 0.15, ease: 'easeOut' }}
-                    className="absolute top-full right-0 mt-3 bg-scuta-surface border border-white/10 rounded-2xl p-2 shadow-2xl min-w-[150px]"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full right-0 mt-4 bg-scuta-surface border border-white/10 rounded-2xl p-2 shadow-2xl min-w-[140px]"
                   >
                     {languages.map((l) => (
                       <button
                         key={l.code}
-                        role="option"
-                        aria-selected={lang === l.code}
-                        onClick={() => handleLangSelect(l.code)}
-                        className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                        onClick={() => {
+                          setLang(l.code);
+                          setShowLangMenu(false);
+                        }}
+                        className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
                           lang === l.code
                             ? 'bg-scuta-highlight text-scuta-primary'
                             : 'text-slate-400 hover:bg-white/5 hover:text-scuta-silk'
@@ -1374,10 +1419,10 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
             </a>
           </div>
 
-          {/* Hamburger mobile */}
+          {/* Botão hamburger mobile */}
           <button
             className="md:hidden text-scuta-silk p-1"
-            onClick={() => setIsOpen(prev => !prev)}
+            onClick={() => setIsOpen(!isOpen)}
             aria-label="Menu"
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -1392,7 +1437,6 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
             className="md:hidden absolute top-full left-6 right-6 mt-4 bg-scuta-surface border border-white/10 rounded-[2.5rem] p-8 overflow-hidden shadow-2xl"
           >
             <div className="flex flex-col gap-8 text-left">
@@ -1409,15 +1453,18 @@ export default function Navbar({ lang, setLang }: { lang: Language; setLang: (l:
               ))}
 
               {/* Selector de idioma mobile */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-4">
                 {languages.map((l) => (
                   <button
                     key={l.code}
-                    onClick={() => handleLangSelect(l.code)}
+                    onClick={() => {
+                      setLang(l.code);
+                      setIsOpen(false);
+                    }}
                     className={`flex items-center justify-center gap-2 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${
                       lang === l.code
                         ? 'bg-scuta-highlight border-scuta-highlight text-scuta-primary'
-                        : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
+                        : 'bg-white/5 border-white/10 text-slate-400'
                     }`}
                   >
                     <span>{l.flag}</span>
@@ -2050,7 +2097,8 @@ export default function Solutions({ lang }: { lang: Language }) {
     <section id="solutions" className="relative py-24 md:py-32 px-6 bg-scuta-primary overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-          
+
+          {/* Coluna esquerda — sticky */}
           <div className="lg:col-span-5 lg:sticky lg:top-32">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -2061,15 +2109,15 @@ export default function Solutions({ lang }: { lang: Language }) {
                 <Zap size={12} className="fill-current" />
                 {t.badge}
               </div>
-              
-              <h2 className="text-5xl md:text-7xl font-black text-white leading-[0.85] tracking-tighter mb-8">
+
+              <h2 className="text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tighter mb-8">
                 {t.title}
               </h2>
-              
+
               <p className="text-lg text-slate-400 mb-10 leading-relaxed font-medium max-w-md">
                 {t.subtitle}
               </p>
-              
+
               <ul className="space-y-5 mb-12">
                 {t.features.map((item, i) => (
                   <li key={i} className="flex items-center gap-4 text-slate-200 font-bold text-sm group">
@@ -2081,8 +2129,8 @@ export default function Solutions({ lang }: { lang: Language }) {
                 ))}
               </ul>
 
-              <motion.a 
-                href="#contact" 
+              <motion.a
+                href="#contact"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="inline-flex items-center gap-4 px-10 py-5 bg-white text-black rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-2xl"
@@ -2092,8 +2140,9 @@ export default function Solutions({ lang }: { lang: Language }) {
             </motion.div>
           </div>
 
+          {/* Coluna direita — grid de cards alinhados topo com topo */}
           <div className="lg:col-span-7">
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-6 items-start">
               {t.items.map((solution, index) => {
                 const Icon = ICONS[solution.icon as keyof typeof ICONS] || Smartphone;
                 return (
@@ -2103,24 +2152,24 @@ export default function Solutions({ lang }: { lang: Language }) {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 0.6 }}
-                    whileHover={{ y: -8 }}
-                    className={`relative p-10 rounded-4xl bg-scuta-surface backdrop-blur-3xl border border-white/5 flex flex-col group overflow-hidden ${
-                      index % 2 !== 0 ? 'sm:mt-12' : ''
-                    }`}
+                    whileHover={{ y: -6 }}
+                    // ALTERAÇÃO: removido sm:mt-12 nos ímpares (causava desalinhamento)
+                    // p-8 em vez de p-10 — mais compacto, sem espaço vazio
+                    className="relative p-8 rounded-4xl bg-scuta-surface backdrop-blur-3xl border border-white/5 flex flex-col group overflow-hidden"
                   >
-                    <div className="size-14 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 group-hover:border-violet-500/50 group-hover:bg-violet-500/10 transition-all duration-500 relative z-10">
-                      <Icon className="size-7 text-white group-hover:text-violet-400 transition-colors" />
+                    <div className="size-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/10 group-hover:border-violet-500/50 group-hover:bg-violet-500/10 transition-all duration-500 relative z-10">
+                      <Icon className="size-6 text-white group-hover:text-violet-400 transition-colors" />
                     </div>
-                    
-                    <h4 className="text-2xl font-black text-white mb-4 tracking-tighter relative z-10">
+
+                    <h4 className="text-xl font-black text-white mb-3 tracking-tighter relative z-10">
                       {solution.title}
                     </h4>
-                    
+
                     <p className="text-slate-400 leading-relaxed font-medium text-sm relative z-10">
                       {solution.description}
                     </p>
 
-                    <div className="mt-8 pt-6 border-t border-white/5 relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="mt-6 pt-5 border-t border-white/5 relative z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <span className="text-[10px] font-black text-violet-400 uppercase tracking-widest flex items-center gap-2">
                         Padrão Scuta Digital <Layers size={12} />
                       </span>
@@ -2137,7 +2186,6 @@ export default function Solutions({ lang }: { lang: Language }) {
   );
 }
 
-
 ================================================================================
 Arquivo: src/components/Testimonials.tsx
 ================================================================================
@@ -2150,12 +2198,16 @@ export default function Testimonials({ lang }: { lang: Language }) {
   const t = UI_STRINGS[lang].testimonials;
 
   return (
-    <section id="testimonials" className="relative py-24 px-6 bg-scuta-surface overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
+    // ALTERAÇÃO: bg-slate-50 em vez de bg-scuta-surface — secção clara entre Solutions e Samples escuros
+    <section id="testimonials" className="relative py-24 px-6 bg-slate-50 overflow-hidden">
+
+      {/* ALTERAÇÃO: noise svg removido (invisível em fundo claro) — substituído por detalhe geométrico subtil */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-6xl font-black text-scuta-silk tracking-tighter mb-6">
+          {/* ALTERAÇÃO: text-scuta-silk → text-slate-900 */}
+          <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-6">
             {t.title}
           </h2>
         </div>
@@ -2168,27 +2220,31 @@ export default function Testimonials({ lang }: { lang: Language }) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="p-10 rounded-[2.5rem] bg-scuta-primary/50 border border-white/5 relative group hover:bg-scuta-primary transition-all"
+              // ALTERAÇÃO: bg-scuta-primary/50 → bg-white, border-white/5 → border-slate-200, hover:bg-scuta-primary → hover:shadow-xl
+              className="p-10 rounded-[2.5rem] bg-white border border-slate-200 relative group hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <Quote className="absolute top-8 right-8 text-white/5 size-16 group-hover:text-scuta-highlight/10 transition-colors" />
+              {/* ALTERAÇÃO: text-white/5 → text-slate-100, group-hover:text-scuta-highlight/10 → group-hover:text-emerald-100 */}
+              <Quote className="absolute top-8 right-8 text-slate-100 size-16 group-hover:text-emerald-100 transition-colors" />
 
+              {/* Estrelas — preservadas */}
               <div className="flex gap-1 mb-6">
                 {[...Array(5)].map((_, j) => (
                   <Star key={j} size={14} className="fill-scuta-highlight text-scuta-highlight" />
                 ))}
               </div>
 
-              <p className="text-lg text-slate-300 font-medium leading-relaxed mb-10 italic text-left">
+              {/* ALTERAÇÃO: text-slate-300 → text-slate-600 */}
+              <p className="text-lg text-slate-600 font-medium leading-relaxed mb-10 italic text-left">
                 "{item.content}"
               </p>
 
               <div className="flex items-center gap-4">
-                {/* Avatar com fallback para inicial do nome */}
+                {/* Avatar com fallback — lógica 100% preservada, classes adaptadas para claro */}
                 <div className="relative size-12 shrink-0">
                   <img
                     src={item.avatar}
                     alt={item.author}
-                    className="size-12 rounded-full border-2 border-white/10 object-cover"
+                    className="size-12 rounded-full border-2 border-slate-200 object-cover"
                     referrerPolicy="no-referrer"
                     onError={(e) => {
                       const img = e.currentTarget;
@@ -2197,7 +2253,7 @@ export default function Testimonials({ lang }: { lang: Language }) {
                       if (parent && !parent.querySelector('.avatar-fallback')) {
                         const div = document.createElement('div');
                         div.className =
-                          'avatar-fallback size-12 rounded-full border-2 border-white/10 bg-scuta-accent flex items-center justify-center text-white font-black text-lg absolute inset-0';
+                          'avatar-fallback size-12 rounded-full border-2 border-slate-200 bg-scuta-accent flex items-center justify-center text-white font-black text-lg absolute inset-0';
                         div.textContent = item.author.charAt(0).toUpperCase();
                         parent.appendChild(div);
                       }
@@ -2206,10 +2262,12 @@ export default function Testimonials({ lang }: { lang: Language }) {
                 </div>
 
                 <div className="text-left">
-                  <h4 className="text-white font-black text-sm uppercase tracking-widest">
+                  {/* ALTERAÇÃO: text-white → text-slate-900 */}
+                  <h4 className="text-slate-900 font-black text-sm uppercase tracking-widest">
                     {item.author}
                   </h4>
-                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
+                  {/* text-slate-500 mantido — funciona bem em claro */}
+                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">
                     {item.role}
                   </p>
                 </div>
@@ -2279,32 +2337,32 @@ import { Language } from '../lib/constants';
 const WHY_STRINGS = {
   'pt-pt': {
     badge: 'O seu negócio',
-    title: 'Porquê é que precisa',
+    title: 'Por que é que precisa',
     titleHighlight: 'de um site hoje?',
     subtitle: 'Enquanto não aparece no Google, o seu vizinho do lado está a receber os clientes que podiam ser seus.',
     cards: [
       {
         icon: Search,
-        color: 'text-blue-400',
+        color: 'text-blue-500',
+        bgIcon: 'bg-blue-50 border-blue-100',
         title: 'Aparecer no Google',
-        description:
-          'Quando alguém pesquisa pelo que vende na sua zona, o seu negócio tem de aparecer. Caso contrário, essa pessoa vai ao concorrente — e nem sabe que você existe.',
+        description: 'Quando alguém pesquisa pelo que vende na sua zona, o seu negócio tem de aparecer. Caso contrário, essa pessoa vai ao concorrente — e nem sabe que você existe.',
         delay: 0.1,
       },
       {
         icon: Clock,
-        color: 'text-emerald-400',
+        color: 'text-emerald-500',
+        bgIcon: 'bg-emerald-50 border-emerald-100',
         title: 'Receber clientes a dormir',
-        description:
-          'O site trabalha por si 24 horas por dia. Enquanto descansa, potenciais clientes ficam a conhecer o seu negócio e entram em contacto.',
+        description: 'O site trabalha por si 24 horas por dia. Enquanto descansa, potenciais clientes ficam a conhecer o seu negócio e entram em contacto.',
         delay: 0.2,
       },
       {
         icon: ShieldCheck,
-        color: 'text-violet-400',
+        color: 'text-violet-500',
+        bgIcon: 'bg-violet-50 border-violet-100',
         title: 'Transmitir confiança imediata',
-        description:
-          'Hoje em dia, se não tem site, as pessoas desconfiam. Um site profissional é o equivalente a ter a montra mais bonita da rua.',
+        description: 'Hoje em dia, se não tem site, as pessoas desconfiam. Um site profissional é o equivalente a ter a montra mais bonita da rua.',
         delay: 0.3,
       },
     ],
@@ -2323,26 +2381,26 @@ const WHY_STRINGS = {
     cards: [
       {
         icon: Search,
-        color: 'text-blue-400',
+        color: 'text-blue-500',
+        bgIcon: 'bg-blue-50 border-blue-100',
         title: 'Aparecer no Google',
-        description:
-          'Quando alguém pesquisa pelo que você vende na sua região, o seu negócio precisa aparecer. Do contrário, essa pessoa vai ao concorrente — e nem sabe que você existe.',
+        description: 'Quando alguém pesquisa pelo que você vende na sua região, o seu negócio precisa aparecer. Do contrário, essa pessoa vai ao concorrente — e nem sabe que você existe.',
         delay: 0.1,
       },
       {
         icon: Clock,
-        color: 'text-emerald-400',
+        color: 'text-emerald-500',
+        bgIcon: 'bg-emerald-50 border-emerald-100',
         title: 'Receber clientes enquanto dorme',
-        description:
-          'O site trabalha por você 24 horas por dia. Enquanto descansa, potenciais clientes ficam conhecendo o seu negócio e entram em contato.',
+        description: 'O site trabalha por você 24 horas por dia. Enquanto descansa, potenciais clientes ficam conhecendo o seu negócio e entram em contato.',
         delay: 0.2,
       },
       {
         icon: ShieldCheck,
-        color: 'text-violet-400',
+        color: 'text-violet-500',
+        bgIcon: 'bg-violet-50 border-violet-100',
         title: 'Passar credibilidade imediata',
-        description:
-          'Hoje em dia, empresa sem site parece empresa que não cresceu ainda. Um site bem feito passa seriedade antes mesmo de qualquer contato.',
+        description: 'Hoje em dia, empresa sem site parece empresa que não cresceu ainda. Um site bem feito passa seriedade antes mesmo de qualquer contato.',
         delay: 0.3,
       },
     ],
@@ -2361,26 +2419,26 @@ const WHY_STRINGS = {
     cards: [
       {
         icon: Search,
-        color: 'text-blue-400',
+        color: 'text-blue-500',
+        bgIcon: 'bg-blue-50 border-blue-100',
         title: 'Show up on Google',
-        description:
-          'When someone searches for what you sell in your area, your business needs to appear. Otherwise, that person goes to your competitor — and doesn\'t even know you exist.',
+        description: "When someone searches for what you sell in your area, your business needs to appear. Otherwise, that person goes to your competitor — and doesn't even know you exist.",
         delay: 0.1,
       },
       {
         icon: Clock,
-        color: 'text-emerald-400',
+        color: 'text-emerald-500',
+        bgIcon: 'bg-emerald-50 border-emerald-100',
         title: 'Get clients while you sleep',
-        description:
-          'Your website works for you 24 hours a day. While you rest, potential clients are discovering your business and getting in touch.',
+        description: 'Your website works for you 24 hours a day. While you rest, potential clients are discovering your business and getting in touch.',
         delay: 0.2,
       },
       {
         icon: ShieldCheck,
-        color: 'text-violet-400',
+        color: 'text-violet-500',
+        bgIcon: 'bg-violet-50 border-violet-100',
         title: 'Build instant trust',
-        description:
-          'These days, no website means no credibility. A professional site is the equivalent of having the most impressive shopfront on the street.',
+        description: "These days, no website means no credibility. A professional site is the equivalent of having the most impressive shopfront on the street.",
         delay: 0.3,
       },
     ],
@@ -2399,26 +2457,26 @@ const WHY_STRINGS = {
     cards: [
       {
         icon: Search,
-        color: 'text-blue-400',
+        color: 'text-blue-500',
+        bgIcon: 'bg-blue-50 border-blue-100',
         title: 'Aparecer en Google',
-        description:
-          'Cuando alguien busca lo que vendes en tu zona, tu negocio tiene que aparecer. Si no, esa persona va a la competencia — y ni sabe que existes.',
+        description: 'Cuando alguien busca lo que vendes en tu zona, tu negocio tiene que aparecer. Si no, esa persona va a la competencia — y ni sabe que existes.',
         delay: 0.1,
       },
       {
         icon: Clock,
-        color: 'text-emerald-400',
+        color: 'text-emerald-500',
+        bgIcon: 'bg-emerald-50 border-emerald-100',
         title: 'Recibir clientes mientras duermes',
-        description:
-          'Tu web trabaja por ti las 24 horas. Mientras descansas, potenciales clientes conocen tu negocio y se ponen en contacto.',
+        description: 'Tu web trabaja por ti las 24 horas. Mientras descansas, potenciales clientes conocen tu negocio y se ponen en contacto.',
         delay: 0.2,
       },
       {
         icon: ShieldCheck,
-        color: 'text-violet-400',
+        color: 'text-violet-500',
+        bgIcon: 'bg-violet-50 border-violet-100',
         title: 'Transmitir confianza al instante',
-        description:
-          'Hoy en día, sin web parece que el negocio no es serio. Una web profesional es como tener el escaparate más bonito de la calle.',
+        description: 'Hoy en día, sin web parece que el negocio no es serio. Una web profesional es como tener el escaparate más bonito de la calle.',
         delay: 0.3,
       },
     ],
@@ -2431,7 +2489,7 @@ const WHY_STRINGS = {
   },
 };
 
-// --- Componente de número animado ---
+// --- Componente de número animado — preservado do original, incluindo prop prefix ---
 function AnimatedNumber({
   value,
   suffix,
@@ -2466,13 +2524,16 @@ export default function WhyWeb({ lang }: { lang: Language }) {
   const t = WHY_STRINGS[lang] || WHY_STRINGS['pt-pt'];
 
   return (
-    <section id="why" className="relative py-32 px-6 noise bg-scuta-primary overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-violet-600/10 blur-[150px] rounded-full pointer-events-none" />
+    // ALTERAÇÃO: bg-white em vez de bg-scuta-primary — contraste com Hero e Solutions escuros
+    <section id="why" className="relative py-32 px-6 bg-white overflow-hidden">
+
+      {/* Detalhes decorativos subtis — substituem o glow violeta original */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-slate-50 rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-50/60 rounded-full translate-y-1/2 -translate-x-1/3 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
 
-        {/* Cabeçalho */}
+        {/* Cabeçalho — layout original flex row preservado */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -2480,12 +2541,13 @@ export default function WhyWeb({ lang }: { lang: Language }) {
             viewport={{ once: true }}
             className="max-w-2xl text-left"
           >
-            <span className="text-emerald-400 font-black uppercase tracking-[0.3em] text-[10px] mb-6 block">
+            <span className="text-emerald-500 font-black uppercase tracking-[0.3em] text-[10px] mb-6 block">
               {t.badge}
             </span>
-            <h2 className="text-5xl md:text-7xl font-black text-white leading-none tracking-tighter">
+            <h2 className="text-5xl md:text-7xl font-black text-slate-900 leading-none tracking-tighter">
               {t.title} <br />
-              <span className="text-zinc-500 italic font-light">{t.titleHighlight}</span>
+              {/* ALTERAÇÃO: de text-zinc-500 italic font-light → text-emerald-500 (legível em branco) */}
+              <span className="text-emerald-500 italic font-light">{t.titleHighlight}</span>
             </h2>
           </motion.div>
 
@@ -2493,13 +2555,13 @@ export default function WhyWeb({ lang }: { lang: Language }) {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-slate-400 max-w-sm text-left font-medium leading-relaxed pb-2"
+            className="text-slate-500 max-w-sm text-left font-medium leading-relaxed pb-2"
           >
             {t.subtitle}
           </motion.p>
         </div>
 
-        {/* Cards */}
+        {/* Cards — estrutura bento-card original preservada, cores adaptadas para claro */}
         <div className="grid md:grid-cols-3 gap-8">
           {t.cards.map((card, index) => {
             const Icon = card.icon;
@@ -2510,29 +2572,31 @@ export default function WhyWeb({ lang }: { lang: Language }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: card.delay }}
-                className="bento-card group flex flex-col h-full border border-white/5 relative overflow-hidden"
+                className="bento-card group flex flex-col h-full border border-slate-100 bg-white relative overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
               >
-                {/* Efeito hover */}
-                <div className="absolute inset-0 bg-linear-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Efeito hover — preservado do original, adaptado para claro */}
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="size-16 rounded-2xl bg-white/5 flex items-center justify-center mb-10 border border-white/10 group-hover:border-white/20 group-hover:scale-110 transition-all duration-500 relative z-10">
+                {/* Ícone — fundo tinted por categoria em vez de bg-white/5 */}
+                <div className={`size-16 rounded-2xl ${card.bgIcon} border flex items-center justify-center mb-10 group-hover:scale-110 transition-all duration-500 relative z-10`}>
                   <Icon className={`size-8 ${card.color}`} />
                 </div>
 
                 <div className="text-left grow relative z-10">
-                  <h3 className="text-2xl font-black text-white mb-6 tracking-tight group-hover:text-emerald-400 transition-colors">
+                  <h3 className={`text-2xl font-black text-slate-900 mb-6 tracking-tight group-hover:${card.color} transition-colors`}>
                     {card.title}
                   </h3>
-                  <p className="text-slate-400 leading-relaxed font-medium">
+                  <p className="text-slate-500 leading-relaxed font-medium">
                     {card.description}
                   </p>
                 </div>
 
-                <div className="mt-12 pt-6 border-t border-white/5 flex items-center justify-between relative z-10">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                {/* Rodapé do card — preservado do original */}
+                <div className="mt-12 pt-6 border-t border-slate-100 flex items-center justify-between relative z-10">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                     Padrão Scuta Digital
                   </span>
-                  <div className="size-10 rounded-full bg-white/5 flex items-center justify-center text-white group-hover:bg-emerald-500 transition-all">
+                  <div className={`size-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center ${card.color} group-hover:bg-slate-900 group-hover:text-white group-hover:border-slate-900 transition-all`}>
                     <ArrowRight size={18} />
                   </div>
                 </div>
@@ -2541,23 +2605,23 @@ export default function WhyWeb({ lang }: { lang: Language }) {
           })}
         </div>
 
-        {/* Barra de estatísticas animadas */}
+        {/* Barra de estatísticas animadas — estrutura 100% original preservada */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-24 py-10 border-y border-white/5 flex flex-col md:flex-row justify-center md:justify-start gap-10 md:gap-16"
+          className="mt-24 py-10 border-y border-slate-100 flex flex-col md:flex-row justify-center md:justify-start gap-10 md:gap-16"
         >
           <div className="flex items-center gap-4">
-            <Zap size={20} className="text-emerald-400 shrink-0" />
-            <span className="text-[11px] font-black uppercase tracking-widest text-slate-300">
+            <Zap size={20} className="text-emerald-500 shrink-0 fill-emerald-500" />
+            <span className="text-[11px] font-black uppercase tracking-widest text-slate-600">
               <AnimatedNumber value={t.stat1Value} suffix={t.stat1Suffix} />{' '}
               {t.stat1Label}
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <TrendingUp size={20} className="text-emerald-400 shrink-0" />
-            <span className="text-[11px] font-black uppercase tracking-widest text-slate-300">
+            <TrendingUp size={20} className="text-emerald-500 shrink-0" />
+            <span className="text-[11px] font-black uppercase tracking-widest text-slate-600">
               <AnimatedNumber value={t.stat2Value} suffix={t.stat2Suffix} />{' '}
               {t.stat2Label}
             </span>
@@ -2975,7 +3039,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
     navbar: {
       why: "Por que ter um site?",
       solutions: "O que fazemos",
-      samples: "Exemplos reais",
+      samples: "Exemplos",
       pricing: "Preços",
       faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
@@ -3191,7 +3255,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
     navbar: {
       why: "Por que ter um site?",
       solutions: "O que fazemos",
-      samples: "Exemplos reais",
+      samples: "Exemplos",
       pricing: "Preços",
       faq: "Dúvidas frequentes",
       contact: "Pedir orçamento",
@@ -3399,7 +3463,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
     navbar: {
       why: "Why do I need a website?",
       solutions: "What we do",
-      samples: "Real examples",
+      samples: "Examples",
       pricing: "Pricing",
       faq: "Common questions",
       contact: "Get a quote",
@@ -3607,7 +3671,7 @@ export const UI_STRINGS: Record<Language, LanguageStrings> = {
     navbar: {
       why: "¿Por qué necesito una web?",
       solutions: "Qué hacemos",
-      samples: "Ejemplos reales",
+      samples: "Ejemplos",
       pricing: "Precios",
       faq: "Preguntas frecuentes",
       contact: "Pedir presupuesto",
@@ -4392,11 +4456,10 @@ import { motion } from 'motion/react';
 import { ArrowLeft, MousePointer2 } from 'lucide-react';
 import { SAMPLE_SITES } from '../data/sampleSites';
 import { Language, UI_STRINGS } from '../lib/constants';
-import Navbar from '../components/Navbar';
-
 // IMPORTAÇÃO DOS SITES BESPOKE
 import VitalisSample from '../samples/VitalisSample';
 import PrismaMathSample from '../samples/PrismaMathSample';
+import LuminaSample from '../samples/LuminaSample';
 
 export default function SampleSitePage({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
   const { slug } = useParams<{ slug: string }>();
@@ -4411,16 +4474,18 @@ export default function SampleSitePage({ lang, setLang }: { lang: Language; setL
         return <PrismaMathSample />;
       case 'clinica-vida-mais':
         return <VitalisSample />;
+      case 'lumina-home':
+        return <LuminaSample />;
       default:
         return (
           <div className="pt-0 text-left">
-            <section 
+            <section
               className="relative py-28 md:py-48 px-6 overflow-hidden"
               style={{ backgroundColor: site.theme.secondary }}
             >
               <div className="max-w-6xl mx-auto relative z-10 text-left">
                 <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                  <span 
+                  <span
                     className="inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 shadow-sm"
                     style={{ backgroundColor: 'white', color: site.theme.primary }}
                   >
@@ -4432,7 +4497,7 @@ export default function SampleSitePage({ lang, setLang }: { lang: Language; setL
                   <p className="text-xl md:text-2xl text-zinc-600 mb-14 max-w-3xl leading-relaxed font-medium">
                     {site.heroSubtitle}
                   </p>
-                  <button 
+                  <button
                     className="px-12 py-6 rounded-3xl font-black text-xl shadow-2xl flex items-center gap-3 transition-all"
                     style={{ backgroundColor: site.theme.primary, color: 'white' }}
                   >
@@ -4448,9 +4513,9 @@ export default function SampleSitePage({ lang, setLang }: { lang: Language; setL
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar lang={lang} setLang={setLang} />
-      
-      <nav className="bg-black text-white px-6 sticky top-24 z-40 flex justify-between items-center h-12 border-y border-white/10">
+
+      {/* Barra de exemplo colada no topo — sem Navbar Scuta nesta página */}
+      <nav className="bg-black text-white px-6 fixed top-0 left-0 right-0 z-[1000] flex justify-between items-center h-12">
         <a href="/" className="flex items-center gap-2 text-zinc-500 hover:text-white transition-all font-bold text-[10px] uppercase tracking-widest">
           <ArrowLeft size={14} /> {lang === 'en' ? 'Exit Example' : lang === 'es' ? 'Salir del Ejemplo' : 'Sair do Exemplo'}
         </a>
@@ -4460,13 +4525,13 @@ export default function SampleSitePage({ lang, setLang }: { lang: Language; setL
         <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">{site.companyName}</span>
       </nav>
 
-      <div className="relative">
+      {/* pt-12 = 48px = apenas a barra preta */}
+      <div className="relative pt-12">
         {renderBespokeContent()}
       </div>
     </div>
   );
 }
-
 
 ================================================================================
 Arquivo: src/pages/TermsOfService.tsx
@@ -4819,93 +4884,496 @@ export default function EduSparkSample() {
 Arquivo: src/samples/LuminaSample.tsx
 ================================================================================
 
-import React from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { ArrowUpRight, Home, Paintbrush, Hammer, ChevronRight, Sparkles } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import {
+  Home, Paintbrush, Hammer, ChevronRight, Sparkles,
+  ArrowUpRight, Phone, Mail, MapPin, Award, Star,
+  Clock, CheckCircle, Quote, Plus, Minus
+} from 'lucide-react';
+
+// ─── Paleta ──────────────────────────────────────────────────────────────────
+const C = {
+  cream:    '#fdf8f6',
+  sand:     '#f5ede6',
+  terracota:'#78350f',
+  bronze:   '#b45309',
+  bronze2:  '#92400e',
+  charcoal: '#1c1917',
+  mid:      '#57534e',
+  muted:    '#a8a29e',
+};
+
+// ─── Dados ────────────────────────────────────────────────────────────────────
+const PROJECTS = [
+  { id: '01', title: 'Quinta das Pedras', type: 'Reabilitação Rural', area: '620 m²', year: '2023', location: 'Alentejo', img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80' },
+  { id: '02', title: 'Penthouse Avenida', type: 'Design de Interiores', area: '310 m²', year: '2024', location: 'Lisboa', img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80' },
+  { id: '03', title: 'Villa São Lourenço', type: 'Arquitetura Nova', area: '850 m²', year: '2023', location: 'Algarve', img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&q=80' },
+  { id: '04', title: 'Atelier Mouraria', type: 'Reconversão Urbana', area: '180 m²', year: '2024', location: 'Porto', img: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80' },
+];
+
+const SERVICES = [
+  { icon: Home,       num: '01', title: 'Reabilitação',      desc: 'Revalorizamos imóveis históricos e contemporâneos, preservando a alma do espaço enquanto elevamos o seu padrão para o mercado de excelência.' },
+  { icon: Paintbrush, num: '02', title: 'Design de Interiores', desc: 'Cada detalhe é escolhido com intenção. Da textura das paredes à curvatura do mobiliário — criamos ambientes que comunicam quem os habita.' },
+  { icon: Hammer,     num: '03', title: 'Execução Chave na Mão', desc: 'Gerimos todo o processo de obra com rigor técnico e transparência total. Entregamos dentro do prazo, sem surpresas no orçamento.' },
+];
+
+const TESTIMONIALS = [
+  { name: 'Ana Beatriz M.', role: 'Proprietária · Lisboa', text: 'Vendemos o apartamento 30% acima do preço esperado. A Lumina transformou completamente a perceção do imóvel.', stars: 5 },
+  { name: 'Carlos Ferreira', role: 'Investidor Imobiliário', text: 'Trabalho com eles há três anos. Cada projeto entregue dentro do prazo e com uma qualidade que os clientes reconhecem de imediato.', stars: 5 },
+  { name: 'Sofia & Rui Costa', role: 'Moradores · Cascais', text: 'A casa dos nossos sonhos. Ouviram-nos de verdade e transformaram as nossas ideias numa casa que não queríamos deixar.', stars: 5 },
+];
+
+const FAQS = [
+  { q: 'Qual o prazo médio de um projeto de reabilitação?', a: 'Depende da dimensão e complexidade. Um apartamento T3 de reabilitação completa demora entre 4 a 7 meses. Fornecemos sempre um cronograma detalhado antes do início da obra.' },
+  { q: 'Trabalham fora de Lisboa e Porto?', a: 'Sim. Temos projetos ativos no Alentejo, Algarve, Douro e Ilha da Madeira. Deslocamo-nos a qualquer ponto de Portugal.' },
+  { q: 'Como funciona a avaliação inicial?', a: 'A primeira visita ao imóvel é gratuita e sem compromisso. Em 48h entregamos um relatório de potencial de valorização com estimativa de investimento e retorno esperado.' },
+  { q: 'Fazem gestão de arrendamento turístico?', a: 'Temos parceiros especializados para a gestão de AL. Podemos coordenar todo o processo, desde o projeto até à primeira reserva.' },
+];
+
+const STATS = [
+  { value: '+120', label: 'Projetos Concluídos' },
+  { value: '25%', label: 'Valorização Média' },
+  { value: '9.8', label: 'Satisfação dos Clientes' },
+  { value: '12', label: 'Anos de Experiência' },
+];
+
+// ─── Sub-componentes ──────────────────────────────────────────────────────────
+
+function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.08 }}
+      className="border-b border-stone-200"
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between py-7 text-left gap-6 group"
+      >
+        <span className="text-base font-bold text-stone-800 group-hover:text-amber-800 transition-colors leading-snug">
+          {q}
+        </span>
+        <div className="shrink-0 w-8 h-8 rounded-full border border-stone-300 flex items-center justify-center text-stone-500 group-hover:border-amber-700 group-hover:text-amber-700 transition-all">
+          {open ? <Minus size={14} /> : <Plus size={14} />}
+        </div>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+            className="overflow-hidden"
+          >
+            <p className="pb-7 text-stone-500 leading-relaxed font-medium text-sm">{a}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+// ─── Componente principal ─────────────────────────────────────────────────────
 
 export default function LuminaSample() {
+  const heroRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
+  const heroY    = useTransform(scrollY, [0, 700],  [0, 180]);
+  const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const [activeProject, setActiveProject] = useState(0);
 
   return (
-    <div className="min-h-screen bg-[#fdf8f6] text-slate-900 font-serif selection:bg-orange-200 overflow-x-hidden">
-      
-      {/* --- NAVBAR --- */}
-      <nav className="fixed w-full z-50 p-8 flex justify-between items-center mix-blend-difference text-white">
-        <span className="text-2xl font-black uppercase tracking-[0.2em]">LUMINA</span>
-        <button className="text-[10px] uppercase font-black tracking-[0.3em] border-b border-white/50 hover:border-white transition-all">Menu</button>
-      </nav>
+    <div
+      className="min-h-screen overflow-x-hidden font-serif"
+      style={{ backgroundColor: C.cream, color: C.charcoal }}
+    >
+      {/* ── HERO EDITORIAL ────────────────────────────────────────────────── */}
+      {/* Navbar interna removida — a Navbar Scuta e a barra de exemplo já estão presentes */}
+      <section ref={heroRef} className="relative h-[calc(100vh-48px)] flex flex-col justify-end pb-24 px-8 overflow-hidden">
 
-      {/* --- HERO EDITORIAL --- */}
-      <section className="h-screen flex flex-col justify-center items-center px-6 relative">
-        <motion.h1 
-          initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
-          className="text-7xl md:text-[120px] font-light text-center tracking-tighter leading-[0.9]"
+        {/* Imagem paralaxe */}
+        <motion.div
+          style={{ y: heroY }}
+          className="absolute inset-0 scale-110"
         >
-          A ARTE DE <br /><span className="italic">REMODELAR.</span>
-        </motion.h1>
-        
-        <motion.div 
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }}
-          className="absolute bottom-12 text-[10px] uppercase tracking-[0.4em] font-black"
+          <img
+            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=90"
+            alt="Lumina Hero"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(to top, ${C.charcoal}cc 0%, transparent 60%)` }} />
+        </motion.div>
+
+        {/* Texto hero */}
+        <motion.div style={{ opacity: heroOpacity }} className="relative z-10 max-w-7xl mx-auto w-full">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+            className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-300 mb-6"
+          >
+            Arquitetura & Valorização · Portugal
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1 }}
+            className="text-6xl md:text-[100px] font-black leading-[0.88] tracking-tighter text-white mb-10"
+          >
+            REDEFINIMOS<br />
+            <span className="italic font-light" style={{ color: '#fbbf24' }}>o valor</span><br />
+            DO SEU ESPAÇO.
+          </motion.h1>
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 0.8 }}
+            className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8"
+          >
+            <p className="text-white/70 max-w-sm text-lg leading-relaxed font-medium">
+              Design de interiores e reabilitação estratégica para imóveis que merecem mais.
+            </p>
+            <a href="#contacto"
+              className="flex items-center gap-3 px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest transition-all hover:gap-5"
+              style={{ backgroundColor: '#fbbf24', color: C.charcoal }}
+            >
+              Ver os nossos projetos <ArrowUpRight size={18} />
+            </a>
+          </motion.div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
         >
-          Lisboa · Porto · Algarve
+          <div className="w-px h-12 bg-white/30" />
+          <span className="text-[9px] font-black uppercase tracking-[0.4em] text-white/40">Scroll</span>
         </motion.div>
       </section>
 
-      {/* --- SERVIÇOS (LAYOUT EDITORIAL) --- */}
-      <section className="max-w-7xl mx-auto py-32 px-6">
-        <div className="grid md:grid-cols-3 gap-16 border-t border-slate-300">
-          {[
-            { icon: Home, title: "Reabilitação", desc: "Damos nova vida a estruturas históricas com respeito pela identidade." },
-            { icon: Paintbrush, title: "Interiores", desc: "Design curado para refletir o seu estilo de vida único." },
-            { icon: Hammer, title: "Execução", desc: "Precisão técnica e cumprimento rigoroso de prazos." }
-          ].map((s, i) => (
-            <motion.div 
-              key={i} 
-              whileHover={{ y: -10 }}
-              className="pt-12 group cursor-pointer"
+      {/* ── NÚMEROS ───────────────────────────────────────────────────────── */}
+      <section style={{ backgroundColor: C.terracota }} className="py-16 px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+          {STATS.map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="text-center"
             >
-              <s.icon className="mb-8 text-orange-800" size={32} strokeWidth={1} />
-              <h3 className="text-2xl font-bold uppercase tracking-widest mb-6">{s.title}</h3>
-              <p className="text-slate-500 leading-relaxed font-medium">{s.desc}</p>
-              <div className="mt-8 flex items-center gap-2 text-sm font-black uppercase tracking-widest group-hover:text-orange-800 transition-colors">
-                Saber mais <ChevronRight size={16} />
-              </div>
+              <div className="text-4xl md:text-5xl font-black text-amber-300 mb-2">{s.value}</div>
+              <div className="text-[10px] font-black uppercase tracking-widest text-white/60">{s.label}</div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* --- FOTO DE DESTAQUE COM PARALAXE --- */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto overflow-hidden rounded-3xl h-[600px] relative">
-          <motion.img 
-            style={{ y: y1 }}
-            src="/prisma01.jpg" 
-            className="w-full h-full object-cover scale-110"
-            alt="Obra de Luxo"
-          />
+      {/* ── SERVIÇOS ──────────────────────────────────────────────────────── */}
+      <section id="serviços" style={{ backgroundColor: C.cream }} className="py-32 px-8">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="mb-20"
+          >
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] mb-4" style={{ color: C.bronze }}>
+              O que fazemos
+            </p>
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none" style={{ color: C.charcoal }}>
+              Transformamos<br />
+              <span className="italic font-light" style={{ color: C.muted }}>espaços em ativos.</span>
+            </h2>
+          </motion.div>
+
+          <div className="divide-y" style={{ borderColor: '#e7e0dc' }}>
+            {SERVICES.map((s, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+                className="group flex flex-col md:flex-row md:items-center gap-6 md:gap-16 py-12 cursor-default"
+              >
+                <span className="text-[11px] font-black uppercase tracking-[0.3em]" style={{ color: C.muted }}>
+                  {s.num}
+                </span>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all group-hover:scale-110"
+                  style={{ backgroundColor: C.sand, border: `1px solid #e7e0dc` }}>
+                  <s.icon size={24} style={{ color: C.bronze }} strokeWidth={1.5} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-black tracking-tight mb-3 group-hover:translate-x-2 transition-transform"
+                    style={{ color: C.charcoal }}>
+                    {s.title}
+                  </h3>
+                  <p className="leading-relaxed font-medium text-sm max-w-lg" style={{ color: C.mid }}>
+                    {s.desc}
+                  </p>
+                </div>
+                <div className="shrink-0 w-10 h-10 rounded-full border flex items-center justify-center transition-all group-hover:scale-125 group-hover:rotate-45"
+                  style={{ borderColor: C.muted, color: C.muted }}>
+                  <ChevronRight size={16} />
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* --- CTA DE VALORIZAÇÃO --- */}
-      <section className="py-32 px-6 bg-slate-900 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <Sparkles className="mx-auto mb-10 text-orange-500" size={40} />
-          <h2 className="text-5xl md:text-7xl font-light mb-12 tracking-tighter italic">
-            O seu imóvel é o seu ativo mais importante. <br />
-            <span className="font-bold not-italic text-orange-500">Vamos valorizá-lo?</span>
-          </h2>
-          <button className="px-12 py-6 bg-white text-slate-900 font-black uppercase tracking-widest text-sm rounded-full hover:bg-orange-500 hover:text-white transition-all shadow-2xl">
-            Solicitar Avaliação de Projeto
-          </button>
+      {/* ── PROJETOS ──────────────────────────────────────────────────────── */}
+      <section id="projetos" style={{ backgroundColor: C.charcoal }} className="py-32 px-8">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6"
+          >
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-400 mb-4">Portfólio</p>
+              <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-white">
+                Projetos<br />
+                <span className="italic font-light text-stone-400">selecionados.</span>
+              </h2>
+            </div>
+            <a href="#contacto"
+              className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-amber-400 hover:gap-4 transition-all"
+            >
+              Ver portfólio completo <ArrowUpRight size={14} />
+            </a>
+          </motion.div>
+
+          {/* Grid de projetos com destaque no selecionado */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {PROJECTS.map((p, i) => (
+              <motion.div
+                key={p.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                onMouseEnter={() => setActiveProject(i)}
+                className="group relative overflow-hidden rounded-3xl cursor-pointer"
+                style={{ height: i === 0 ? '520px' : '340px' }}
+              >
+                <motion.img
+                  src={p.img}
+                  alt={p.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 transition-opacity duration-300"
+                  style={{ background: `linear-gradient(to top, ${C.charcoal}ee 0%, transparent 50%)` }} />
+
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <p className="text-[9px] font-black uppercase tracking-[0.3em] text-amber-400 mb-2">
+                        {p.type} · {p.location}
+                      </p>
+                      <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight">{p.title}</h3>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-[10px] font-black uppercase tracking-widest text-stone-400">{p.area}</div>
+                      <div className="text-[10px] font-black uppercase tracking-widest text-stone-400">{p.year}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0"
+                  style={{ backgroundColor: '#fbbf24', color: C.charcoal }}>
+                  <ArrowUpRight size={16} />
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* --- FOOTER SIMPLIFICADO --- */}
-      <footer className="py-20 text-center text-xs font-black uppercase tracking-[0.3em] text-slate-400">
-        © 2024 Lumina Home & Interiors · Estratégia Scuta
+      {/* ── PROCESSO ──────────────────────────────────────────────────────── */}
+      <section id="processo" style={{ backgroundColor: C.sand }} className="py-32 px-8">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] mb-4" style={{ color: C.bronze }}>
+              Como trabalhamos
+            </p>
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter" style={{ color: C.charcoal }}>
+              Sem surpresas.<br />
+              <span className="italic font-light" style={{ color: C.muted }}>Apenas resultados.</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { icon: Award,       step: '01', title: 'Avaliação',    desc: 'Visita gratuita ao imóvel. Identificamos o potencial real e definimos a estratégia de valorização.' },
+              { icon: Paintbrush,  step: '02', title: 'Projeto',      desc: 'Desenvolvemos o projeto de arquitetura e design com render 3D fotorrealista para aprovação.' },
+              { icon: Hammer,      step: '03', title: 'Execução',     desc: 'Gerimos a obra de ponta a ponta com relatórios semanais e atualizações em tempo real.' },
+              { icon: CheckCircle, step: '04', title: 'Entrega',      desc: 'Entregamos dentro do prazo com garantia de 2 anos em todos os trabalhos executados.' },
+            ].map((step, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.12 }}
+                className="relative"
+              >
+                {/* Linha conectora */}
+                {i < 3 && (
+                  <div className="hidden md:block absolute top-7 left-full w-full h-px -translate-y-1/2 z-0"
+                    style={{ background: `linear-gradient(to right, ${C.bronze}40, transparent)` }} />
+                )}
+                <div className="relative z-10 p-8 rounded-3xl bg-white border transition-all hover:shadow-xl"
+                  style={{ borderColor: '#e7e0dc' }}>
+                  <div className="flex items-center justify-between mb-8">
+                    <span className="text-5xl font-black" style={{ color: `${C.bronze}30` }}>{step.step}</span>
+                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
+                      style={{ backgroundColor: C.sand, border: `1px solid #e7e0dc` }}>
+                      <step.icon size={22} style={{ color: C.bronze }} strokeWidth={1.5} />
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-black mb-3" style={{ color: C.charcoal }}>{step.title}</h3>
+                  <p className="text-sm leading-relaxed font-medium" style={{ color: C.mid }}>{step.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TESTEMUNHOS ───────────────────────────────────────────────────── */}
+      <section style={{ backgroundColor: C.cream }} className="py-32 px-8">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="mb-20"
+          >
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] mb-4" style={{ color: C.bronze }}>
+              Clientes
+            </p>
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter" style={{ color: C.charcoal }}>
+              O que dizem<br />
+              <span className="italic font-light" style={{ color: C.muted }}>sobre nós.</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {TESTIMONIALS.map((t, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.12 }}
+                className="p-10 rounded-3xl border relative group hover:shadow-xl transition-all"
+                style={{ backgroundColor: C.sand, borderColor: '#e7e0dc' }}
+              >
+                <Quote size={40} className="absolute top-8 right-8 opacity-10" style={{ color: C.terracota }} />
+                <div className="flex gap-1 mb-6">
+                  {[...Array(t.stars)].map((_, j) => (
+                    <Star key={j} size={14} className="fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-lg italic font-medium leading-relaxed mb-8" style={{ color: C.charcoal }}>
+                  "{t.text}"
+                </p>
+                <div>
+                  <div className="font-black text-sm uppercase tracking-widest" style={{ color: C.charcoal }}>{t.name}</div>
+                  <div className="text-[10px] font-bold uppercase tracking-widest mt-1" style={{ color: C.muted }}>{t.role}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ───────────────────────────────────────────────────────────── */}
+      <section style={{ backgroundColor: C.sand }} className="py-32 px-8">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <p className="text-[10px] font-black uppercase tracking-[0.4em] mb-4" style={{ color: C.bronze }}>FAQ</p>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter" style={{ color: C.charcoal }}>
+              Perguntas frequentes
+            </h2>
+          </motion.div>
+          <div className="border-t" style={{ borderColor: '#d6ccc5' }}>
+            {FAQS.map((faq, i) => (
+              <FAQItem key={i} q={faq.q} a={faq.a} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA FINAL ─────────────────────────────────────────────────────── */}
+      <section id="contacto" style={{ backgroundColor: C.charcoal }} className="py-40 px-8 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5"
+          style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, #fbbf24, transparent 70%)' }} />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          >
+            <Sparkles className="mx-auto mb-10 text-amber-400" size={40} />
+            <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter text-white leading-tight">
+              O seu imóvel<br />
+              <span className="italic font-light text-amber-400">vale mais do que pensa.</span>
+            </h2>
+            <p className="text-stone-400 text-xl mb-14 max-w-xl mx-auto leading-relaxed font-medium">
+              Avaliação gratuita ao imóvel. Em 48h recebe um relatório com o potencial de valorização e estimativa de retorno.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
+              <a href="tel:+351910000000"
+                className="flex items-center justify-center gap-3 px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest transition-all hover:brightness-110"
+                style={{ backgroundColor: '#fbbf24', color: C.charcoal }}
+              >
+                <Phone size={18} /> Ligar agora
+              </a>
+              <a href="mailto:hello@luminahome.pt"
+                className="flex items-center justify-center gap-3 px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest border transition-all hover:bg-white/10"
+                style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}
+              >
+                <Mail size={18} /> Enviar email
+              </a>
+            </div>
+
+            {/* Info de contacto */}
+            <div className="flex flex-col md:flex-row justify-center gap-10 text-stone-500">
+              {[
+                { icon: Phone,   text: '+351 910 000 000' },
+                { icon: Mail,    text: 'hello@luminahome.pt' },
+                { icon: MapPin,  text: 'Av. da Liberdade, Lisboa' },
+                { icon: Clock,   text: 'Seg–Sex, 9h–18h' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest">
+                  <item.icon size={14} className="text-amber-500" />
+                  {item.text}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ────────────────────────────────────────────────────────── */}
+      <footer
+        className="py-10 px-8 flex flex-col md:flex-row items-center justify-between gap-4 border-t"
+        style={{ backgroundColor: C.charcoal, borderColor: 'rgba(255,255,255,0.05)' }}
+      >
+        <span className="text-xl font-black uppercase tracking-[0.25em] text-white">LUMINA</span>
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-stone-600">
+          © 2024 Lumina Home & Interiors · Estratégia Scuta Digital
+        </p>
+        <div className="flex gap-6">
+          {['Privacidade', 'Termos'].map((l) => (
+            <a key={l} href="#" className="text-[10px] font-black uppercase tracking-widest text-stone-600 hover:text-stone-400 transition-colors">
+              {l}
+            </a>
+          ))}
+        </div>
       </footer>
     </div>
   );

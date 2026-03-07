@@ -123,6 +123,8 @@ export const CONTACT_INFO = {
   whatsappMessage: "Olá! Gostaria de saber como um site pode ajudar o meu negócio a atrair mais clientes.",
 };
 
+export const GA_MEASUREMENT_ID = 'G-DZ576TG188';
+
 export const SOCIAL_LINKS = {
   instagram: "https://instagram.com/scutadigital",
   linkedin: "https://linkedin.com/company/scutadigital",
